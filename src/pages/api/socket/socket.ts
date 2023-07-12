@@ -2,6 +2,10 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { Server } from 'socket.io'
 
 const SocketHandler = (req: NextApiRequest, res: NextApiResponse | any) => {
+  if (req.method === "GET"){
+    console.log("Why are you trying to GET me man!? ")
+  }
+
   // check for a connection
   if (res.socket.server.io) {
     console.log('Ooops.. Socket is already running..')
