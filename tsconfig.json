@@ -4,6 +4,9 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
+    "typeRoots": [
+      "node_modules/@types",
+    ],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
