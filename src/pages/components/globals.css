@@ -1,6 +1,6 @@
 @tailwind base;
-@tailwind components;
 @tailwind utilities;
+@tailwind components;
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -26,7 +26,29 @@ body {
     rgb(var(--background-start-rgb));
 }
 
-    .map {
-      height: 400px; /* The height is 400 pixels */
-        width: 100%; /* The width is the width of the web page */
-    }
+.map {
+  height: 400px;
+  width: 100%;
+}
+
+.map-button {
+  background-color: #fff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 0 0.5em;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  height: 40px;
+  cursor: pointer;
+}
+
+.map-button:hover {
+  background: rgb(235, 235, 235);
+}
+
+.invalid-feedback {
+  color: crimson;
+  font-size: smaller;
+}

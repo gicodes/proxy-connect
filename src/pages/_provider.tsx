@@ -4,14 +4,14 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 import io from "socket.io-client";
 
-interface Location {
+interface RiderProps {
   coords: { latitude: number; longitude: number } | null;
   socketId: any;
   id: string;
   timestamp: number;
-  userId: string;
-  userName: string;
-  userDOB: string;
+  riderId: string;
+  riderName: string;
+  riderDOB: string;
   vitals: {
     bloodPressureSystole: number;
     bloodPressureDiastole: number;
@@ -19,15 +19,15 @@ interface Location {
 }
 
 interface ContextProps {
-  initUserLocation: () => void;
-  users: Location[];
-  currentUser: Location | undefined;
+  initRiderLocation: () => void;
+  riders: RiderProps[];
+  currentRider: RiderProps | undefined;
 }
 
 const Context = createContext<ContextProps>({
-  initUserLocation: () => {},
-  users: [],
-  currentUser: undefined,
+  initRiderLocation: () => {},
+  riders: [],
+  currentRider: undefined,
 });
 
 function LocationProvider({ children }: { children: React.ReactNode }) {
@@ -37,9 +37,9 @@ function LocationProvider({ children }: { children: React.ReactNode }) {
   const socketRef = useRef<any>();
   const watchLocation = useRef<number | undefined>();
 
-  const [users, setUsers] = useState<Location[]>([]);
+  const [riders, setRiders] = useState<RiderProps[]>([]);
   const [hasAccessLocation, setHasAccessLocation] = useState(false);
-  const [currentUser, setCurrentUser] = useState<Location | undefined>();
+  const [currentRider, setcurrentRider] = useState<RiderProps | undefined>();
 
   const router = useRouter();
   const toast = useToast();
@@ -61,21 +61,21 @@ function LocationProvider({ children }: { children: React.ReactNode }) {
     connectSocket();
 
     if (socketRef.current) {
-      socketRef.current.on("new-rider_check-in", (data: Location) => {
-        setUsers((prevUsers) => [...prevUsers, data]);
+      socketRef.current.on("new-rider_check-in", (data: RiderProps) => {
+        setRiders((prevRiders) => [...prevRiders, data]);
       });
 
-      socketRef.current.on("all-riders", (data: Location[]) => {
-        setUsers(data);
+      socketRef.current.on("all-riders", (data: RiderProps[]) => {
+        setRiders(data);
       });
 
-      socketRef.current.on("current-rider", (data: Location) => {
-        setCurrentUser(data);
+      socketRef.current.on("current-rider", (data: RiderProps) => {
+        setcurrentRider(data);
       });
 
-      socketRef.current.on("position-change", (data: Location) => {
-        setUsers((prevUsers) =>
-          prevUsers.map((user) => (user.id === data.id ? data : user))
+      socketRef.current.on("position-change", (data: RiderProps) => {
+        setRiders((prevRiders) =>
+          prevRiders.map((rider) => (rider.id === data.id ? data : rider))
         );
       });
     }
@@ -95,7 +95,7 @@ function LocationProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  function initUserLocation() {
+  function initRiderLocation() {
     if (!navigator.geolocation) {
       toast({
         title: "Geolocation Unsupported",
@@ -118,7 +118,7 @@ function LocationProvider({ children }: { children: React.ReactNode }) {
     const { latitude, longitude } = data.coords;
     if (socketRef.current) {
       socketRef.current.emit("position-change", {
-        id: currentUser?.id,
+        id: currentRider?.id,
         coords: {
           latitude,
           longitude,
@@ -143,7 +143,7 @@ function LocationProvider({ children }: { children: React.ReactNode }) {
       duration: 4000,
       isClosable: true,
     });
-    router.push("/location");
+    router.push("/explore");
   }
 
   function locationResolveError(error: GeolocationPositionError) {
@@ -168,9 +168,9 @@ function LocationProvider({ children }: { children: React.ReactNode }) {
   return (
     <Context.Provider
       value={{
-        initUserLocation,
-        users,
-        currentUser,
+        initRiderLocation,
+        riders,
+        currentRider,
       }}
     >
       {children}

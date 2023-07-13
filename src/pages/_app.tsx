@@ -1,6 +1,5 @@
 import { Box, ChakraProvider, VStack } from "@chakra-ui/react";
-import SwitchHeader from "@/pages/components/switch";
-import AppHeader from "@/pages/components/header";
+import Header from "@/pages/components/header";
 import LocationProvider from "./_provider";
 import { Inter } from "next/font/google";
 import "@/pages/components/globals.css";
@@ -19,16 +18,15 @@ export default function App({
   return (
     <LocationProvider>
       <SessionProvider session={session}>
-        <AppHeader>
+        <Header>
           <ChakraProvider theme={theme}>
             <VStack>
               <Box w="full" maxW="container.md" minH="100vh" p="4">
-                <SwitchHeader />
                 <Component className={inter.className} {...pageProps} />
               </Box>
             </VStack>
           </ChakraProvider>
-        </AppHeader>
+        </Header>
       </SessionProvider>
     </LocationProvider>
   );

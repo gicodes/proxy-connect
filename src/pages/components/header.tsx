@@ -13,9 +13,9 @@ const navigation: Array<{
   current: boolean;
   onClick: () => void;
 }> = [
-  { name: "Dashboard", href: "#", current: true, onClick: () => {} },
+  { name: "Dashboard", href: "/", current: true, onClick: () => {} },
   { name: "Inbox", href: "#", current: false, onClick: () => {} },
-  { name: "Explore", href: "#", current: false, onClick: () => {} },
+  { name: "Explore", href: "/explore", current: false, onClick: () => {} },
   { name: "History", href: "#", current: false, onClick: () => {} },
   { name: "Upcoming", href: "#", current: false, onClick: () => {} },
 ];
@@ -24,7 +24,7 @@ const userNavigation: Array<{
   href: string;
   onClick: () => void;
 }> = [
-  { name: "My Profile", href: "#", onClick: () => {} },
+  { name: "My Profile", href: "/profile", onClick: () => {} },
   { name: "Settings", href: "#", onClick: () => {} },
   { name: "Sign out", href: "#", onClick: () => signOut() },
 ];

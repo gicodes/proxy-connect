@@ -1,31 +1,10 @@
-import { initMap } from "@/pages/components/maps";
 import { Stack, Input } from "@chakra-ui/react";
-import { useEffect } from "react";
-
-const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
+import SwitchHeader from "@/pages/components/switch";
 
 export default function Dashboard() {
-  useEffect(() => {
-    if (!(typeof google === "object" && typeof google.maps === "object")) {
-      const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=
-      ${apiKey}&libraries=places&callback=initMap`;
-      script.async = true;
-      script.defer = true;
-      document.body.appendChild(script);
-    }
-  }, []);
-
-  useEffect(() => {
-    window.initMap = function () {
-      initMap().catch((error) => {
-        console.error("Failed to initialize map:", error);
-      });
-    };
-  }, []);
-
   return (
     <>
+      <SwitchHeader />
       <header className="bg-white shadow">
         <div className="max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <Stack spacing={3}>
