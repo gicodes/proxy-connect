@@ -1,31 +1,25 @@
-import MapContainer from "./mapContainer";
+// instantiate map & infoWindow
+let map: google.maps.Map, infoWindow: google.maps.InfoWindow;
 
-const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
-const MAP_URL = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&v=3.exp&libraries=geometry`;
+// initialize google map & infoWindow functions
+export function initMap(center: google.maps.LatLngLiteral): void {
+  infoWindow = new google.maps.InfoWindow();
+  map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
+    center,
+    zoom: 8,
+  });
 
-export default function Map() {
-  const containerStyles: any = {
-    height: "100%",
-    width: "100%",
-    position: "relative",
-  };
+  // the next 10 lines adds a 'current location' button to the map
+  const locationButton = document.createElement("button");
+  locationButton.textContent = "Pan to Current Location";
+  locationButton.classList.add("map-button");
 
-  return (
-    <MapContainer
-      googleMapURL={MAP_URL}
-      loadingElement={<div style={containerStyles} />}
-      containerElement={<div style={containerStyles} />}
-      mapElement={<div style={containerStyles} />}
-      rider={{
-        id: 0,
-        position: {
-          lat: 0,
-          lng: 0,
-        },
-      }}
-      radius={0}
-      riders={[]}
-      channel={undefined}
-    />
-  );
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+
+  locationButton.addEventListener("click", () => {
+    infoWindow.setPosition(center);
+    infoWindow.setContent("Location found");
+    infoWindow.open(map);
+    map.setCenter(center);
+  });
 }

@@ -1,13 +1,12 @@
+import SocketLocationProvider from "@/lib/utils/socketLocationProvider";
 import { Box, ChakraProvider, VStack } from "@chakra-ui/react";
-import Header from "@/pages/components/header";
-import LocationProvider from "./_provider";
+import { SessionProvider } from "next-auth/react";
 import { Inter } from "next/font/google";
-import "@/pages/components/globals.css";
-import theme from "./_theme";
-
+import Header from "@/components/header";
+import theme from "../components/_theme";
 import type { AppProps } from "next/app";
 import type { Session } from "next-auth";
-import { SessionProvider } from "next-auth/react";
+import "@/components/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +15,7 @@ export default function App({
   pageProps: { session, ...pageProps },
 }: AppProps<{ session: Session }>) {
   return (
-    <LocationProvider>
+    <SocketLocationProvider>
       <SessionProvider session={session}>
         <Header>
           <ChakraProvider theme={theme}>
@@ -28,6 +27,6 @@ export default function App({
           </ChakraProvider>
         </Header>
       </SessionProvider>
-    </LocationProvider>
+    </SocketLocationProvider>
   );
 }

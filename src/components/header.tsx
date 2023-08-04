@@ -1,11 +1,10 @@
 "use client";
 
+import { Fragment } from "react";
+import AuthPage from "@/pages/auth/sign-in";
 import { signOut, useSession } from "next-auth/react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-
-import AuthPage from "@/pages/auth/sign-in";
-import { Fragment } from "react";
 
 const navigation: Array<{
   name: string;
@@ -49,7 +48,7 @@ function classNames(...classes: any) {
 export default function Header({ children }: { children: React.ReactNode }) {
   const { data: session } = useSession();
 
-  /* If no session exists, display the authPage */
+  /* If no session exists, go the authPage */
   if (!session) {
     // return <AuthPage />;
   }

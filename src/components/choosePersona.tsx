@@ -1,18 +1,18 @@
 import React from "react";
 
-interface Person {
+interface Rider {
   id: number;
   name: string;
 }
 
 interface ChoosePersonaProps {
-  people?: Person[];
+  riders: any;
   count?: number;
   onSelected?: (id: number) => void;
 }
 
 const ChoosePersona: React.FC<ChoosePersonaProps> = ({
-  people = [],
+  riders = [],
   count = 3,
   onSelected = () => {},
 }) => {
@@ -26,20 +26,20 @@ const ChoosePersona: React.FC<ChoosePersonaProps> = ({
   const choosePersona = (id: number) => (evt: React.MouseEvent) =>
     onSelected(id);
 
-  const randomPeople = (count: number) => (people: Person[]) => {
+  const randomRiders = (count: number) => (riders: Rider[]) => {
     const selected: number[] = [];
     let i = 0;
 
-    count = Math.max(0, Math.min(count, people.length));
+    count = Math.max(0, Math.min(count, riders.length));
 
     while (i < count) {
-      const index = Math.floor(Math.random() * people.length);
+      const index = Math.floor(Math.random() * riders.length);
       if (selected.includes(index)) continue;
       ++i && selected.push(index);
     }
 
     return selected.map((index) => {
-      const { id, name } = people[index];
+      const { id, name } = riders[index];
       const className =
         "d-flex align-items-center text-center text-white bg-secondary font-weight-bold py-2 px-4 mx-1 my-2";
 
@@ -62,7 +62,7 @@ const ChoosePersona: React.FC<ChoosePersonaProps> = ({
       <span className="h3 text-dark text-center py-3 w-100 font-weight-bold">
         Choose your Persona
       </span>
-      {randomPeople(count)(people)}
+      {randomRiders(count)(riders)}
     </div>
   );
 };

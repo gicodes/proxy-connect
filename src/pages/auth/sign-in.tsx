@@ -1,5 +1,5 @@
-import Dashboard from "./index";
-import { signIn, useSession } from "next-auth/react";
+import Dashboard from "../index";
+import { useSession } from "next-auth/react";
 
 export default function AuthPage() {
   const { data: session } = useSession();
@@ -17,20 +17,24 @@ export default function AuthPage() {
           </div>
 
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6" action="#" method="POST">
+            <form
+              className="space-y-6"
+              action="/api/auth/sign-in"
+              method="POST"
+            >
               <div>
                 <label
                   htmlFor="email"
                   className="block text-sm font-medium leading-6 text-white-900"
                 >
-                  Email address
+                  Username
                 </label>
                 <div className="mt-2">
                   <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
+                    id="username"
+                    name="username"
+                    type="string"
+                    autoComplete="username"
                     required
                     className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -68,8 +72,6 @@ export default function AuthPage() {
 
               <div>
                 <button
-                  // disabled onClick function. Use an Auth Provider clientId first. See @/api/auth/[...nextAuth].ts
-                  // onClick={() => signIn()}
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
@@ -93,5 +95,5 @@ export default function AuthPage() {
     );
   }
 
-  return <Dashboard />;
+  return <Dashboard allRiders={[]} />;
 }

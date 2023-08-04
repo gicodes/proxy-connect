@@ -15,9 +15,3 @@ const validationSchema = Yup.object().shape({
 });
 
 export const formOptions = { resolver: yupResolver(validationSchema) };
-
-export  function onSubmit(data: any) {
-  // display form data on success
-  alert("SUCCESS!! :-)\n\n" + JSON.stringify(data, null, 4));
-  return false;
-}

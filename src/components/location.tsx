@@ -13,16 +13,18 @@ import {
 
 interface LocationProps {
   isCurrentRider: Boolean;
-  coords: {
-    lat: number;
-    long: number;
-  } | null;
+  coordinates:
+    | {
+        latitude?: number;
+        longitude?: number;
+      }
+    | undefined;
   text: string;
 }
 
 export default function Location({
   isCurrentRider,
-  coords,
+  coordinates,
   text,
 }: LocationProps) {
   return (
@@ -35,7 +37,7 @@ export default function Location({
       <StatGroup borderWidth="1px" w="full" p="4">
         <Stat>
           <StatLabel>Latitude</StatLabel>
-          <StatNumber>{coords?.lat}</StatNumber>
+          <StatNumber>{coordinates?.latitude}</StatNumber>
           <StatHelpText>
             <StatArrow type="increase" />
           </StatHelpText>
@@ -43,7 +45,7 @@ export default function Location({
 
         <Stat>
           <StatLabel>Longitude</StatLabel>
-          <StatNumber>{coords?.long}</StatNumber>
+          <StatNumber>{coordinates?.longitude}</StatNumber>
           <StatHelpText>
             <StatArrow type="decrease" />
           </StatHelpText>

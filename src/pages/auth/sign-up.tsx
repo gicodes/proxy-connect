@@ -1,10 +1,8 @@
-import "@/app/components/error.css";
+import { formOptions } from "@/lib/utils/yupValidation";
 import { useForm } from "react-hook-form";
-import { formOptions, onSubmit } from "@/lib/utils/yupValidation";
 
 export default function SignUpPage() {
-  // get functions to build form with useForm() hook
-  const { register, handleSubmit, formState } = useForm(formOptions);
+  const { formState, reset } = useForm(formOptions);
   const { errors } = formState;
 
   return (
@@ -16,16 +14,12 @@ export default function SignUpPage() {
             Sign up for an account
           </h2>
         </div>
-
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="space-y-6"
-            method="POST"
-          >
+          <form action="/api/auth/sign-up" className="space-y-6" method="post">
+            {/* ________FIRST NAME________ */}
             <div>
               <label
-                htmlFor="name"
+                htmlFor="firstName"
                 className="block text-sm font-medium leading-6 text-white-900"
               >
                 First Name
@@ -34,15 +28,16 @@ export default function SignUpPage() {
                 <input
                   id="firstName"
                   type="text"
-                  {...register("firstName")}
+                  name="firstName"
                   required
                   className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
+            {/* ________LAST NAME________ */}
             <div>
               <label
-                htmlFor="name"
+                htmlFor="lastName"
                 className="block text-sm font-medium leading-6 text-white-900"
               >
                 Last Name
@@ -51,12 +46,31 @@ export default function SignUpPage() {
                 <input
                   id="lastName"
                   type="text"
-                  {...register("lastName")}
+                  name="lastName"
                   required
                   className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
+            {/* ________USER NAME________ */}
+            <div>
+              <label
+                htmlFor="username"
+                className="block text-sm font-medium leading-6 text-white-900"
+              >
+                Username
+              </label>
+              <div className="mt-2">
+                <input
+                  id="username"
+                  type="text"
+                  name="username"
+                  autoComplete="username"
+                  className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            {/* ________EMAIL________ */}
             <div>
               <label
                 htmlFor="email"
@@ -70,10 +84,12 @@ export default function SignUpPage() {
                   type="email"
                   name="email"
                   autoComplete="email"
+                  required
                   className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
+            {/* ________PASSWORD________ */}
             <div>
               <div className="flex items-center justify-between">
                 <label
@@ -86,14 +102,15 @@ export default function SignUpPage() {
               <div className="mt-2">
                 <input
                   id="password"
-                  name="password"
                   type="password"
+                  name="password"
                   autoComplete="current-password"
                   required
                   className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
+            {/* ________CONFIRM PASSWORD________ */}
             <div>
               <label
                 htmlFor="password"
@@ -104,34 +121,32 @@ export default function SignUpPage() {
               <div className="mt-2">
                 <input
                   id="confirmPassword"
-                  name="confirmPassword"
                   type="password"
+                  name="confirmPassword"
                   autoComplete="current-password"
                   required
                   className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
-
+            {/* ________T & C________ */}
             <div className="block text-sm font-medium leading-6 text-white-900">
               <label htmlFor="acceptTerms" className="pr-5">
                 Accept Terms & Conditions
               </label>
               <input
-                type="checkbox"
-                {...register("acceptTerms")}
                 id="acceptTerms"
-                className={`mt-3 ${errors.acceptTerms ? "is-invalid" : ""}`}
+                type="checkbox"
+                name="acceptTerms"
+                required
+                className="mt-3"
               />
               <div className="invalid-feedback">
                 {errors.acceptTerms?.message}
               </div>
             </div>
-
-            <div>
+            <div className="buttons-group">
               <button
-                // Disabled onClick event. Auth requires ClientId set up
-                // onClick={handleSubmit(onSubmit)}
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
@@ -140,13 +155,20 @@ export default function SignUpPage() {
                 )}{" "}
                 Sign Up
               </button>
+              <br />
+              <button
+                onClick={() => reset()}
+                type="button"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Reset Form
+              </button>
             </div>
           </form>
-
           <p className="mt-10 text-center text-sm text-white-500">
             Already Own an Account?{"  "}
             <a
-              href="/auth"
+              href="/auth/sign-in"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
               Return to Login
