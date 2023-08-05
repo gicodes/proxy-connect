@@ -30,7 +30,7 @@ export default function Explore() {
 
   useEffect(() => {
     // useEffect instance to load Rider data
-    fetch("http://localhost:3000/api/explore")
+    fetch("/api/explore")
       .then((res) => res.json())
       .then((data) => {
         setData(data);

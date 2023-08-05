@@ -15,10 +15,8 @@ interface Rider {
 export const getServerSideProps: GetServerSideProps<{
   allRiders: Rider[];
 }> = async () => {
-  // let index serverSide fetch be socket client API
-  await fetch("http://localhost:3000/api/server/socket");
   // let base fetch be allRiders yet. Can be modified later
-  const getAll = await fetch("http://localhost:3000/api/explore");
+  const getAll = await fetch("/api/explore");
   const allRiders = await getAll.json();
   return { props: { allRiders } };
 };
@@ -30,7 +28,7 @@ async function sendApiRequest() {
     // function geoSuccess is callback to getCurrentPosition
     const { latitude, longitude } = positon.coords;
     try {
-      await fetch("http://localhost:3000/api/", {
+      await fetch("/api/", {
         method: "PUT",
         body: JSON.stringify({ latitude, longitude }),
       });

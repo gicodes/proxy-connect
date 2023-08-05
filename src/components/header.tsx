@@ -22,7 +22,7 @@ type User = {
 export const getStaticProps: GetStaticProps<{
   user: User;
 }> = async () => {
-  const res = await fetch("https://localhost:3000/api/", {
+  const res = await fetch("/api/", {
     method: "GET",
   });
   const user = await res.json();
