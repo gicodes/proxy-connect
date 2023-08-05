@@ -36,9 +36,10 @@ function switchAlert() {
         <hr />
         <AlertDescription>
           <Text paddingTop="4" fontSize="15">
-            By default your check-in status is OFFLINE. Toggle <b>Check-in 1</b>{" "}
-            to go online for 24hours. <br /> Click on <b>Check-in 2</b> to go
-            public & explore. This action changes your theme instance !!
+            By default you're NOT discoverable on login. Toggle{" "}
+            <b>Check-in 1</b> to go online for 12 hours <br /> Click on{" "}
+            <b>Check-in 2</b> to go public & explore. This action changes your
+            theme instance!
           </Text>
         </AlertDescription>
       </Box>

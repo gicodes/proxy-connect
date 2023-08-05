@@ -1,9 +1,9 @@
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 import { Stack, Input, Box, VStack, Text } from "@chakra-ui/react";
 import Location from "@/components/location";
+import { useEffect, useState } from "react";
 import Switch from "@/components/switch";
 import type { MouseEvent } from "react";
-import { useEffect, useState } from "react";
 
 interface Rider {
   socketId: string;

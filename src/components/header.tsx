@@ -1,11 +1,36 @@
-"use client";
-
 import { Fragment } from "react";
-import AuthPage from "@/pages/auth/sign-in";
 import { signOut, useSession } from "next-auth/react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
+import type { InferGetStaticPropsType, GetStaticProps } from "next";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
+/* 3+ pending functions to implement
+  assert user is NOT undefined: user objects must be defined and accessible in Header().
+  setState to update on signOut: state objects must be defined to update UI on signOut().
+  check session, route to sign-in: session must match userSession or redirect to signIn().
+  +5 other functions: pages to implement inc. Inbox, History, Upcoming, My Profile, Settings.
+*/
+
+type User = {
+  name: string;
+  email: string;
+  lastName: string;
+  firstName: string;
+  image?: string | any;
+};
+
+export const getStaticProps: GetStaticProps<{
+  user: User;
+}> = async () => {
+  const res = await fetch("https://localhost:3000/api/", {
+    method: "GET",
+  });
+  const user = await res.json();
+  // TO DO: assert user is NOT undefined
+  return { props: { user } };
+};
+
+// var navigation UX flow
 const navigation: Array<{
   name: string;
   href: string;
@@ -18,6 +43,8 @@ const navigation: Array<{
   { name: "History", href: "#", current: false, onClick: () => {} },
   { name: "Upcoming", href: "#", current: false, onClick: () => {} },
 ];
+
+// var userNavigation UX flow
 const userNavigation: Array<{
   name: string;
   href: string;
@@ -28,29 +55,28 @@ const userNavigation: Array<{
   { name: "Sign out", href: "#", onClick: () => signOut() },
 ];
 
-type User = {
-  name: string;
-  email: string;
-  imageUrl: string;
-};
-
-const user: User = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
-
+// function: Tailwind classes UI flow
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Header({ children }: { children: React.ReactNode }) {
+// function: handle signOut user
+function handleSignOut() {
+  // setState to update on signOut
+  return null;
+}
+
+export default function Header({
+  children,
+  user,
+}: {
+  children: React.ReactNode;
+  user: InferGetStaticPropsType<typeof getStaticProps>;
+}) {
   const { data: session } = useSession();
 
-  /* If no session exists, go the authPage */
+  // check !session, route to sign-in
   if (!session) {
-    // return <AuthPage />;
   }
 
   return (
@@ -101,7 +127,7 @@ export default function Header({ children }: { children: React.ReactNode }) {
                             <span className="sr-only">Open user menu</span>
                             <img
                               className="h-8 w-8 rounded-full"
-                              src={user.imageUrl}
+                              src={user?.user?.image}
                               alt="your profile photo"
                             />
                           </Menu.Button>
@@ -179,17 +205,17 @@ export default function Header({ children }: { children: React.ReactNode }) {
                   <div className="flex items-center px-5">
                     <div className="flex-shrink-0">
                       <img
-                        className="h-10 w-10 rounded-full"
-                        src={user.imageUrl}
-                        alt="your profile picture"
+                        className="h-8 w-8 rounded-full"
+                        src={user?.user?.image}
+                        alt="your profile photo"
                       />
                     </div>
                     <div className="ml-3">
                       <div className="text-base font-medium leading-none text-white">
-                        {user.name}
+                        {user?.user?.firstName}
                       </div>
                       <div className="text-sm font-medium leading-none text-gray-400">
-                        {user.email}
+                        {user?.user?.email}
                       </div>
                     </div>
                     <button

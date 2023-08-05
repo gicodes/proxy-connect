@@ -6,6 +6,12 @@ export default async function handler(
   req: NextApiRequest, 
   res: NextApiResponse
   ) {
+    if (req.method === "GET") {
+      const session = await getSession();
+      const rider = ridersRepo.getById(session?.user?.email);
+      res.status(200).json(rider);
+    }
+
     if (req.method === "PUT") {
       console.log('fetching location..')
       const session = await getSession();

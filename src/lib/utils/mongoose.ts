@@ -23,6 +23,9 @@ function userModel() {
         firstName: { type: String, required: true },
         lastName: { type: String, required: true },
         hash: { type: String, required: true },
+        image: {
+            data: Buffer,
+            contentType: String },
     }, {
         createdAt: { type: Date, required: true},
         updatedAt: { type: Date, required: true},

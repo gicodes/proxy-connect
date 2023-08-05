@@ -4,23 +4,23 @@ const BLACK_MARKER = "https://i.imgur.com/8dOrls4.png?2";
 const GREEN_MARKER = "https://i.imgur.com/9v6uW8U.png";
 
 interface Rider {
-  name: string;
   id: number;
   within: boolean;
+  firstName: string;
 }
 
 export default function NearbyRiders(props: {
   id?: any;
-  name?: any;
+  firstName?: any;
   rider?: any;
   refProp: any;
 }) {
-  const updateRiders = (riders: Rider[]) => setRiders(riders);
-
-  const [riders, setRiders] = useState<Rider[]>([]);
   const {
-    rider: { name, id },
+    rider: { firstName, id },
   } = props;
+
+  const updateRiders = (riders: Rider[]) => setRiders(riders);
+  const [riders, setRiders] = useState<Rider[]>([]);
 
   const nameBadgeStyles = {
     fontSize: "0.8rem",
@@ -43,7 +43,7 @@ export default function NearbyRiders(props: {
               <div className="pl-2" style={{ width: 30, height: 30 }}>
                 <img src={marker} className="img-fluid" alt="marker" />
               </div>
-              <span className="pl-3">{rider.name}</span>
+              <span className="pl-3">{rider.firstName}</span>
             </div>
           );
         })}
@@ -64,9 +64,9 @@ export default function NearbyRiders(props: {
           <span
             className="d-flex align-items-center text-center text-white bg-primary font-weight-bold py-2 px-4 mx-4"
             style={nameBadgeStyles}
-            title={name}
+            title={firstName}
           >
-            {name}
+            {firstName}
           </span>
         </div>
 

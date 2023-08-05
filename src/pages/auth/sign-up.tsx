@@ -52,7 +52,7 @@ export default function SignUpPage() {
                 />
               </div>
             </div>
-            {/* ________USER NAME________ */}
+            {/* _______USER NAME_______ */}
             <div>
               <label
                 htmlFor="username"
@@ -110,7 +110,7 @@ export default function SignUpPage() {
                 />
               </div>
             </div>
-            {/* ________CONFIRM PASSWORD________ */}
+            {/* _____CONFIRM PASSWORD_____ */}
             <div>
               <label
                 htmlFor="password"
@@ -145,6 +145,12 @@ export default function SignUpPage() {
                 {errors.acceptTerms?.message}
               </div>
             </div>
+            {/* ______PROFILE AVATAR______ */}
+            <img
+              alt="profile Avatar"
+              src="/profileAvi.png"
+              className="profileAvi"
+            />
             <div className="buttons-group">
               <button
                 type="submit"
