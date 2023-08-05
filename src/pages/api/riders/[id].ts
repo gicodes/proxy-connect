@@ -9,8 +9,9 @@ export async function getById(req: NextApiRequest, res: NextApiResponse) {
     return res.status(200).json(rider);
 }
 
+// define function update as CRUD method @/api/rider/repo and API route
 export async function update(req: NextApiRequest, res: NextApiResponse) {
-    await ridersRepo.update(req.query.id as string, req.body);
+    // await ridersRepo.update(req.query.id as string, req.body);
     return res.status(200).json({});
 }
 
