@@ -13,7 +13,6 @@ export default async function handler(
     }
 
     if (req.method === "PUT") {
-      console.log('fetching location..')
       const session = await getSession();
       const { latitude, longitude } = req.body;
       // for some reason i've not fixed the update action via insertOne

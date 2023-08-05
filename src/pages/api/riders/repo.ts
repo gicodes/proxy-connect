@@ -63,7 +63,7 @@ async function update(
         coordinates: [ longitude, latitude ],
       }
     })
-    console.log("Server CL: Location updated successfully");
+    // console.log("Server CL: User.location updated");
   } catch (err: any) {
     console.error(`Error: ${err.message}`)
   }  

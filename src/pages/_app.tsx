@@ -17,7 +17,17 @@ export default function App({
   return (
     <SocketLocationProvider>
       <SessionProvider session={session}>
-        <Header>
+        <Header
+          user={{
+            user: {
+              name: "",
+              email: "",
+              lastName: "",
+              firstName: "",
+              image: undefined,
+            },
+          }}
+        >
           <ChakraProvider theme={theme}>
             <VStack>
               <Box w="full" maxW="container.md" minH="100vh" p="4">

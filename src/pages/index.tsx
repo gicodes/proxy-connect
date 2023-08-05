@@ -34,9 +34,7 @@ async function sendApiRequest() {
         method: "PUT",
         body: JSON.stringify({ latitude, longitude }),
       });
-    } catch (err: any) {
-      console.error(`Client CL: Error- ${err.message}`);
-    }
+    } catch (err: any) {}
   }
   function geoError(): Geolocation {
     // function geoError is callback to getCurrentPosition

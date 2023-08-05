@@ -11,20 +11,16 @@ interface Rider {
   coords: { latitude: number; longitude: number } | null;
 }
 
-// Create Context to wrap Rider values
 const Context = createContext<any>(null);
 
 function SocketLocationProvider({ children }: { children: React.ReactNode }) {
-  // var socket with useRef
+  // var socket&Location with useRef
   const socketRef = useRef<any | null>();
-  // var location with useRef
   const watchLocation = useRef<any | null>();
 
-  // state object to store riders array []
+  // state objects to store rider variables
   const [riders, setRiders] = useState<Rider[]>([]);
-  // state object to store the currentRider
   const [currentRider, setcurrentRider] = useState<Rider>();
-  // state object to store hasAccessLocation
   const [hasAccessLocation, setHasAccessLocation] = useState(false);
 
   const toast = useToast();
@@ -32,37 +28,27 @@ function SocketLocationProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Connect socket-client
     socketRef.current = io();
-    console.log("Client CL: Connected to socket client");
 
     // if socketRef, init Rider flow
     if (socketRef.current) {
-      // in Rider, init new rider
       socketRef.current.on("new-rider", (data: Rider) => {
         setRiders((riders) => [...riders, data]);
-        console.log("Client CL: new rider initialized");
       });
-      // in Rider[], init all riders
       socketRef.current.on("all-riders", (data: Rider[]) => {
         setRiders(data);
-        console.log("Client CL: all riders initialized");
       });
-      // in Rider, init current rider
       socketRef.current.on("current-rider", (data: Rider) => {
         setcurrentRider(data);
-        console.log("Client CL: current rider initialized");
       });
-      // in Rider, init position change
       socketRef.current.on("position-change", (data: Rider) => {
         riders.map((rider) => {
-          // check if socketId === data socketId
           if (rider.socketId === data.socketId) return data;
           return rider;
         });
-        console.log("Client CL: Position change recorded");
       });
     }
 
-    // watch position changes if hasAccessLocation
+    // watch position changes
     if (hasAccessLocation) {
       watchLocation.current = navigator.geolocation.watchPosition(
         positionChange,
@@ -74,7 +60,6 @@ function SocketLocationProvider({ children }: { children: React.ReactNode }) {
       // return geoLocation.clearWatch before socket disconnect
       navigator.geolocation.clearWatch(watchLocation.current as any);
       socketRef.current.disconnect();
-      console.log("Client CL: Diconnected from socket client");
     };
   }, []);
 
@@ -96,9 +81,9 @@ function SocketLocationProvider({ children }: { children: React.ReactNode }) {
       locationResolveSuccessfully,
       locationResolveError
     );
-    console.log("Client CL: rider location initialized");
   }
 
+  // callback function on success and join socket connection
   function locationResolveSuccessfully(data: GeolocationPosition) {
     setHasAccessLocation(true);
     const latitude = data.coords.latitude;
@@ -120,8 +105,8 @@ function SocketLocationProvider({ children }: { children: React.ReactNode }) {
     });
   }
 
+  // callback function on error and handling error types
   function locationResolveError(error: GeolocationPositionError) {
-    // error type declaration
     let errorType = "";
     if (error.code === 1) {
       errorType = "Permission Denied";
@@ -144,7 +129,6 @@ function SocketLocationProvider({ children }: { children: React.ReactNode }) {
     // get rider coordinates from GeolocationPosition
     const { latitude, longitude } = data.coords;
     if (socketRef.current) {
-      // emit position change to socket client API
       socketRef.current.emit("position-change", {
         id: currentRider?.id,
         coords: {
@@ -156,8 +140,8 @@ function SocketLocationProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    // expose context provider
     <Context.Provider
+      // exposing provider
       value={{
         initRiderLocation,
         currentRider,

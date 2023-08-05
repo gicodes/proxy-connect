@@ -26,7 +26,7 @@ export const getStaticProps: GetStaticProps<{
     method: "GET",
   });
   const user = await res.json();
-  // TO DO: assert user is NOT undefined
+  // assert user is NOT undefined. See _app > Header > props
   return { props: { user } };
 };
 
@@ -127,7 +127,7 @@ export default function Header({
                             <span className="sr-only">Open user menu</span>
                             <img
                               className="h-8 w-8 rounded-full"
-                              src={user?.user?.image}
+                              src={user.user.image}
                               alt="your profile photo"
                             />
                           </Menu.Button>
@@ -206,16 +206,16 @@ export default function Header({
                     <div className="flex-shrink-0">
                       <img
                         className="h-8 w-8 rounded-full"
-                        src={user?.user?.image}
+                        src={user.user.image}
                         alt="your profile photo"
                       />
                     </div>
                     <div className="ml-3">
                       <div className="text-base font-medium leading-none text-white">
-                        {user?.user?.firstName}
+                        {user.user.firstName}
                       </div>
                       <div className="text-sm font-medium leading-none text-gray-400">
-                        {user?.user?.email}
+                        {user.user.email}
                       </div>
                     </div>
                     <button
