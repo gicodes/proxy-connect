@@ -18,6 +18,7 @@ export default function App({
     <SocketLocationProvider>
       <SessionProvider session={session}>
         <Header
+          // added missing attributes. Modify accordingly. Also see protected.tsx
           user={{
             user: {
               name: "",

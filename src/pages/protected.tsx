@@ -22,7 +22,17 @@ export default function ProtectedPage() {
   // If no session exists, display access denied message
   if (!session) {
     return (
-      <Header>
+      <Header
+        user={{
+          user: {
+            name: "",
+            email: "",
+            lastName: "",
+            firstName: "",
+            image: undefined,
+          },
+        }}
+      >
         <AccessDenied />
       </Header>
     );
@@ -30,7 +40,17 @@ export default function ProtectedPage() {
 
   // If session exists, display content
   return (
-    <Header>
+    <Header
+      user={{
+        user: {
+          name: "",
+          email: "",
+          lastName: "",
+          firstName: "",
+          image: undefined,
+        },
+      }}
+    >
       <h1>Protected Page</h1>
       <p>
         <strong>{content ?? "\u00a0"}</strong>

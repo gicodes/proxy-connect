@@ -1,5 +1,5 @@
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "../auth/sign-in"
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../auth/[...nextauth]";
 
 import type { NextApiRequest, NextApiResponse } from "next"
 
