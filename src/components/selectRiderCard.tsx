@@ -2,19 +2,22 @@ import { useState, Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
+// people == riders
 const people = [
   {
+    // modify accordingly: id: 1 ++
     id: 1,
     name: "Default Rider",
-    avatar: "",
+    avatar: "some link to the avatar",
   },
 ];
 
+// function: Tailwind classes UI flow
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function selectAvatar() {
+export default function selectPeople() {
   const [selected, setSelected] = useState(people[1]);
 
   return (

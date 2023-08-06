@@ -1,8 +1,8 @@
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 import { Stack, Input, Box, VStack, Text } from "@chakra-ui/react";
+import Switch, { sendApiRequest } from "@/components/switch";
 import Location from "@/components/location";
 import { useEffect, useState } from "react";
-import Switch from "@/components/switch";
 import type { MouseEvent } from "react";
 
 interface Rider {
@@ -15,33 +15,12 @@ interface Rider {
 export const getServerSideProps: GetServerSideProps<{
   allRiders: Rider[];
 }> = async () => {
-  // let base fetch be allRiders yet. Can be modified later
-  const getAll = await fetch("https://rydergp.vercel.app/api/explore");
-  const allRiders = await getAll.json();
+  // let URL = env.production | http://localhost:3000 for env.local/*
+  const getData = await fetch("https://rydergp.vercel.app/api/explore");
+  // let base fetch be all Riders. Modify according to index.tsx data
+  const allRiders = await getData.json();
   return { props: { allRiders } };
 };
-
-// function to send a PUT request to the API
-async function sendApiRequest() {
-  // function sendApiRequest is passed as prop to Switch
-  async function geoSuccess(positon: GeolocationPosition) {
-    // function geoSuccess is callback to getCurrentPosition
-    const { latitude, longitude } = positon.coords;
-    try {
-      await fetch("https://rydergp.vercel.app/api/", {
-        method: "PUT",
-        body: JSON.stringify({ latitude, longitude }),
-      });
-    } catch (err: any) {}
-  }
-  function geoError(): Geolocation {
-    // function geoError is callback to getCurrentPosition
-    throw new Error("Client CL: Unable to retrieve your location");
-  }
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
-  }
-}
 
 export default function Dashboard({
   allRiders,

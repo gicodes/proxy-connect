@@ -18,6 +18,28 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { TfiHandPointRight } from "react-icons/tfi";
 
+// function to send a PUT request to the API
+export async function sendApiRequest() {
+  // function sendApiRequest is passed as prop to Switch
+  async function geoSuccess(positon: GeolocationPosition) {
+    // function geoSuccess is callback to getCurrentPosition
+    const { latitude, longitude } = positon.coords;
+    try {
+      await fetch("/api/", {
+        method: "PUT",
+        body: JSON.stringify({ latitude, longitude }),
+      });
+    } catch (err: any) {}
+  }
+  function geoError(): Geolocation {
+    // function geoError is callback to getCurrentPosition
+    throw new Error("Client CL: Unable to retrieve your location");
+  }
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+  }
+}
+
 // function UI-component that displays UX-flow guide
 function switchAlert() {
   const {
