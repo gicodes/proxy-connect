@@ -6,7 +6,7 @@ export default function handler(
   res: NextApiResponse | any, 
   ) {
   if (req.method === "GET"){
-    // console.log("Server CL: I'm here to avoid any polling.js error!")
+    console.log("Server CL: I'm here to avoid any polling.js error!")
   }
 
   // init connection flow

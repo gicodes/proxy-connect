@@ -26,8 +26,9 @@ function SocketLocationProvider({ children }: { children: React.ReactNode }) {
   const toast = useToast();
 
   useEffect(() => {
+    fetch("/api/server/socket");
     // Connect socket-client
-    socketRef.current = io("/api/server/socket");
+    socketRef.current = io();
 
     // if socketRef, init Rider flow
     if (socketRef.current) {
