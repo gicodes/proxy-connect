@@ -17,18 +17,7 @@ export default function App({
   return (
     <SocketLocationProvider>
       <SessionProvider session={session}>
-        <Header
-          // added missing attributes. Modify accordingly. Also see protected.tsx
-          user={{
-            user: {
-              name: "",
-              email: "",
-              lastName: "",
-              firstName: "",
-              image: undefined,
-            },
-          }}
-        >
+        <Header>
           <ChakraProvider theme={theme}>
             <VStack>
               <Box w="full" maxW="container.md" minH="100vh" p="4">

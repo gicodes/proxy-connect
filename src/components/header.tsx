@@ -1,7 +1,9 @@
-import { Fragment } from "react";
+import { useRouter } from "next/router";
+import { Fragment, useEffect } from "react";
+import { getServerSession } from "next-auth/next";
 import { signOut, useSession } from "next-auth/react";
+import { authOptions } from "../pages/api/auth/[...nextauth]";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import type { InferGetStaticPropsType, GetStaticProps } from "next";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 /* 3+ pending functions to implement
@@ -11,23 +13,20 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
   +5 other functions: pages to implement inc. Inbox, History, Upcoming, My Profile, Settings.
 */
 
+export async function getServerSideProps({ req, res }: any) {
+  return {
+    props: {
+      session: await getServerSession(req, res, authOptions),
+    },
+  };
+}
+
 type User = {
   name: string;
   email: string;
   lastName: string;
   firstName: string;
-  image?: string | any;
-};
-
-export const getStaticProps: GetStaticProps<{
-  user: User;
-}> = async () => {
-  const res = await fetch("/api/", {
-    method: "GET",
-  });
-  const user = await res.json();
-  // assert user is NOT undefined. See _app > Header > props
-  return { props: { user } };
+  image: string | any;
 };
 
 // var navigation UX flow
@@ -38,10 +37,10 @@ const navigation: Array<{
   onClick: () => void;
 }> = [
   { name: "Dashboard", href: "/", current: true, onClick: () => {} },
-  { name: "Inbox", href: "#", current: false, onClick: () => {} },
+  { name: "Inbox", href: "/inbox", current: false, onClick: () => {} },
   { name: "Explore", href: "/explore", current: false, onClick: () => {} },
-  { name: "History", href: "#", current: false, onClick: () => {} },
-  { name: "Upcoming", href: "#", current: false, onClick: () => {} },
+  { name: "History", href: "/history", current: false, onClick: () => {} },
+  { name: "Upcoming", href: "/upcoming", current: false, onClick: () => {} },
 ];
 
 // var userNavigation UX flow
@@ -51,8 +50,8 @@ const userNavigation: Array<{
   onClick: () => void;
 }> = [
   { name: "My Profile", href: "/profile", onClick: () => {} },
-  { name: "Settings", href: "#", onClick: () => {} },
-  { name: "Sign out", href: "#", onClick: () => signOut() },
+  { name: "Settings", href: "/settings", onClick: () => {} },
+  { name: "Sign out", href: "/", onClick: () => signOut() },
 ];
 
 // function: Tailwind classes UI flow
@@ -60,24 +59,37 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-// function: handle signOut user
-function handleSignOut() {
-  // setState to update on signOut
-  return null;
-}
+export default function Header({ children }: { children: React.ReactNode }) {
+  const { data: session, status, update } = useSession();
+  const router = useRouter();
+  const routeToSignIn = () => {
+    useEffect(() => {
+      router.push("/auth/sign-in");
+    }, []);
+  };
 
-export default function Header({
-  children,
-  user,
-}: {
-  children: React.ReactNode;
-  user: InferGetStaticPropsType<typeof getStaticProps>;
-}) {
-  const { data: session } = useSession();
-
-  // check !session, route to sign-in
-  if (!session) {
+  async function updateSession() {
+    await update({
+      ...session,
+      user: {
+        ...session?.user,
+        accessToken: "abcde12345",
+        image: "/profileAvi.png",
+      },
+    });
   }
+
+  updateSession();
+  // check !session, route to sign-in
+  if (status !== "authenticated") {
+    routeToSignIn();
+  }
+
+  const user = {
+    name: session?.user?.name,
+    email: session?.user?.email,
+    image: session?.user?.image,
+  };
 
   return (
     <>
@@ -89,7 +101,11 @@ export default function Header({
                 <div className="flex h-16 items-center justify-between">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
-                      <img className="h-8 w-8" src="" alt="tsaron.gps.logo" />
+                      <img
+                        className="h-8 w-8"
+                        src="/ryderGP bold/apple-touch-icon.png"
+                        alt="tsaron.gps.logo"
+                      />
                     </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
@@ -127,7 +143,7 @@ export default function Header({
                             <span className="sr-only">Open user menu</span>
                             <img
                               className="h-8 w-8 rounded-full"
-                              src={user.user.image}
+                              src={"/profileAvi.png"}
                               alt="your profile photo"
                             />
                           </Menu.Button>
@@ -206,16 +222,16 @@ export default function Header({
                     <div className="flex-shrink-0">
                       <img
                         className="h-8 w-8 rounded-full"
-                        src={user.user.image}
+                        src={"/profileAvi.png"}
                         alt="your profile photo"
                       />
                     </div>
                     <div className="ml-3">
                       <div className="text-base font-medium leading-none text-white">
-                        {user.user.firstName}
+                        {user.name}
                       </div>
                       <div className="text-sm font-medium leading-none text-gray-400">
-                        {user.user.email}
+                        {user.email}
                       </div>
                     </div>
                     <button

@@ -1,8 +1,6 @@
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 import { Stack, Input, Box, VStack, Text } from "@chakra-ui/react";
 import Switch, { sendApiRequest } from "@/components/switch";
-import Location from "@/components/location";
-import { useEffect, useState } from "react";
 import type { MouseEvent } from "react";
 
 interface Rider {
@@ -25,18 +23,6 @@ export const getServerSideProps: GetServerSideProps<{
 export default function Dashboard({
   allRiders,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const [coordinates, setCoordinates] = useState({});
-
-  useEffect(() => {
-    if (navigator.geolocation) {
-      // get lat & long coordinates from `navigator.geolocation`
-      navigator.geolocation.getCurrentPosition(({ coords }) => {
-        const { latitude, longitude } = coords;
-        setCoordinates({ latitude, longitude });
-      });
-    }
-  }, []);
-
   // handler for search - click event
   const handleSearch = (e: MouseEvent) => {
     return e.preventDefault();
@@ -63,16 +49,7 @@ export default function Dashboard({
         {allRiders.map((rider: any) => (
           <Box key={rider.id}>
             <br />
-            <VStack key={rider.id} align="flex-start">
-              <Location
-                key={rider.id}
-                {...{
-                  isCurrentRider: rider.id,
-                  coordinates: coordinates,
-                  text: rider.name,
-                }}
-              />
-            </VStack>
+            <VStack key={rider.id} align="flex-start"></VStack>
             <br />
           </Box>
         ))}

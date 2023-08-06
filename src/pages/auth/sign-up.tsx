@@ -9,7 +9,11 @@ export default function SignUpPage() {
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img className="mx-auto h-10 w-auto" src="" alt="Tsaron.gps.logo" />
+          <img
+            className="mx-auto h-20 w-auto"
+            src="/Ryder-GP/android-chrome-512x512.png"
+            alt="Tsaron.gps.logo"
+          />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white-900">
             Sign up for an account
           </h2>
@@ -47,6 +51,7 @@ export default function SignUpPage() {
                   id="lastName"
                   type="text"
                   name="lastName"
+                  autoComplete="lastName"
                   required
                   className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -66,6 +71,7 @@ export default function SignUpPage() {
                   type="text"
                   name="username"
                   autoComplete="username"
+                  required
                   className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -106,7 +112,7 @@ export default function SignUpPage() {
                   name="password"
                   autoComplete="current-password"
                   required
-                  className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -125,7 +131,7 @@ export default function SignUpPage() {
                   name="confirmPassword"
                   autoComplete="current-password"
                   required
-                  className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -146,11 +152,11 @@ export default function SignUpPage() {
               </div>
             </div>
             {/* ______PROFILE AVATAR______ */}
-            <img
+            {/* <img
               alt="profile Avatar"
               src="/profileAvi.png"
               className="profileAvi"
-            />
+            /> */}
             <div className="buttons-group">
               <button
                 type="submit"
