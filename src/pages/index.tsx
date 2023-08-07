@@ -47,9 +47,9 @@ export default function Dashboard({
           </Stack>
         </div>
       </header>
-      <main>
+      <main className="container-fluid position-absolute h-100 bg-light">
         <img
-          className="mx-auto w-auto"
+          className="mx-auto w-full w-auto"
           alt="index pic"
           src="/ryderGP-unsplash.avif"
         />
