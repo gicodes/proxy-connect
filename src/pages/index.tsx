@@ -3,13 +3,17 @@ import { Stack, Input, Box, VStack, Text } from "@chakra-ui/react";
 import Switch, { sendApiRequest } from "@/components/switch";
 import type { MouseEvent } from "react";
 
+/* 2 pending functions to implement
+  function handleSearch: Modify handleSearch to filter results from all Riders 
+  remove sign in: when next-auth token is ready, base path would be sign-in page
+*/
+
 interface Rider {
   socketId: string;
   firstName: string;
   coordinates: { latitude: number; longitude: number };
 }
 
-// defining getServerSideProps for index functionality
 export const getServerSideProps: GetServerSideProps<{
   allRiders: Rider[];
 }> = async () => {
@@ -20,18 +24,17 @@ export const getServerSideProps: GetServerSideProps<{
   return { props: { allRiders } };
 };
 
+const handleSearch = (e: MouseEvent) => {
+  return e.preventDefault();
+};
+
 export default function Dashboard({
   allRiders,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  // handler for search - click event
-  const handleSearch = (e: MouseEvent) => {
-    return e.preventDefault();
-  };
-
   return (
     <>
       <Switch sendApiRequest={sendApiRequest} />
-      <header className="bg-white shadow">
+      <header className="bg-grey shadow">
         <div className="max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <Stack spacing={3}>
             <form method="post">
@@ -46,13 +49,19 @@ export default function Dashboard({
         </div>
       </header>
       <main>
+        <img alt="index picture" src="/ryderGP-unsplash.avif" />
         {allRiders.map((rider: any) => (
           <Box key={rider.id}>
-            <br />
             <VStack key={rider.id} align="flex-start"></VStack>
             <br />
           </Box>
         ))}
+        <a
+          href="/auth/sign-in"
+          className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          Go to Sign in
+        </a>
       </main>
     </>
   );

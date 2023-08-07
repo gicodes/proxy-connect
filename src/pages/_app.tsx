@@ -16,7 +16,10 @@ export default function App({
 }: AppProps<{ session: Session }>) {
   return (
     <SocketLocationProvider>
-      <SessionProvider session={session}>
+      <SessionProvider
+        session={session}
+        // basePath="http://localhost:3000/auth/sign-in"
+      >
         <Header>
           <ChakraProvider theme={theme}>
             <VStack>

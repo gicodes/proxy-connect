@@ -31,6 +31,7 @@ export default function AuthPage() {
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" action="/api/auth/sign-in" method="POST">
+            {/* ________USERNAME________ */}
             <div>
               <label
                 htmlFor="email"
@@ -49,6 +50,7 @@ export default function AuthPage() {
                 />
               </div>
             </div>
+            {/* ________PASSWORD________ */}
             <div>
               <div className="flex items-center justify-between">
                 <label

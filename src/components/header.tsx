@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { Fragment, useEffect } from "react";
-import { getServerSession } from "next-auth/next";
 import { signOut, useSession } from "next-auth/react";
 import { authOptions } from "../pages/api/auth/[...nextauth]";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
@@ -12,14 +11,6 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
   check session, route to sign-in: session must match userSession or redirect to signIn().
   +5 other functions: pages to implement inc. Inbox, History, Upcoming, My Profile, Settings.
 */
-
-export async function getServerSideProps({ req, res }: any) {
-  return {
-    props: {
-      session: await getServerSession(req, res, authOptions),
-    },
-  };
-}
 
 type User = {
   name: string;
@@ -74,7 +65,6 @@ export default function Header({ children }: { children: React.ReactNode }) {
       user: {
         ...session?.user,
         accessToken: "abcde12345",
-        image: "/profileAvi.png",
       },
     });
   }
@@ -82,7 +72,7 @@ export default function Header({ children }: { children: React.ReactNode }) {
   updateSession();
   // check !session, route to sign-in
   if (status !== "authenticated") {
-    routeToSignIn();
+    // routeToSignIn();
   }
 
   const user = {
@@ -103,7 +93,7 @@ export default function Header({ children }: { children: React.ReactNode }) {
                     <div className="flex-shrink-0">
                       <img
                         className="h-8 w-8"
-                        src="/ryderGP bold/apple-touch-icon.png"
+                        src="/RyderGP bold/favicon-32x32.png"
                         alt="tsaron.gps.logo"
                       />
                     </div>
