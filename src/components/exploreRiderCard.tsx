@@ -67,14 +67,19 @@ export default function Location({
   return (
     <Card m="2" p={"2"}>
       <VStack w="full">
-        <Card borderWidth="1px" borderColor="white" className="w-full">
+        <Card
+          bg={"antiquewhite"}
+          borderWidth="1px"
+          borderColor="gold"
+          className="w-full"
+        >
           <HStack justifyContent={"space-between"} m={"1"} p={"1"}>
             <HStack>
               <Avatar ml={"1"} />
               <RxDotFilled />
-              <Heading ml="-1" size="md">
+              <Text className="explore-card" ml="-1">
                 {isCurrentRider ? "You" : text}
-              </Heading>
+              </Text>
             </HStack>
             <VStack p={"3"}>
               <Button
@@ -93,21 +98,27 @@ export default function Location({
           </>
         )}
 
-        <StatGroup borderWidth="1px" w="full" p="4" mb="2">
+        <StatGroup
+          borderColor="lightGrey"
+          borderWidth="1px"
+          w="full"
+          p="4"
+          mb="2"
+        >
           <Stat>
             <StatLabel>Latitude</StatLabel>
-            <StatNumber>{coordinates?.latitude}</StatNumber>
-            <StatHelpText>
+            <HStack>
+              <StatNumber fontSize={"20"}>{coordinates?.latitude}</StatNumber>
               <StatArrow type="increase" />
-            </StatHelpText>
+            </HStack>
           </Stat>
 
           <Stat>
             <StatLabel>Longitude</StatLabel>
-            <StatNumber>{coordinates?.longitude}</StatNumber>
-            <StatHelpText>
+            <HStack>
+              <StatNumber fontSize={"20"}>{coordinates?.longitude}</StatNumber>
               <StatArrow type="decrease" />
-            </StatHelpText>
+            </HStack>
           </Stat>
           <Button
             onMouseOver={handleMouseOverSL}

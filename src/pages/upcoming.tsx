@@ -1,8 +1,13 @@
-import React from "react";
+import { Heading, Text } from "@chakra-ui/react";
 
 const upcoming = () => {
   return (
-    <div className="flex flex-1 justify-center px-4 py-8 lg:px-8">Upcoming</div>
+    <>
+      <Heading className="flex flex-1 justify-center px-4 py-8 lg:px-8">
+        Upcoming
+      </Heading>
+      <hr />
+    </>
   );
 };
 

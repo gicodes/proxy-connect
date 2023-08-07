@@ -1,7 +1,8 @@
 import { useApp } from "@/lib/utils/socketLocationProvider";
 import Location from "@/components/exploreRiderCard";
 import { useState, useRef, useEffect } from "react";
-import { Button, Text } from "@chakra-ui/react";
+import { Heading, Text } from "@chakra-ui/react";
+import { ridersRepo } from "./api/riders/repo";
 
 // Defining Rider
 interface Rider {
@@ -48,9 +49,18 @@ export default function Explore() {
 
   return (
     <>
-      <div className="flex flex-1 justify-center px-4 py-8 lg:px-8">
+      <Heading className="flex flex-1 justify-center px-4 py-8 lg:px-8">
         Explore
-      </div>
+      </Heading>
+      <hr />
+      <Text
+        className="flex flex-1 justify-center px-4 py-8 lg:px-8"
+        fontSize={"18"}
+        fontWeight={"248"}
+      >
+        {" "}
+        Request & Send location to other Ryders{" "}
+      </Text>
       {isLoading ? <Text m="1">Loading...</Text> : null}
       {!data ? (
         <Text m="1"> Searching for riders...</Text>

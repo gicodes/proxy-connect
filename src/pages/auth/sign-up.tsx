@@ -157,7 +157,7 @@ export default function SignUpPage() {
             {/* <img
               alt="profile Avatar"
               src="/profileAvi.png"
-              className="profileAvi"
+              className="profile-avi"
             /> */}
             <div className="buttons-group">
               <button

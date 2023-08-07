@@ -53,6 +53,18 @@ body {
   font-size: smaller;
 }
 
-.profileAvi {
+.profile-avi {
   visibility : hidden;
+}
+
+.explore-card {
+  font-family:'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
+  font-weight: 250;
+  font-size: larger;
+}
+
+.index-text {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: 360;
+  font-size: medium;
 }

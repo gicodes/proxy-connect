@@ -1,5 +1,4 @@
-import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
-import { Stack, Input, Box, VStack, Text, background } from "@chakra-ui/react";
+import { Stack, Input, Text, Heading } from "@chakra-ui/react";
 import Switch, { sendApiRequest } from "@/components/switch";
 import type { MouseEvent } from "react";
 
@@ -16,7 +15,7 @@ export default function Dashboard({}) {
   return (
     <>
       <Switch sendApiRequest={sendApiRequest} />
-      <header style={{ background: "lightGrey" }} className="shadow">
+      <header style={{ background: "white" }} className="shadow">
         <div className="max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <Stack spacing={3}>
             <form method="post">
@@ -36,9 +35,15 @@ export default function Dashboard({}) {
           alt="index pic"
           src="/ryderGP-unsplash.avif"
         />
+        <Text mt="5" className="index-text sm:px-6 lg:px-8">
+          Learn about Ryder GP from our{" "}
+          <a href="/inbox">
+            <u>documentation</u>.
+          </a>
+        </Text>
         <a
           href="/auth/sign-in"
-          className="mb-3 mt-5 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          className=" mt-8 mb-3 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
           Go to Sign in
         </a>

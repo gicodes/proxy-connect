@@ -57,9 +57,8 @@ function switchAlert() {
         <AlertDescription>
           <Text paddingTop="4" fontSize="15">
             By default you're NOT discoverable on login. Toggle{" "}
-            <b>Check-in 1</b> to go online for 12 hours <br /> Click on{" "}
-            <b>Check-in 2</b> to go public & explore. This action changes your
-            theme instance!
+            <b>Check-in 1</b> to go online for 12 hours. <br /> Click on{" "}
+            <b>Check-in 2</b> to go public & explore.
           </Text>
         </AlertDescription>
       </Box>
