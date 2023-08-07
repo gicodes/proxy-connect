@@ -88,7 +88,7 @@ export default function Location({
                 onMouseOut={handleMouseOutSM}
                 onClick={() => goToMaps()}
               >
-                <FaMapMarkerAlt size="24" />
+                <FaMapMarkerAlt color="black" size="24" />
               </Button>
             </VStack>
           </HStack>
