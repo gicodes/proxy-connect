@@ -88,12 +88,12 @@ const inbox = () => {
         </Text>
         <Text mt={"2"}>
           {" "}
-          Ryder GP is developed primarily on Nextjs using Typescript for server
-          and client-side protocols. It is bootstrapped with Google Map,
-          Socket.io, Tailwind CSS and other third-party APIs. Some familiar
-          technology stack include Javascript, Chakra-UI, Reactjs and Native. At
-          the moment, this application does not support the use of other
-          programming languages or frameworks.
+          Ryder-GP is built primarily on Nextjs using Typescript for server and
+          client-side protocols. It is bootstrapped with Google Map, Socket.io,
+          Tailwind CSS and other third-party APIs. Some familiar technology
+          stack include Javascript, Chakra-UI, Reactjs and Native. At the
+          moment, this application does not support the use of other programming
+          languages or frameworks.
         </Text>
         <Text mt={"2"}>
           For more information,{" "}

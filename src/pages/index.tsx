@@ -23,7 +23,7 @@ export default function Dashboard({}) {
                 id="search"
                 variant="filled"
                 onClick={handleSearch}
-                placeholder="Search for a Rider"
+                placeholder="Search for a ryder"
               />
             </form>
           </Stack>
@@ -36,7 +36,7 @@ export default function Dashboard({}) {
           src="/ryderGP-unsplash.avif"
         />
         <Text mt="5" className="index-text sm:px-6 lg:px-8">
-          Learn about Ryder GP from our{" "}
+          Learn about Ryder-GP from our{" "}
           <a href="/inbox">
             <u>documentation</u>.
           </a>
