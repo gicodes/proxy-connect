@@ -9,9 +9,8 @@ import type { MouseEvent } from "react";
 */
 
 interface Rider {
-  socketId: string;
+  lastName: string;
   firstName: string;
-  coordinates: { latitude: number; longitude: number };
 }
 
 export const getServerSideProps: GetServerSideProps<{
@@ -49,10 +48,13 @@ export default function Dashboard({
         </div>
       </header>
       <main>
-        <img alt="index picture" src="/ryderGP-unsplash.avif" />
+        <img
+          className="mx-auto w-auto"
+          alt="index pic"
+          src="/ryderGP-unsplash.avif"
+        />
         {allRiders.map((rider: any) => (
           <Box key={rider.id}>
-            <VStack key={rider.id} align="flex-start"></VStack>
             <br />
           </Box>
         ))}
