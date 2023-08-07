@@ -77,7 +77,7 @@ export default function Location({
             <HStack>
               <Avatar ml={"1"} />
               <RxDotFilled />
-              <Text className="explore-card" ml="-1">
+              <Text className="explore-card-text" ml="-1">
                 {isCurrentRider ? "You" : text}
               </Text>
             </HStack>
@@ -87,7 +87,7 @@ export default function Location({
                 onMouseOut={handleMouseOutSM}
                 onClick={() => goToMaps()}
               >
-                <FaMapMarkerAlt size="24" />
+                <FaMapMarkerAlt color="black" size="24" />
               </Button>
             </VStack>
           </HStack>

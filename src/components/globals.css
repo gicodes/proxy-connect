@@ -57,9 +57,10 @@ body {
   visibility : hidden;
 }
 
-.explore-card {
+.explore-card-text {
+  color: black;
   font-family:'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
-  font-weight: 250;
+  font-weight: 300;
   font-size: larger;
 }
 
