@@ -76,14 +76,14 @@ export default function Location({
           <HStack justifyContent={"space-between"} m={"1"} p={"1"}>
             <HStack>
               <Avatar ml={"1"} />
-              <RxDotFilled />
+              <RxDotFilled color="gold" />
               <Text className="explore-card-text" ml="-1">
                 {isCurrentRider ? "You" : text}
               </Text>
             </HStack>
             <VStack p={"3"}>
               <Button
-                color="lightGrey"
+                color="#606060"
                 onMouseOver={handleMouseOverSM}
                 onMouseOut={handleMouseOutSM}
                 onClick={() => goToMaps()}
