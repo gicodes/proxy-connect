@@ -70,7 +70,7 @@ export default function Location({
         <Card
           bg={"darkGrey"}
           borderWidth="1px"
-          borderColor="gold"
+          borderColor="black"
           className="w-full"
         >
           <HStack justifyContent={"space-between"} m={"1"} p={"1"}>
@@ -83,7 +83,7 @@ export default function Location({
             </HStack>
             <VStack p={"3"}>
               <Button
-                color="#606060"
+                color="#404040"
                 onMouseOver={handleMouseOverSM}
                 onMouseOut={handleMouseOutSM}
                 onClick={() => goToMaps()}
