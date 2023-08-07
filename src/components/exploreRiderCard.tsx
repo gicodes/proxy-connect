@@ -68,7 +68,7 @@ export default function Location({
     <Card m="2" p={"2"}>
       <VStack w="full">
         <Card
-          bg={"antiquewhite"}
+          bg={"lightGrey"}
           borderWidth="1px"
           borderColor="gold"
           className="w-full"
