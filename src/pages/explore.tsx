@@ -21,7 +21,7 @@ export default function Explore() {
   const [coordinates, setCoordinates] = useState({});
 
   // var ridersOffline: pending functionality && ridersOnline
-  const ridersOffline = data?.filter((rider: Rider) => !rider.online);
+  // const ridersOffline = data.filter((rider: Rider) => !rider.online);
   // var regionFiltered: pending functionality && nearbyRiders
   const regionFiltered = () => nearbyRef.current.updateRiders(data.region);
 
@@ -38,7 +38,10 @@ export default function Explore() {
       // get lat & long coordinates from `navigator.geolocation`
       navigator.geolocation.getCurrentPosition(({ coords }) => {
         const { latitude, longitude } = coords;
-        setCoordinates({ latitude, longitude });
+        setCoordinates({
+          latitude: latitude.toFixed(4),
+          longitude: longitude.toFixed(4),
+        });
       });
     }
   }, []);

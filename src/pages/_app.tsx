@@ -20,15 +20,15 @@ export default function App({
         session={session}
         // basePath="http://localhost:3000/auth/sign-in"
       >
-        <Header>
-          <ChakraProvider theme={theme}>
+        <ChakraProvider theme={theme}>
+          <Header>
             <VStack>
               <Box w="full" maxW="container.md" minH="100vh" p="4">
                 <Component className={inter.className} {...pageProps} />
               </Box>
             </VStack>
-          </ChakraProvider>
-        </Header>
+          </Header>
+        </ChakraProvider>
       </SessionProvider>
     </SocketLocationProvider>
   );

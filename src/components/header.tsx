@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { Fragment, useEffect } from "react";
+import { useColorMode } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
 import { authOptions } from "../pages/api/auth/[...nextauth]";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
@@ -34,17 +35,6 @@ const navigation: Array<{
   { name: "Upcoming", href: "/upcoming", current: false, onClick: () => {} },
 ];
 
-// var userNavigation UX flow
-const userNavigation: Array<{
-  name: string;
-  href: string;
-  onClick: () => void;
-}> = [
-  { name: "My Profile", href: "/profile", onClick: () => {} },
-  { name: "Settings", href: "/settings", onClick: () => {} },
-  { name: "Sign out", href: "/", onClick: () => signOut() },
-];
-
 // function: Tailwind classes UI flow
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -52,6 +42,7 @@ function classNames(...classes: any) {
 
 export default function Header({ children }: { children: React.ReactNode }) {
   const { data: session, status, update } = useSession();
+  const { colorMode, toggleColorMode } = useColorMode();
   const router = useRouter();
   const routeToSignIn = () => {
     useEffect(() => {
@@ -75,6 +66,17 @@ export default function Header({ children }: { children: React.ReactNode }) {
     // routeToSignIn();
   }
 
+  // var userNavigation UX flow
+  const userNavigation: Array<{
+    name: string;
+    href: string;
+    onClick: () => void;
+  }> = [
+    { name: "My Profile", href: "/profile", onClick: () => {} },
+    { name: "Set theme", href: "#", onClick: () => toggleColorMode() },
+    { name: "Sign out", href: "/", onClick: () => signOut() },
+  ];
+
   const user = {
     name: session?.user?.name,
     email: session?.user?.email,
@@ -91,11 +93,13 @@ export default function Header({ children }: { children: React.ReactNode }) {
                 <div className="flex h-16 items-center justify-between">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
-                      <img
-                        className="h-8 w-8"
-                        src="/RyderGP bold/favicon-32x32.png"
-                        alt="tsaron.gps.logo"
-                      />
+                      <a href="/">
+                        <img
+                          className="h-8 w-8"
+                          src="/RyderGP bold/favicon-32x32.png"
+                          alt="tsaron.gps.logo"
+                        />
+                      </a>
                     </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">

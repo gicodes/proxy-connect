@@ -11,7 +11,6 @@ import {
   HStack,
   Text,
   Switch,
-  useColorMode,
   useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -22,7 +21,6 @@ import { TfiHandPointRight } from "react-icons/tfi";
 export async function sendApiRequest() {
   // function sendApiRequest is passed as prop to Switch
   async function geoSuccess(positon: GeolocationPosition) {
-    // function geoSuccess is callback to getCurrentPosition
     const { latitude, longitude } = positon.coords;
     try {
       await fetch("/api/", {
@@ -78,8 +76,6 @@ function switchAlert() {
   );
 }
 
-// this function component is crucial to index page
-// func: initRiderlocation, toggleColorMode, router
 export default function SwitchHeader(props: {
   sendApiRequest: () => Promise<void>;
 }) {
@@ -87,7 +83,6 @@ export default function SwitchHeader(props: {
   const { sendApiRequest } = props;
   const { initRiderLocation } = useApp();
   const [isLoading, setIsLoading] = useState(false);
-  const { colorMode, toggleColorMode } = useColorMode();
 
   // combines initRiderLocation and sendApiRequest
   const handleCheckIn1 = () => {
@@ -100,7 +95,6 @@ export default function SwitchHeader(props: {
 
   // combines toggleColorMode and router
   const handleCheckIn2 = () => {
-    toggleColorMode();
     router.push("/explore");
   };
 
@@ -115,12 +109,7 @@ export default function SwitchHeader(props: {
               <TfiHandPointRight />
             </Badge>
           </Text>
-          <Switch
-            // the Switch initializes rider Location
-            defaultChecked={colorMode === "light"}
-            size="lg"
-            onChange={() => handleCheckIn1()}
-          />
+          <Switch size="lg" onChange={() => handleCheckIn1()} />
           <Button isLoading={isLoading} onClick={() => handleCheckIn2()}>
             Check-in 2
           </Button>
