@@ -24,7 +24,7 @@ const inbox = () => {
           Registration and authentication is simple and swift to complete. Users
           have a Dashboard to manage actions and see notifications while Ryders
           can see requests and ratings. As the project scales, it will be
-          subscription-based to ensure quality services and control.
+          subscription-based to ensure quality assurance and control.
         </Text>
         <Heading
           mt={"3"}
@@ -42,7 +42,7 @@ const inbox = () => {
           either party. By signing in and connecting, clients can see available
           ryders or search for the ones nearby. A Ryder must be checked-in to
           send or recieve any service request, making it easy to be searched,
-          seen or tracked.
+          seen or located.
         </Text>
         <Heading
           mt={"3"}
@@ -54,8 +54,8 @@ const inbox = () => {
         <Text>
           {" "}
           Users can sign up to test the application without any security
-          concerns. It's serverless functions mean that connections are safe,
-          fast and user information is securely stored and protected on{" "}
+          concerns. It's serverless functions mean that connections are safe and
+          fast, and user information is securely stored and protected on{" "}
           <a href="https://mongodb.com">
             <b>MongoDB Atlas</b>
           </a>
@@ -69,14 +69,14 @@ const inbox = () => {
           Developer
         </Heading>
         <Text mt={"2"}>
-          This project is still being developed, and so is open to sponsorship
-          and contributions. As a developer, you can contribute to this project
-          as an open-source by writing clean and scalable codes with Typescript.
+          This project is still being developed, and so is open to contributions
+          and sponsorship. As a developer, you can contribute to this project as
+          an open-source by writing clean and scalable codes with Typescript.
           Ryder GP uses{" "}
           <a>
             <b>Vercel's</b>
           </a>
-          next.js and is bootstrapped with Google Map, Socket-client and other
+          Nextjs and is bootstrapped with Google Map, Socket-client and other
           third-party APIs. For more information,{" "}
           <a href="gicodes9@gmail.com">
             <b>contact me</b>
