@@ -68,14 +68,14 @@ export default function Location({
     <Card m="2" p={"2"}>
       <VStack w="full">
         <Card
-          bg={"darkGrey"}
+          bg={"#606060"}
           borderWidth="1px"
-          borderColor="black"
+          borderColor="skyblue"
           className="w-full"
         >
           <HStack justifyContent={"space-between"} m={"1"} p={"1"}>
             <HStack>
-              <Avatar ml={"1"} />
+              <Avatar borderWidth={"1px"} borderColor={"#707070"} ml={"1"} />
               <RxDotFilled color="gold" />
               <Text className="explore-card-text" ml="-1">
                 {isCurrentRider ? "You" : text}
@@ -83,7 +83,7 @@ export default function Location({
             </HStack>
             <VStack p={"3"}>
               <Button
-                color="#404040"
+                background="#808080"
                 onMouseOver={handleMouseOverSM}
                 onMouseOut={handleMouseOutSM}
                 onClick={() => goToMaps()}
@@ -99,13 +99,7 @@ export default function Location({
           </>
         )}
 
-        <StatGroup
-          borderColor="lightGrey"
-          borderWidth="1px"
-          w="full"
-          p="4"
-          mb="2"
-        >
+        <StatGroup borderWidth="1px" w="full" p="4" mb="2">
           <Stat>
             <StatLabel>Latitude</StatLabel>
             <HStack>

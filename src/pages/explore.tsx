@@ -2,7 +2,6 @@ import { useApp } from "@/lib/utils/socketLocationProvider";
 import Location from "@/components/exploreRiderCard";
 import { useState, useRef, useEffect } from "react";
 import { Heading, Text } from "@chakra-ui/react";
-import { ridersRepo } from "./api/riders/repo";
 
 // Defining Rider
 interface Rider {
@@ -59,7 +58,7 @@ export default function Explore() {
         fontWeight={"248"}
       >
         {" "}
-        Request & Send location to other Ryders{" "}
+        Send and receive location from ryders{" "}
       </Text>
       {isLoading ? <Text m="1">Loading...</Text> : null}
       {!data ? (

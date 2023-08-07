@@ -1,5 +1,9 @@
 import { Heading, Text } from "@chakra-ui/react";
 
+function mailTo() {
+  window.location.href = "mailto:gicodes9@gmail.com";
+}
+
 const inbox = () => {
   return (
     <>
@@ -7,9 +11,9 @@ const inbox = () => {
         Documentation
       </Heading>
       <hr />
-      <main className="container-fluid position-absolute h-100 bg-light">
+      <main className="container-fluid mb-12 position-absolute h-100 bg-light">
         <Text mt={"10"}>
-          Ryder GP is a free{" "}
+          Ryder-GP is a free{" "}
           <a href="https://nextjs.com">
             <b>NEXT</b>
           </a>{" "}
@@ -35,12 +39,12 @@ const inbox = () => {
         </Heading>
         <Text>
           {" "}
-          The idea behind Ryder GP is a peer-to-peer communication between
+          The idea behind Ryder-GP is a peer-to-peer communication between
           clients. A client could be a user who want to send goods out and need
           a fast service, or a client could be a service provider who need
-          customers. Whatever the case, Ryder GP brings an in-house solution for
+          customers. Whatever the case, Ryder-GP brings an in-house solution for
           either party. By signing in and connecting, clients can see available
-          ryders or search for the ones nearby. A Ryder must be checked-in to
+          ryders or search for the ones nearby. A ryder must be checked-in to
           send or recieve any service request, making it easy to be searched,
           seen or located.
         </Text>
@@ -69,19 +73,34 @@ const inbox = () => {
           Developer
         </Heading>
         <Text mt={"2"}>
-          This project is still being developed, and so is open to contributions
-          and sponsorship. As a developer, you can contribute to this project as
-          an open-source by writing clean and scalable codes with Typescript.
-          Ryder GP uses{" "}
-          <a>
-            <b>Vercel's</b>
-          </a>
-          Nextjs and is bootstrapped with Google Map, Socket-client and other
-          third-party APIs. For more information,{" "}
-          <a href="gicodes9@gmail.com">
+          This project is open-source and constantly in development. It is
+          currently open to contribution, partnerships or sponsorship.
+        </Text>
+        <Heading fontSize={"medium"} mt={"3"}>
+          How can a developer contribute?
+        </Heading>
+        <Text mt={"1"}>
+          Developers can contribute to this project by writing clean and
+          scalable codes, data structure- algorithims that support the
+          application, design themes and flow patterns that are likened to
+          client demand, design new products and logic that can help to scale
+          the application and generate revenue.
+        </Text>
+        <Text mt={"2"}>
+          {" "}
+          Ryder GP is developed primarily on Nextjs using Typescript for server
+          and client-side protocols. It is bootstrapped with Google Map,
+          Socket.io, Tailwind CSS and other third-party APIs. Some familiar
+          technology stack include Javascript, Chakra-UI, Reactjs and Native. At
+          the moment, this application does not support the use of other
+          programming languages or frameworks.
+        </Text>
+        <Text mt={"2"}>
+          For more information,{" "}
+          <a onClick={() => mailTo()}>
             <b>contact me</b>
           </a>{" "}
-          or see the source code on{" "}
+          or connect to the source code on{" "}
           <a href="https://github.com/gicodes/ryder.gps">
             <b>github</b>.
           </a>
