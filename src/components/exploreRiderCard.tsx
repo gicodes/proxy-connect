@@ -83,7 +83,7 @@ export default function Location({
             </HStack>
             <VStack p={"3"}>
               <Button
-                color="grey"
+                color="darkgrey"
                 onMouseOver={handleMouseOverSM}
                 onMouseOut={handleMouseOutSM}
                 onClick={() => goToMaps()}
