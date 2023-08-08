@@ -105,14 +105,14 @@ export default function SwitchHeader(props: {
       <HStack w="full">
         <HStack justifyContent="space-between" w="full">
           <Text fontWeight="bold">
-            Check-in (1){" "}
+            Check-in 1{" "}
             <Badge fontSize="1.5em" colorScheme="grey">
               <TfiHandPointRight />
             </Badge>
           </Text>
           <Switch size="lg" onChange={() => handleCheckIn1()} />
           <Button isLoading={isLoading} onClick={() => handleCheckIn2()}>
-            Check-in (2)
+            Check-in 2
           </Button>
         </HStack>
       </HStack>
