@@ -69,3 +69,8 @@ body {
   font-weight: 360;
   font-size: medium;
 }
+
+.sub-heading {
+  margin-top: 12px;
+  color: #808080;
+}
