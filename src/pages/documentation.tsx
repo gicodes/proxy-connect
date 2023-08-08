@@ -119,13 +119,13 @@ const inbox = () => {
             Explore
           </Heading>
           <Text mt={"1"}>
-            On explore, if you are a regular- you can see ryders who are online
+            On explore, if you are a regular, you can see ryders who are online
             and ping them your request as a service. Service requests time out
-            after 60 seconds before regulars can try again. When ryders accept
-            requests, they basically consent to sharing their location access
-            for the entirety of the service. This means while the service is
-            going on, activity is being monitored and recorded. It also implys
-            ryders and regulars can be rated after service.
+            after 60 seconds before you can try again. When ryders accept
+            requests, they basically consent to sharing their location data for
+            the entirety of the service. This means while the service is
+            on-going, ryder activity is being monitored and recorded. It also
+            implys that both regulars and ryders can be rated after service.
           </Text>{" "}
           <section id="ratings">
             <Heading fontSize={"medium"} className="sub-heading">
