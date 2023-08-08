@@ -29,7 +29,12 @@ const navigation: Array<{
   onClick: () => void;
 }> = [
   { name: "Dashboard", href: "/", current: true, onClick: () => {} },
-  { name: "Inbox", href: "/inbox", current: false, onClick: () => {} },
+  {
+    name: "Documentation",
+    href: "/documentation",
+    current: false,
+    onClick: () => {},
+  },
   { name: "Explore", href: "/explore", current: false, onClick: () => {} },
   { name: "History", href: "/history", current: false, onClick: () => {} },
   { name: "Upcoming", href: "/upcoming", current: false, onClick: () => {} },

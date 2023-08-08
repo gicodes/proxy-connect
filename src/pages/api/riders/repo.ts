@@ -20,6 +20,7 @@ export const ridersRepo = {
 async function create(params: any) {
   // throw error if user email is in use 
   if (await User.findOne({ username: params.username })) {
+    alert("Uhmm... user already exists");
     throw new Error('Username: "' + params.username + '" is taken already!');
   }
 
@@ -37,6 +38,7 @@ async function retrieve({ username, password }: { username: string; password: st
   const user = await User.findOne({ username });
 
   if (!(user && bcrypt.compareSync(password, user.hash))) {
+    alert("Oops !!! username or password is incorrect");
     throw new Error('username or password is incorrect');
   }
 

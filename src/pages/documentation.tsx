@@ -58,8 +58,9 @@ const inbox = () => {
         <Text>
           {" "}
           Users can sign up to test the application without any security
-          concerns. It's serverless functions mean that connections are safe and
-          fast, and user information is securely stored and protected on{" "}
+          concerns. Ryder-GP runs on serverless functions which mean that
+          connections are safe and fast, and user information is securely stored
+          and protected on{" "}
           <a href="https://mongodb.com">
             <b>MongoDB Atlas</b>
           </a>
@@ -88,7 +89,7 @@ const inbox = () => {
         </Text>
         <Text mt={"2"}>
           {" "}
-          Ryder-GP is built primarily on Nextjs using Typescript for server and
+          Ryder-GP is primarily built on Nextjs using Typescript for server and
           client-side protocols. It is bootstrapped with Google Map, Socket.io,
           Tailwind CSS and other third-party APIs. Some familiar technology
           stack include Javascript, Chakra-UI, Reactjs and Native. At the
