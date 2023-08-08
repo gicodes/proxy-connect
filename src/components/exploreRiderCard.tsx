@@ -67,15 +67,10 @@ export default function Location({
   return (
     <Card m="2" p={"2"}>
       <VStack w="full">
-        <Card
-          bg={"#606060"}
-          borderWidth="1px"
-          borderColor="skyblue"
-          className="w-full"
-        >
+        <Card bg={"#606060"} borderWidth="1px" className="w-full">
           <HStack justifyContent={"space-between"} m={"1"} p={"1"}>
             <HStack>
-              <Avatar borderWidth={"1px"} borderColor={"#707070"} ml={"1"} />
+              <Avatar borderWidth={"2px"} borderColor={"skyblue"} ml={"1"} />
               <RxDotFilled color="gold" />
               <Text className="explore-card-text" ml="-1">
                 {isCurrentRider ? "You" : text}
