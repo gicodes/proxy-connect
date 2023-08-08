@@ -71,7 +71,7 @@ function switchAlert() {
       />
     </Alert>
   ) : (
-    <Button onClick={onOpen}>Show Alert</Button>
+    <Button onClick={onOpen}>Show Check-in Guide</Button>
   );
 }
 
