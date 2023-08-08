@@ -144,7 +144,7 @@ const inbox = () => {
               Revenue
             </Heading>
             <Text mt={"1"}>
-              Revenue play a huge part for any service provider and so we have
+              Revenue is critical to any service provider and so we have
               designed a system where users can generate revenue by interacting
               with other users. Payments for services can be pay-as-you-go or it
               can be prepaid, which means users can fund their purse. Regulars
