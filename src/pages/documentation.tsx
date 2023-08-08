@@ -59,8 +59,8 @@ const inbox = () => {
           {" "}
           Users can sign up to test the application without any security
           concerns. Ryder-GP runs on serverless functions which mean that
-          connections are safe and fast, and user information is securely stored
-          and protected on{" "}
+          network connections are safe and fast, and user information is
+          securely collected and stored by{" "}
           <a href="https://mongodb.com">
             <b>MongoDB Atlas</b>
           </a>
