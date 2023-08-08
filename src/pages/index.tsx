@@ -37,8 +37,8 @@ export default function Dashboard({}) {
         />
         <Text mt="5" className="index-text sm:px-6 lg:px-8">
           Learn about Ryder-GP from our{" "}
-          <a href="/inbox">
-            <u>documentation</u>.
+          <a href="/documentation">
+            <u>documentation</u>
           </a>
         </Text>
         <a
