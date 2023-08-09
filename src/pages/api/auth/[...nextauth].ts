@@ -5,10 +5,11 @@ export const authOptions: NextAuthOptions = {
   providers: [
   ],
   callbacks: {
-    async jwt({ token, user, trigger, session }) {
+    jwt({ token, user, trigger, session }) {
       if (trigger === "update"){
-        return { ...token, ...session, ...user }
+        token.name = session
       }
+      return { ...token, ...session }
     },
 
     async session({ session, token }) {

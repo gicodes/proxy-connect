@@ -1,3 +1,4 @@
+import { userService } from "services";
 import { useRouter } from "next/router";
 import { Fragment, useEffect } from "react";
 import { useColorMode } from "@chakra-ui/react";
@@ -6,11 +7,8 @@ import { authOptions } from "../pages/api/auth/[...nextauth]";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
-/* 3+ pending functions to implement
-  assert user is NOT undefined: user objects must be defined and accessible in Header().
-  setState to update on signOut: state objects must be defined to update UI on signOut().
-  check session, route to sign-in: session must match userSession or redirect to signIn().
-  +5 other functions: pages to implement inc. Inbox, History, Upcoming, My Profile, Settings.
+/* 1 pending function to implement
+  assert session is NOT null: session objects must be fetced and retrieved in Header().
 */
 
 type User = {
@@ -60,7 +58,6 @@ export default function Header({ children }: { children: React.ReactNode }) {
       ...session,
       user: {
         ...session?.user,
-        accessToken: "abcde12345",
       },
     });
   }
@@ -68,6 +65,7 @@ export default function Header({ children }: { children: React.ReactNode }) {
   updateSession();
   // check !session, route to sign-in
   if (status !== "authenticated") {
+    console.log(session);
     // routeToSignIn();
   }
 
@@ -102,7 +100,7 @@ export default function Header({ children }: { children: React.ReactNode }) {
                         <img
                           className="h-8 w-8"
                           src="/RyderGP bold/favicon-32x32.png"
-                          alt="tsaron.gps.logo"
+                          alt="rydergp.logo"
                         />
                       </a>
                     </div>

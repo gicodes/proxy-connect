@@ -32,7 +32,7 @@ export default function Dashboard({}) {
       <main className="container-fluid position-absolute h-100 bg-light">
         <img
           className="mx-auto w-full w-auto"
-          alt="index pic"
+          alt="view rydergp on a tablet"
           src="/ryderGP-unsplash.avif"
         />
         <Text mt="5" className="index-text sm:px-6 lg:px-8">

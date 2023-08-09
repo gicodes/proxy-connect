@@ -13,7 +13,7 @@ export default function SignUpPage() {
             <img
               className="mx-auto h-20 w-auto"
               src="/Ryder-GP/android-chrome-512x512.png"
-              alt="Tsaron.gps.logo"
+              alt="rydergp.badge"
             />
           </a>
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white-900">
