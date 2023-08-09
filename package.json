@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3000",
-    "server": "next -p 3000/api/server/socket",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
