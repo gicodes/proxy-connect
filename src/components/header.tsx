@@ -65,7 +65,6 @@ export default function Header({ children }: { children: React.ReactNode }) {
   updateSession();
   // check !session, route to sign-in
   if (status !== "authenticated") {
-    console.log(session);
     // routeToSignIn();
   }
 
