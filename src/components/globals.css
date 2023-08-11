@@ -65,6 +65,12 @@ body {
   font-size: larger;
 }
 
+.profile-text {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 420;
+  font-size: medium;
+}
+
 .index-text {
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-weight: 360;
