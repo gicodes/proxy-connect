@@ -3,7 +3,8 @@ import { GetServerSideProps } from "next";
 import Spinner from "@/components/spinner";
 import { useEffect, useState } from "react";
 import { getSession } from "next-auth/react";
-import { Text } from "@chakra-ui/react";
+import { MdVerifiedUser } from "react-icons/md";
+import { Badge, Text, VStack } from "@chakra-ui/react";
 
 /* 3+ pending functions to implement
   state variables: user, {image, names, bio and contact}.
@@ -51,6 +52,7 @@ export default function Profile() {
   const [image, setImage] = useState<any>(null);
   const [profile, setProfile] = useState<any>(null);
 
+  const id = user?.id;
   const userName = user?.name || "Chizoba Sani Olawale";
   const avatar = user?.image || "/profileAvi.png";
   const bio = user?.bio || "Ehmm.. I'm just here to test my application";
@@ -70,7 +72,14 @@ export default function Profile() {
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h1 className="mt-1 mb-7 text-center text-2xl font-normal leading-9 tracking-tight text-white-900">
-            Hello, {userName}...
+            Hello,{" "}
+            <span
+              style={{
+                color: "green",
+              }}
+            >
+              {userName}
+            </span>
           </h1>
           <a href="#">
             <img
@@ -79,20 +88,26 @@ export default function Profile() {
               alt="profile image"
             />
           </a>
-          <Text className="mt-5 mb-1 text-center leading-9 tracking-tight text-white-900">
-            {bio}
-          </Text>
-          <Text className="mt-1 mb-1 text-center font-normal tracking-tight text-white-900">
-            {contact}
-          </Text>
-          <Text className="mt-1 mb-2 text-center leading-9 tracking-tight">
-            <span className="text-green-500">{rating}</span>
-          </Text>
+          <VStack>
+            <Text className="mt-5 mb-1 text-center leading-9 index-text  text-white-900">
+              {bio}
+            </Text>
+            <Text className="mt-1 mb-2 text-center font-normaltext-white-900">
+              {contact}
+            </Text>
+            <div className="mt-1 mb-3">
+              <MdVerifiedUser color="yellowgreen" size={"40"} />
+            </div>
+          </VStack>
           <hr />
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="/api/riders/[id]" method="POST">
-            <h1 className="mt-1 mb-7 text-center text-2xl font-normal leading-9 tracking-tight text-white-900">
+          <form
+            action={`/api/riders/[${id}]`}
+            className="space-y-6"
+            method="POST"
+          >
+            <h1 className="mt-1 mb-7 text-center text-2xl text-silver-900">
               Edit your profile information
             </h1>
             {/* NAMES */}
@@ -182,10 +197,10 @@ export default function Profile() {
               {" "}
               Change Password{" "}
             </h2>
+            <h3 className="block mt-1 mb-5 tracking-tight text-yellow-100">
+              Leave blank if you do not wish to change your current password!
+            </h3>
             <div>
-              <h3 className="mt-1 mb-5 tracking-tight text-yellow-100">
-                Leave blank if you do not wish to change your current password!
-              </h3>
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
@@ -204,30 +219,33 @@ export default function Profile() {
                   className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
-              <div className="mt-3 flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-white-900"
-                >
-                  New Password
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="newPassword"
-                  name="newPassword"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+              <div>
+                <div className="mt-3 flex items-center justify-between">
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium leading-6 text-white-900"
+                  >
+                    New Password
+                  </label>
+                </div>
+                <div className="mt-2">
+                  <input
+                    id="newPassword"
+                    name="newPassword"
+                    type="password"
+                    autoComplete="current-password"
+                    required
+                    className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
               </div>
             </div>
           </form>
           <p className="mt-10 text-center text-lg text-white-500">
             Done editing?{"  "}
             <a
-              href="/riders/[id]/edit"
+              // href={`/riders/[${id}]/edit`}
+              href="#"
               className="pl-2 font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
               Save Changes
