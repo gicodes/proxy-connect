@@ -82,7 +82,7 @@ export default function Profile() {
           <Text className="mt-5 mb-1 text-center leading-9 tracking-tight text-white-900">
             {bio}
           </Text>
-          <Text className="mt-1 mb-1 text-center font-bold tracking-tight text-gold-900">
+          <Text className="mt-1 mb-1 text-center font-normal tracking-tight text-white-900">
             {contact}
           </Text>
           <Text className="mt-1 mb-2 text-center leading-9 tracking-tight">
@@ -92,7 +92,7 @@ export default function Profile() {
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" action="/api/riders/[id]" method="POST">
-            <h1 className="mt-1 mb-7 text-center text-2xl font-normal leading-9 tracking-tight text-white-900">
+            <h1 className="mt-1 mb-7 text-center text-2xl font-normal leading-9 tracking-tight text-gray-900">
               Edit your profile information
             </h1>
             {/* NAMES */}
@@ -183,7 +183,7 @@ export default function Profile() {
               Change Password{" "}
             </h2>
             <div>
-              <h3 className="mt-1 mb-5 tracking-tight text-white-100">
+              <h3 className="mt-1 mb-5 tracking-tight text-gray-100">
                 Leave blank if you do not wish to change your current password!
               </h3>
               <div className="flex items-center justify-between">
