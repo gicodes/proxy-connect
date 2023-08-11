@@ -6,7 +6,7 @@ import bcrypt from 'bcryptjs';
 const { serverRuntimeConfig } = getConfig();
 const User = db.User;
 
-// exporting ridersRepo props
+// exporting ridersRepo CRUD
 export const ridersRepo = {
     create,
     retrieve,
@@ -38,10 +38,8 @@ async function retrieve({ username, password }: { username: string; password: st
   const user = await User.findOne({ username });
 
   if (!(user && bcrypt.compareSync(password, user.hash))) {
-    alert("Oops !!! username or password is incorrect");
-    throw new Error('username or password is incorrect');
+    throw new Error('Server CL: username or password is incorrect');
   }
-
   // create a jwt token that is valid for 7 days
   const token = jwt.sign({ sub: user.id }, serverRuntimeConfig.secret, { expiresIn: '7d' });
 
@@ -53,11 +51,22 @@ async function retrieve({ username, password }: { username: string; password: st
 
 // update method for userRepo CRUD
 async function update(
-  id: string | null | undefined,
-  longitude: number,
-  latitude: number
+  id: string | undefined, params: any
   ) {
-  // validate and update user location
+  const user = await User.findById(id);
+
+  // validate user with username and password
+  if (!user) throw 'User not found';
+  if (user.username !== params.username && await User.findOne({ 
+    username: params.username })) {
+      throw 'Username "' + params.username + '" is already taken';
+  }
+  // hash password if it was entered
+  if (params.password) {
+      params.hash = bcrypt.hashSync(params.password, 10);
+  }
+  // check for and update user location
+  const { longitude, latitude } = params;
   try {
     await User.findByIdAndUpdate(id, { 
       location: {
@@ -65,10 +74,13 @@ async function update(
         coordinates: [ longitude, latitude ],
       }
     })
-    // console.log("Server CL: User.location updated");
   } catch (err: any) {
-    console.error(`Error: ${err.message}`)
+    console.error(`Error updating location: ${err.message}`)
   }  
+
+  // copy params properties to user
+  Object.assign(user, params);
+  await user.save();
 }
 
 // delete method for userRepo CRUD

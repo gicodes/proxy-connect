@@ -6,9 +6,9 @@ export default async function handler(
   res: NextApiResponse
   ) {
   try {
+    console.log("server CL: about to retrieve");
     await ridersRepo.retrieve(req.body);
-    // setup rider route to redirect('/*rider')
-    return res.status(200).redirect('/');
+    return res.status(200).redirect("/");
   } catch (err: any) {
     console.error(err.message);
     res.status(500).json({ message: 'Internal server error' });

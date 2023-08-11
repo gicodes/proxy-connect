@@ -4,6 +4,7 @@ const nextConfig = {
   reactStrictMode: true,
   serverRuntimeConfig: {
       connectionString: "",
+      // changes made here should also be made in production env
       secret: "my_ultra_secure_nextauth_secret"
   },
   publicRuntimeConfig: {
@@ -11,19 +12,6 @@ const nextConfig = {
           ? 'http://localhost:3000/api' // development api
           : 'https://rydergp.vercel.app/api' // production api
   }, 
-
-  // // added from mongoose official documentation for webpack error
-  // experimental: {
-  //   esmExternals: "loose", // <-- add this
-  //   serverComponentsExternalPackages: ["mongoose"] // <-- and this
-  // },
-  // // and the following to enable top-level await support for Webpack
-  // webpack: (config) => {
-  //   config.experiments = {
-  //     topLevelAwait: true
-  //   };
-  //   return config;
-  // }
 }
 
 module.exports = nextConfig

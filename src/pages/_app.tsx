@@ -15,12 +15,9 @@ export default function App({
   pageProps: { session, ...pageProps },
 }: AppProps<{ session: Session }>) {
   return (
-    <SocketLocationProvider>
-      <SessionProvider
-        session={session}
-        // basePath="http://localhost:3000/auth/sign-in"
-      >
-        <ChakraProvider theme={theme}>
+    <SessionProvider session={session}>
+      <ChakraProvider theme={theme}>
+        <SocketLocationProvider>
           <Header>
             <VStack>
               <Box w="full" maxW="container.md" minH="100vh" p="4">
@@ -28,8 +25,8 @@ export default function App({
               </Box>
             </VStack>
           </Header>
-        </ChakraProvider>
-      </SessionProvider>
-    </SocketLocationProvider>
+        </SocketLocationProvider>
+      </ChakraProvider>
+    </SessionProvider>
   );
 }

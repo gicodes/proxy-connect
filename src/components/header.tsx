@@ -1,23 +1,15 @@
-import { userService } from "services";
 import { useRouter } from "next/router";
 import { Fragment, useEffect } from "react";
-import { useColorMode } from "@chakra-ui/react";
+import { DarkMode, useColorMode } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
-import { authOptions } from "../pages/api/auth/[...nextauth]";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
-/* 1 pending function to implement
-  assert session is NOT null: session objects must be fetced and retrieved in Header().
+/* 3 pending functions to implement
+  session handling: assert that !session redirects users to sign-in.
+  toggleColorMode: assert setTheme() functions properly onClick or implement new method.
+  signOut callback: assert that signOut() clears all session data and callback redirects users to sign-in.
 */
-
-type User = {
-  name: string;
-  email: string;
-  lastName: string;
-  firstName: string;
-  image: string | any;
-};
 
 // var navigation UX flow
 const navigation: Array<{
@@ -44,28 +36,20 @@ function classNames(...classes: any) {
 }
 
 export default function Header({ children }: { children: React.ReactNode }) {
-  const { data: session, status, update } = useSession();
+  const { data: session, status } = useSession();
   const { colorMode, toggleColorMode } = useColorMode();
   const router = useRouter();
-  const routeToSignIn = () => {
-    useEffect(() => {
-      router.push("/auth/sign-in");
-    }, []);
-  };
 
-  async function updateSession() {
-    await update({
-      ...session,
-      user: {
-        ...session?.user,
-      },
-    });
+  function resetTheme() {
+    (e: any) => e.preventDefault();
+    toggleColorMode();
   }
 
-  updateSession();
-  // check !session, route to sign-in
-  if (status !== "authenticated") {
-    // routeToSignIn();
+  async function signOutUser() {
+    await signOut({
+      redirect: false,
+      callbackUrl: "http://localhost:3000/auth/sign-in",
+    });
   }
 
   // var userNavigation UX flow
@@ -75,15 +59,24 @@ export default function Header({ children }: { children: React.ReactNode }) {
     onClick: () => void;
   }> = [
     { name: "My Profile", href: "/profile", onClick: () => {} },
-    { name: "Set theme", href: "#", onClick: () => toggleColorMode() },
-    { name: "Sign out", href: "/", onClick: () => signOut() },
+    { name: "Set theme", href: "", onClick: () => resetTheme() },
+    { name: "Sign out", href: "", onClick: () => signOutUser() },
   ];
 
   const user = {
-    name: session?.user?.name,
-    email: session?.user?.email,
-    image: session?.user?.image,
+    name: session?.user.name,
+    email: session?.user.email,
+    image: session?.user.image,
   };
+
+  console.log(`Client CL: status: ${status}, session: ${session}`);
+
+  useEffect(() => {
+    console.log(`session updated`);
+    if (!session && status === "unauthenticated") {
+      router.push("/auth/sign-in");
+    }
+  }, []);
 
   return (
     <>

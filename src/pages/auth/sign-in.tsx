@@ -1,21 +1,20 @@
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
+import { signIn, getProviders } from "next-auth/react";
+import type { InferGetServerSidePropsType } from "next";
 
-export default function AuthPage() {
-  const { data: session } = useSession();
-  const router = useRouter();
-  const routeToDashBoard = () => {
-    useEffect(() => {
-      router.push("/");
-    }, []);
+/*
+  1 pending implementation: forgot password protocol  
+*/
+
+export async function getServerSideProps() {
+  const providers = await getProviders();
+  return {
+    props: { providers: providers ?? [] },
   };
+}
 
-  /* If session exists, route to Dashboard */
-  if (session) {
-    routeToDashBoard();
-  }
-
+export default function AuthPage({
+  providers,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -32,7 +31,11 @@ export default function AuthPage() {
           </h2>
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="/api/auth/sign-in" method="POST">
+          <form
+            action="/api/auth/sign-in" // not required
+            className="space-y-6"
+            method="POST"
+          >
             {/* ________USERNAME________ */}
             <div>
               <label
@@ -83,12 +86,21 @@ export default function AuthPage() {
             </div>
 
             <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Sign in
-              </button>
+              {Object.values(providers).map((provider) => (
+                <div key={provider.id}>
+                  <button
+                    // the following code is not in use... may cause conflict. See [...nextauth].ts > authOptions > providers > authorize
+                    // onClick={(e) => {
+                    //   e.preventDefault();
+                    //   signIn(provider.id);
+                    // }}
+                    type="submit"
+                    className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Sign in
+                  </button>
+                </div>
+              ))}
             </div>
           </form>
           <p className="mt-10 text-center text-sm text-white-500">

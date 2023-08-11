@@ -1,6 +1,6 @@
 import { expressjwt } from 'express-jwt';
-import util from 'util';
 import getConfig from 'next/config';
+import util from 'util';
 
 const { serverRuntimeConfig } = getConfig();
 

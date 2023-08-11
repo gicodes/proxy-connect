@@ -8,10 +8,9 @@ export default function Socket(){
 
   const socketInitializer: any = () => {
     fetch('/api/socket')
-    socket = io()
+    socket = io();
 
     socket.on('connect', () => {
-      console.log('connected')
     })
   }
 

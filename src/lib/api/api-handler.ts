@@ -5,6 +5,7 @@ type HttpMethodHandler = {
     [key: string]: (req: Request, res: Response) => Promise<Response>;
 };
 
+// This apiHandler is a security protocol available to secure API routes, handled by the global JWT middleware
 export { apiHandler };
 
 function apiHandler(handler: HttpMethodHandler) {

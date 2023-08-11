@@ -15,20 +15,24 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
 import { TfiHandPointRight } from "react-icons/tfi";
 
-// function to send a PUT request to the API
 export async function sendApiRequest() {
   // function sendApiRequest is passed as prop to Switch
+
+  const session = await getSession();
+
   async function geoSuccess(positon: GeolocationPosition) {
     const { latitude, longitude } = positon.coords;
     try {
-      await fetch("/api/", {
+      await fetch(`/api/riders/[${session?.user.name}]`, {
         method: "PUT",
         body: JSON.stringify({ latitude, longitude }),
       });
     } catch (err: any) {}
   }
+
   function geoError(): Geolocation {
     // function geoError is callback to getCurrentPosition
     throw new Error("Client CL: Unable to retrieve your location");

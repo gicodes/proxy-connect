@@ -19,7 +19,7 @@ const inbox = () => {
             fontSize={"x-large"}
             className="flex flex-1 justify-center px-4 py-4 lg:px-8"
           >
-            Summary
+            Introduction
           </Heading>
           <Heading fontSize={"medium"} className="sub-heading">
             Who is Ryder-GP?
@@ -27,16 +27,16 @@ const inbox = () => {
           <Text mt={"2"}>
             Ryder-GP is a free{" "}
             <a href="https://nextjs.com">
-              <u>NEXT</u>
+              <b>NEXT</b>
             </a>{" "}
             service built to bring solutions to business logistics and security.
           </Text>
-          <Text mt={"1"}>
+          <Text mt={"0.5"}>
             {" "}
             Users are connected to a real-time geo-based system that makes it
             simple to send and receive location data with google map.
           </Text>
-          <Text mt={"1"}>
+          <Text mt={"0.5"}>
             Registration and authentication is pretty straight-forward and the
             in-app functionality is user-friendly. The application interface and
             performance will get better with every update- focused on improving
@@ -109,9 +109,14 @@ const inbox = () => {
           </Heading>
           <Text mt={"1"}>
             On the dashboard, you would see an alert at the top of the page-
-            prompting you to check-in in two steps. Check-in(1) turns on
-            location permission when you allow it on your browser settings. You
-            can choose to ignore it, but will have limited access to services.
+            prompting you to check-in in two steps.{" "}
+          </Text>
+          <Text mt={"0.5"}>
+            Check-in(1) turns on location permission when you allow it on your
+            browser settings. You can choose to ignore it, but will have limited
+            access to services.
+          </Text>
+          <Text mt={"0.5"}>
             Check-in(2) takes you online i.e. redirects to the explore page
             where you can interact with other users.
           </Text>
@@ -125,7 +130,7 @@ const inbox = () => {
             requests, they basically consent to sharing their location data for
             the entirety of the service. This means while the service is
             on-going, ryder activity is being monitored and recorded. It also
-            implys that both regulars and ryders can be rated after service.
+            implys that both regulars and ryders will be rated after service.
           </Text>{" "}
           <section id="ratings">
             <Heading fontSize={"medium"} className="sub-heading">
@@ -135,8 +140,8 @@ const inbox = () => {
               Ratings can boost a users revenue potential. They are critical to
               user experience as it affects how regulars and ryders interact
               with the system. Regulars with good rating score get discount for
-              services and ryders get tips and bonus for good rating scores. At
-              the end of the week, users can see their ratings.
+              services, and ryders get tips and bonus for good rating score. At
+              the end of the week, users can see their rating.
             </Text>
           </section>
           <section id="revenue">
@@ -146,28 +151,37 @@ const inbox = () => {
             <Text mt={"1"}>
               Revenue is critical to any service provider and so we have
               designed a system where users can generate revenue by interacting
-              with other users. Payments for services can be pay-as-you-go or it
-              can be prepaid, which means users can fund their purse. Regulars
-              earn from interest rate on net spending and savings- a percenatge
-              is paid on interest. On the other hand, ryders generate revenue
-              from services completed and tips earned- which is relative to the
-              number of services completed and good rating.
+              on the platform. Payment for services can be pay-as-you-go or it
+              can be prepaid, which means users can fund their purse.{" "}
+            </Text>
+            <Text mt={"0.5"}>
+              Regulars earn from interest rate on net spending and savings. The
+              interest is is one percent.
+            </Text>
+            <Text mt={"0.5"}>
+              On the other hand, ryders generate revenue from services completed
+              and tips earned- which is relative to the number of services
+              completed and good rating.
             </Text>
             <section id="subscription">
               <Heading fontSize={"medium"} className="sub-heading">
                 Subscription
               </Heading>
-              <Text mt={"1"}>
+              <Text mt={"0.5"}>
                 Ryder-GP includes subscription-based services for users. It
-                starts after 1 month of completely free service and only cost 5%
-                of the period valuation. Ryders are allowed to work a maximum of
-                10 hours per week or 2 hours per day. However, with an active
-                subscription, a ryder can work a total of 30 hours or 6 hours
-                per day. Subscriptions also let ryders receive high-paying gigs
-                and accept tips. However for regulars, subscription is not
-                mandatory to send service request. A regular will only need to
-                subscribe when looking to fund their purse, save or generate
-                revenue.
+                starts after one month of completely free service and only cost
+                5% of the period valuation.
+              </Text>
+              <Text mt={"0.5"}>
+                Ryders are allowed to work a maximum of 10 hours per week or 2
+                hours per day, however, with an active subscription, a ryder can
+                work a total of 30 hours or 6 hours per day. Subscriptions also
+                let ryders receive high-paying gigs and accept tips.
+              </Text>
+              <Text mt={"0.5"}>
+                For regulars, subscription is not mandatory to send service
+                request. A regular will however need to subscribe when looking
+                to fund purse, save or generate revenue.
               </Text>
             </section>
           </section>
@@ -182,7 +196,7 @@ const inbox = () => {
             Features
           </Heading>
           <Text mt={"1"}>
-            Some of the features in Ryder-GP are not stable yet nor ready to
+            Some of the features in Ryder-GP are not yet stable nor ready to
             use. The necessary data needed to support these functions are still
             being gathered for quality assurance and testing.
           </Text>
@@ -197,39 +211,43 @@ const inbox = () => {
             Developer
           </Heading>
           <Text mt={"1"}>
-            This project is open-source and constantly in development. It is
-            currently open to contributions, partnerships or sponsorship.
+            This project is open-source and constantly in development. Ryder-GP
+            is currently open to contributions, partnerships or sponsorship.
           </Text>
           <Heading fontSize={"medium"} className="sub-heading">
             How can a developer contribute?
           </Heading>
           <Text mt={"1"}>
             Developers can contribute to this project by writing clean and
-            scalable codes, data structure- algorithims that support the
-            application, design themes and flow patterns that are likened to
-            client demand, design new products and logic that can help to scale
-            the application and generate revenue.
+            scalable codes, data structure and algorithims that support the
+            application, creating themes and flow patterns that are likened to
+            client demand and designing new products and logic that can help to
+            scale the application and generate revenue.
+          </Text>
+          <Text mt={"0.5"}>
+            To create a copy of the project template, developers can fork the
+            repository from the source code on{" "}
+            <a href="https://github.com/gicodes/ryder.gps">
+              <b>github</b>, create a new branch and avoid pushing unreviewed
+              code directly to the main or master.
+            </a>
           </Text>
           <Heading fontSize={"medium"} className="sub-heading">
             Technology Stack
           </Heading>
           <Text mt={"1"}>
             {" "}
-            Ryder-GP is primarily built on Nextjs using Typescript for server
-            and client-side protocols. It is bootstrapped with Google Map,
-            Socket.io, Tailwind CSS and other third-party APIs. Some familiar
-            technology stack include Javascript, Chakra-UI, Reactjs and Native.
-            At the moment, this application does not support the use of other
+            Ryder-GP is built primarily on Nextjs using Typescript for both
+            server and client-side protocols. It is bootstrapped with Chakra-UI,
+            Google Map, Socket.io, Tailwind CSS and other third-party APIs. Some
+            familiar technology include Javascript, Reactjs and React Native. At
+            the moment, this application does not support the use of other
             programming languages or frameworks.
           </Text>
-          <Text mt={"2"}>
-            For more information,{" "}
+          <Text mt={"1"}>
+            For more information, please feel free to{" "}
             <a onClick={() => mailTo()}>
-              <b>contact me</b>
-            </a>{" "}
-            or connect to the source code on{" "}
-            <a href="https://github.com/gicodes/ryder.gps">
-              <b>github</b>.
+              <b>contact me</b>.
             </a>
           </Text>
         </section>
