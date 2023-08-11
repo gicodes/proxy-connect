@@ -55,7 +55,7 @@ export default function Profile() {
   const id = user?.id;
   const userName = user?.name || "Chizoba Sani Olawale";
   const avatar = user?.image || "/profileAvi.png";
-  const bio = user?.bio || "Ehmm.. I'm just here to test my application";
+  const bio = user?.bio || "I am just a placeholder for the bio";
   const contact = user?.balance || "+123 456 7890";
   const revenue = user?.revenue || "1000";
   const rating = user?.rating || "4.9";
@@ -92,7 +92,7 @@ export default function Profile() {
             <Text className="mt-5 mb-1 text-center leading-9 profile-text  text-white-900">
               {bio}
             </Text>
-            <Text className="mt-1 mb-2 text-center font-normaltext-white-900">
+            <Text className="mt-1 mb-2 text-center font-normal text-white-900">
               {contact}
             </Text>
             <div className="mt-1 mb-3">
@@ -197,7 +197,7 @@ export default function Profile() {
               {" "}
               Change Password{" "}
             </h2>
-            <h3 className="block mt-1 mb-5 tracking-tight text-yellow-100">
+            <h3 className="mt-1 mb-5 text-yellow-100">
               Leave blank if you do not wish to change your current password!
             </h3>
             <div>
@@ -244,7 +244,7 @@ export default function Profile() {
             <a
               // href={`/riders/[${id}]/edit`}
               href="#"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+              className="pl-2 font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
               Save Changes
             </a>
