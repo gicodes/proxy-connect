@@ -1,8 +1,8 @@
 import Switch, { sendApiRequest } from "@/components/utils/switch";
 import { Stack, Input, Text, Heading } from "@chakra-ui/react";
+import ImageSlider from "@/components/templates/imageSlider";
 import { alertService } from "@/components/alert/services";
 import { useState, type MouseEvent } from "react";
-import ImageSlider from "@/components/templates/imageSlider";
 
 /* 1 pending function to implement
   function imageSlider: Make the image section a slideshow for ryder-GP images
