@@ -112,7 +112,7 @@ function GlobalAlert({ id, fade }: any) {
 
   function getAlertStatus(
     alert: AlertTypes
-  ): "error" | "info" | "warning" | "success" | undefined {
+  ): "error" | "info" | "warning" | "success" | undefined | any {
     const alertTypeStatus = {
       [alertType.Success]: "success",
       [alertType.Warning]: "warning",
