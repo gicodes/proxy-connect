@@ -1,4 +1,3 @@
-import { useApp } from "@/lib/utils/socketLocationProvider";
 import {
   Alert,
   AlertIcon,
@@ -17,32 +16,34 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
 import { TfiHandPointRight } from "react-icons/tfi";
+import { useApp } from "@/lib/utils/socketLocationProvider";
 
 export async function sendApiRequest() {
   // function sendApiRequest is passed as prop to Switch
 
   const session = await getSession();
+  if (!session) return;
 
-  async function geoSuccess(positon: GeolocationPosition) {
-    const { latitude, longitude } = positon.coords;
-    try {
-      await fetch(`/api/riders/[${session?.user.name}]`, {
-        method: "PUT",
-        body: JSON.stringify({ latitude, longitude }),
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async ({ coords }) => {
+        const { latitude, longitude } = coords;
+        try {
+          // bound for resolution or modification via ridersRepo
+          await fetch(`/api/riders/[${session?.user.name}]`, {
+            method: "PUT",
+            body: JSON.stringify({ latitude, longitude }),
+          });
+        } catch (err: any) {
+          return null;
+        }
       });
-    } catch (err: any) {}
+    }
   }
 
-  function geoError(): Geolocation {
-    // function geoError is callback to getCurrentPosition
-    throw new Error("Client CL: Unable to retrieve your location");
-  }
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
-  }
+  return getLocation();
 }
 
-// function UI-component that displays UX-flow guide
 function switchAlert() {
   const {
     isOpen: isVisible,
@@ -51,7 +52,7 @@ function switchAlert() {
   } = useDisclosure({ defaultIsOpen: true });
 
   return isVisible ? (
-    <Alert mb="5" status="info">
+    <Alert mb="5" status="warning">
       <Box>
         <AlertTitle mb="2" display="flex">
           <AlertIcon mt="1" boxSize="4" />
@@ -67,15 +68,15 @@ function switchAlert() {
         </AlertDescription>
       </Box>
       <CloseButton
-        alignSelf="flex-start"
+        className="alertCloseBtn"
         position="absolute"
+        onClick={onClose}
         right={2}
         top={1}
-        onClick={onClose}
       />
     </Alert>
   ) : (
-    <Button mb={"5"} onClick={onOpen}>
+    <Button mb={"10"} bg="#404040" onClick={onOpen}>
       Show Check-in Guide
     </Button>
   );

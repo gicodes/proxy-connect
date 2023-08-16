@@ -1,45 +1,59 @@
+import getConfig from "next/config";
 import { ridersRepo } from "../riders/repo";
 import NextAuth, { NextAuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials"
+import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
+
+const { serverRuntimeConfig } = getConfig();
 
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
-      name: "Credentials",
-      credentials: {},
-      async authorize(credentials, req: any) {
-        // The following (credentials) code is not in use... 
-        // reasons include security, fetching custom API route with /URL path
-        // may require debugging to use. See sign-in.tsx > AuthPage > map().callback
-        credentials = req.body;
-        const user = await ridersRepo.retrieve(req.body);
-        if (user) {
-          return user
+      name: 'credentials',
+      credentials: { 
+        username: {label: 'Username', type: 'text'},
+        password: {label: 'Password', type: 'password'}
+      },
+      async authorize(credentials, req) {
+        // The following error is casued by next-auth strictMode
+        const { username, password } = credentials;
+        // To fix it, set strictmode: false (Not Recommended)  
+
+        if (!credentials) {
+          throw new Error("Credentials are required")
+        }
+
+        const userExists = await ridersRepo.retrieve({username, password});
+
+        if (!userExists) {
+          throw new Error("No user found")
+        };
+
+        if (userExists) {
+          return userExists
         }
         return null
       }
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID || serverRuntimeConfig.connectionString,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || serverRuntimeConfig.connectionString,
+    })
   ],
-  
-  pages: {
-    signIn: "/auth/sign-in",
-  },  
-  
   secret: process.env.NEXTAUTH_SECRET,
-
-  callbacks: {
-    jwt({ token, trigger, session }) {
-      if (trigger === "update" && session.name){
-        token.name = session
-      }
-      return { token, ...session }
-    },
-
-    // async session({ session, token }) {
-    //   session.user = token as any;
-    //   return session;
-    // }
-  }
+  pages: {
+    signIn: '/auth/sign-in'
+  },
+  // the rest of the code is not required
+  
+  // callbacks: {
+  //   jwt({ token, trigger, session }) {
+  //     if (trigger === "update" && session.name){
+  //       token.name = session
+  //     }
+  //     return { token, ...session }
+  //   },
+  // }
 }
 
 export default NextAuth(authOptions);

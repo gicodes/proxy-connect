@@ -5,13 +5,13 @@ const nextConfig = {
   serverRuntimeConfig: {
       connectionString: "",
       // changes made here should also be made in production env
-      secret: "my_ultra_secure_nextauth_secret"
+      secret: process.env.MY_SECRET
   },
   publicRuntimeConfig: {
       apiUrl: process.env.NODE_ENV === 'development'
           ? 'http://localhost:3000/api' // development api
           : 'https://rydergp.vercel.app/api' // production api
-  }, 
+  }, staticFolder: '/static',
 }
 
 module.exports = nextConfig

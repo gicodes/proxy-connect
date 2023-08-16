@@ -1,4 +1,4 @@
-import { initMap } from "@/components/googleMap";
+import { initMap } from "@/components/map/googleMap";
 
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
 

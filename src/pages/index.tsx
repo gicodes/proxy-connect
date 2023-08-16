@@ -1,10 +1,12 @@
+import Switch, { sendApiRequest } from "@/components/utils/switch";
 import { Stack, Input, Text, Heading } from "@chakra-ui/react";
-import Switch, { sendApiRequest } from "@/components/switch";
-import type { MouseEvent } from "react";
+import { alertService } from "@/components/alert/services";
+import { useState, type MouseEvent } from "react";
+import ImageSlider from "@/components/templates/imageSlider";
 
-/* 2 pending functions to implement
+/* 1 pending function to implement
+  function imageSlider: Make the image section a slideshow for ryder-GP images
   function handleSearch: Modify handleSearch to filter results from all Riders 
-  remove sign in: when next-auth token is ready, base path would be sign-in page
 */
 
 const handleSearch = (e: MouseEvent) => {
@@ -12,6 +14,16 @@ const handleSearch = (e: MouseEvent) => {
 };
 
 export default function Dashboard({}) {
+  // var options for alertService
+  const [options, setOptions] = useState({
+    autoClose: false,
+    keepAfterRouteChange: false,
+  });
+  function handleOptionChange(e: any) {
+    const { name, checked } = e.target;
+    setOptions((options) => ({ ...options, [name]: checked }));
+  }
+
   return (
     <>
       <Switch sendApiRequest={sendApiRequest} />
@@ -30,11 +42,7 @@ export default function Dashboard({}) {
         </div>
       </header>
       <main className="container-fluid position-absolute h-100 bg-light">
-        <img
-          className="mx-auto w-full w-auto"
-          alt="view rydergp on a tablet"
-          src="/ryderGP-unsplash.avif"
-        />
+        <ImageSlider />
         <Text mt="5" className="index-text sm:px-6 lg:px-8">
           Learn about Ryder-GP from our{" "}
           <a href="/documentation">
@@ -43,13 +51,18 @@ export default function Dashboard({}) {
         </Text>
         <a
           href="/auth/sign-in"
-          className=" mt-8 mb-3 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          className="mt-8 mb-3 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-bold leading-6 text-white"
         >
           Go to Sign in
         </a>
         <a
+          onClick={() =>
+            alert(
+              "You are about to leave Rider-GP. Click on OK to proceed to GitHub"
+            )
+          }
           href="https://github.com/gicodes/ryder.gps"
-          className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-bold leading-6 text-white"
         >
           Go to Source code on Github
         </a>

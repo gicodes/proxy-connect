@@ -1,7 +1,10 @@
 import { useApp } from "@/lib/utils/socketLocationProvider";
-import Location from "@/components/exploreRiderCard";
+import GoToSignIn from "@/components/templates/unAuthPage";
+import LocationCard from "@/components/utils/exploreRiderCard";
+import Spinner from "@/components/templates/spinner";
 import { useState, useRef, useEffect } from "react";
 import { Heading, Text } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 
 // Defining Rider
 interface Rider {
@@ -26,7 +29,6 @@ export default function Explore() {
   const regionFiltered = () => nearbyRef.current.updateRiders(data.region);
 
   useEffect(() => {
-    // useEffect instance to load Rider data
     fetch("/api/explore")
       .then((res) => res.json())
       .then((data) => {
@@ -35,7 +37,6 @@ export default function Explore() {
       });
 
     if (navigator.geolocation) {
-      // get lat & long coordinates from `navigator.geolocation`
       navigator.geolocation.getCurrentPosition(({ coords }) => {
         const { latitude, longitude } = coords;
         setCoordinates({
@@ -46,35 +47,44 @@ export default function Explore() {
     }
   }, []);
 
-  return (
-    <>
-      <Heading className="flex flex-1 justify-center px-4 py-8 lg:px-8">
-        Explore
-      </Heading>
-      <hr />
-      <Text
-        className="flex flex-1 justify-center px-4 py-8 lg:px-8"
-        fontSize={"18"}
-        fontWeight={"248"}
-      >
-        {" "}
-        Send and receive location from ryders{" "}
-      </Text>
-      {isLoading ? <Text m="1">Loading...</Text> : null}
-      {!data ? (
-        <Text m="1"> Searching for riders...</Text>
-      ) : (
-        data.map((rider: Rider, index: any) => (
-          <Location
-            key={index}
-            {...{
-              isCurrentRider: isCurrentRider,
-              coordinates: coordinates,
-              text: rider.firstName,
-            }}
-          />
-        ))
-      )}
-    </>
-  );
+  const { status, update } = useSession();
+
+  if (status === "loading") {
+    return <Spinner />;
+  }
+
+  if (status === "authenticated") {
+    return (
+      <>
+        <Heading className="flex flex-1 justify-center px-4 py-8 lg:px-8">
+          Explore
+        </Heading>
+        <hr />
+        <Text
+          className="flex flex-1 justify-center px-4 py-8 lg:px-8"
+          fontSize={"18"}
+          fontWeight={"248"}
+        >
+          {" "}
+          Send and receive location from ryders{" "}
+        </Text>
+        {isLoading ? <Text m="1">Loading...</Text> : null}
+        {!data ? (
+          <Text m="1"> Searching for riders...</Text>
+        ) : (
+          data.map((rider: Rider, index: any) => (
+            <LocationCard
+              key={index}
+              {...{
+                isCurrentRider: isCurrentRider,
+                coordinates: coordinates,
+                text: rider.firstName,
+              }}
+            />
+          ))
+        )}
+      </>
+    );
+  }
+  return <GoToSignIn />;
 }

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { Fragment, useEffect } from "react";
-import { DarkMode, useColorMode } from "@chakra-ui/react";
+import { useColorMode } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -37,7 +37,7 @@ function classNames(...classes: any) {
 
 export default function Header({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { toggleColorMode } = useColorMode();
   const router = useRouter();
 
   function resetTheme() {
@@ -48,7 +48,7 @@ export default function Header({ children }: { children: React.ReactNode }) {
   async function signOutUser() {
     await signOut({
       redirect: false,
-      callbackUrl: "http://localhost:3000/auth/sign-in",
+      callbackUrl: "/",
     });
   }
 
@@ -70,13 +70,6 @@ export default function Header({ children }: { children: React.ReactNode }) {
   };
 
   console.log(`Client CL: status: ${status}, session: ${session}`);
-
-  useEffect(() => {
-    console.log(`session updated`);
-    if (!session && status === "unauthenticated") {
-      router.push("/auth/sign-in");
-    }
-  }, []);
 
   return (
     <>

@@ -2,19 +2,17 @@ import {
   Avatar,
   Button,
   Card,
-  Heading,
   HStack,
   Stat,
   StatArrow,
   StatGroup,
-  StatHelpText,
   StatLabel,
   StatNumber,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import seeLocation from "./seeLocation";
+import seeLocation from "../map/seeLocation";
 import { RxDotFilled } from "react-icons/rx";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { BsSendExclamationFill } from "react-icons/bs";
@@ -49,20 +47,20 @@ export default function Location({
   const [isHoveringSL, setIsHoveringSL] = useState(false);
 
   // handle onMouse events for SM (See Map)
-  const handleMouseOverSM = () => {
+  function handleMouseOverSM() {
     setIsHoveringSM(true);
-  };
-  const handleMouseOutSM = () => {
+  }
+  function handleMouseOutSM() {
     setIsHoveringSM(false);
-  };
+  }
 
   // handle onMouse events for SL (Send Location)
-  const handleMouseOverSL = () => {
+  function handleMouseOverSL() {
     setIsHoveringSL(true);
-  };
-  const handleMouseOutSL = () => {
+  }
+  function handleMouseOutSL() {
     setIsHoveringSL(false);
-  };
+  }
 
   return (
     <Card m="2" p={"2"}>

@@ -7,7 +7,8 @@ export default async function handler(
   ) {
   try {
     await ridersRepo.create(req.body);
-    res.status(200).redirect('/auth/sign-in');
+    return res.status(200)
+    .redirect('/');
   } catch (err: any) {
     console.error(err.message);
     res.status(500).json({ message: 'Internal server error' });
