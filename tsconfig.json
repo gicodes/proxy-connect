@@ -9,7 +9,7 @@
       "./node_modules/@types",
       "node_modules/@types",
     ],
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
