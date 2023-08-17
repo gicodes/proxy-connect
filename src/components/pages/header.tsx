@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { Fragment, useEffect } from "react";
 import { useColorMode } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
@@ -36,9 +35,8 @@ function classNames(...classes: any) {
 }
 
 export default function Header({ children }: { children: React.ReactNode }) {
-  const { data: session, status } = useSession();
+  const { data: session, update } = useSession();
   const { toggleColorMode } = useColorMode();
-  const router = useRouter();
 
   function resetTheme() {
     (e: any) => e.preventDefault();
@@ -68,8 +66,6 @@ export default function Header({ children }: { children: React.ReactNode }) {
     email: session?.user.email,
     image: session?.user.image,
   };
-
-  console.log(`Client CL: status: ${status}, session: ${session}`);
 
   return (
     <>
@@ -204,15 +200,15 @@ export default function Header({ children }: { children: React.ReactNode }) {
                     <div className="flex-shrink-0">
                       <img
                         className="h-8 w-8 rounded-full"
-                        src={"/profileAvi.png"}
+                        src={user.image}
                         alt="your profile photo"
                       />
                     </div>
                     <div className="ml-3">
-                      <div className="text-base font-medium leading-none text-white">
+                      <div className="text-base font-medium leading-none text-white mb-2">
                         {user.name}
                       </div>
-                      <div className="text-sm font-medium leading-none text-gray-400">
+                      <div className="text-sm font-medium leading-none text-gray-400 mt-1">
                         {user.email}
                       </div>
                     </div>

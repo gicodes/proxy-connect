@@ -9,7 +9,7 @@ try {
     mongoose.Promise = global.Promise;
     // console.log(`Server CL: Mongo DB is connected to: ${mongoose.connection.host}!`);
 } catch (error: any) {
-    console.error(`Error: ${error.message}`);
+    console.error(`Server CL {Mng}: ${error.message}`);
 }
 
 export const db = {

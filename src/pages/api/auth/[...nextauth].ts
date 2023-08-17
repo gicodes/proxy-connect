@@ -14,23 +14,18 @@ export const authOptions: NextAuthOptions = {
         username: {label: 'Username', type: 'text'},
         password: {label: 'Password', type: 'password'}
       },
-      async authorize(credentials, req) {
-        // The following error is casued by next-auth strictMode
+      async authorize(credentials) {
+        if (!credentials) return; 
         const { username, password } = credentials;
-        // To fix it, set strictmode: false (Not Recommended)  
+        // handle case of empty or no credentials here
 
-        if (!credentials) {
-          throw new Error("Credentials are required")
-        }
-
-        const userExists = await ridersRepo.retrieve({username, password});
-
+        const userExists = await ridersRepo.retrieve({ username, password });
+        // handle case of incorrect credentials here
         if (!userExists) {
           throw new Error("No user found")
         };
-
         if (userExists) {
-          return userExists
+          return userExists as any;
         }
         return null
       }
@@ -40,20 +35,11 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || serverRuntimeConfig.connectionString,
     })
   ],
+  // secret is not required but critical for redirect requests
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: '/auth/sign-in'
   },
-  // the rest of the code is not required
-  
-  // callbacks: {
-  //   jwt({ token, trigger, session }) {
-  //     if (trigger === "update" && session.name){
-  //       token.name = session
-  //     }
-  //     return { token, ...session }
-  //   },
-  // }
 }
 
 export default NextAuth(authOptions);

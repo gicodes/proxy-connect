@@ -31,60 +31,49 @@ interface User {
 }
 
 export default function Profile() {
-  // var options as alertService
+  // state variables user info & action
   const [options, setOptions] = useState({
     autoClose: false,
     keepAfterRouteChange: false,
   });
-
-  const { formState } = useForm(formOptions);
-  const router = useRouter();
-
-  // state variables user info & action
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<any>({});
   const [edit, setEdit] = useState<any>(false);
+  const { data: session, status } = useSession();
 
   useEffect(() => {
-    const { id } = router.query;
-    // console.log(router.query, id);
-    if (!id) return;
-
-    const user = getUser();
+    const user = session?.user;
     setUser(user);
+  }, []);
 
-    // set default form values if in edit mode
-  }, [router]);
-
-  async function getUser() {
-    const user = await fetch(`/api/riders/get`);
-    return user;
-  }
-
+  // handling user actions on the page
   function handleToggleEdit() {
     setEdit(true);
   }
-
   function handleSubmitEdit() {
-    alertService.success("Your information have been saved", options);
+    alertService.success("Your information has been saved", options);
     setEdit(false);
-    // implement spinner to animate loading
+    <Spinner />;
   }
 
-  // init dummer user props as typeOf User
+  // handle different provider form submission
+  // some code differentiating between ridersRepo crud and google
+
+  // var user object
   const id = user?.id;
-  const email = user?.email || "rydergp@vercel.app";
-  const name = user?.name || "Chizoba Sani Olawale";
+  const name = user?.name;
+  const email = user?.email;
+  const contact = user?.phone || "+123 456 7890";
   const avatar = user?.image || "/profileAvi.png";
   const bio = user?.bio || "I am just a placeholder for your bio";
-  const contact = user?.phone || "+123 456 7890";
   // implement in user logic route
-  const revenue = user?.revenue || "1000";
-  // implement with heroicons
+  const revenue = user?.revenue || "0";
+  // implement stars with react-icons
   const rating = user?.rating || "4.9";
-  // implement from auth
+  // implement riderUser boolean from auth
   const riderUser = true;
 
-  const { status, update } = useSession();
+  const { formState } = useForm(formOptions);
+  const { errors } = formState;
 
   if (status === "loading") {
     return <Spinner />;
@@ -96,15 +85,7 @@ export default function Profile() {
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <h1 className="mt-1 mb-7 text-center text-2xl font-normal leading-9 tracking-tight text-white-900">
-              Hello,{" "}
-              <span
-                style={{
-                  color: "green",
-                  marginLeft: "2px",
-                }}
-              >
-                {name}
-              </span>
+              Hello... <span className="profile-name">{name}</span>
             </h1>
             <a href="#">
               <img
@@ -136,7 +117,7 @@ export default function Profile() {
             {edit && (
               <>
                 <form
-                  action={`/api/riders/[${id}]`}
+                  action={`/api/riders/edit`}
                   className="space-y-6"
                   method="POST"
                 >
@@ -273,8 +254,8 @@ export default function Profile() {
                   Done editing?{"  "}
                   <a
                     type="submit"
-                    href={"#"}
-                    // href={`/api/riders/edit`}
+                    // href={"#"}
+                    href={`/api/riders/edit`}
                     className="pl-2 font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
                     onClick={() => handleSubmitEdit()}
                   >

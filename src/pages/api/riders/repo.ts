@@ -34,7 +34,8 @@ async function create(params: any) {
 }
 
 // retrieve & authenticate method for userRepo CRUD
-async function retrieve({ username, password }: { username: string; password: string }) {
+async function retrieve({ username, password }
+  : { username: string | any; password: string | any }) {
   const user = await User.findOne({ username });
 
   if (!(user && bcrypt.compareSync(password, user.hash))) {
@@ -75,7 +76,7 @@ async function update(
       }
     })
   } catch (err: any) {
-    console.error(`Error updating location: ${err.message}`)
+    console.error(`Server CL: ${err.message}`)
   }  
 
   // copy params properties to user

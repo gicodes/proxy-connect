@@ -11,7 +11,7 @@ const nextConfig = {
       apiUrl: process.env.NODE_ENV === 'development'
           ? 'http://localhost:3000/api' // development api
           : 'https://rydergp.vercel.app/api' // production api
-  }, staticFolder: '/static',
+  },
 }
 
 module.exports = nextConfig

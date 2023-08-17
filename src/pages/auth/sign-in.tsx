@@ -37,7 +37,7 @@ export default function AuthPage({
     if (provider.id === "credentials") {
       signIn("credentials", { username, password, callbackUrl });
     }
-    signIn(provider.id);
+    signIn(provider.id, { callbackUrl });
   }
 
   return (

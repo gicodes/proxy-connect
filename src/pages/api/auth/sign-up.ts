@@ -8,9 +8,8 @@ export default async function handler(
   try {
     await ridersRepo.create(req.body);
     return res.status(200)
-    .redirect('/');
+    .redirect('/auth/sign-in');
   } catch (err: any) {
-    console.error(err.message);
     res.status(500).json({ message: 'Internal server error' });
   }
 } 

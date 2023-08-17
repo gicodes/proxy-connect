@@ -68,7 +68,7 @@ export default function Explore() {
           {" "}
           Send and receive location from ryders{" "}
         </Text>
-        {isLoading ? <Text m="1">Loading...</Text> : null}
+        {isLoading ? <Spinner /> : null}
         {!data ? (
           <Text m="1"> Searching for riders...</Text>
         ) : (

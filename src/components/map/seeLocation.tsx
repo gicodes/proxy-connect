@@ -27,7 +27,7 @@ export default function SeeLocation() {
           initMap(center);
         };
       } catch (err: any) {
-        console.error(`error: ${err.message}`);
+        console.error(`Client CL: ${err.message}`);
         return;
       }
     });
