@@ -54,11 +54,6 @@ body {
   font-size: smaller;
 }
 
-.profile-name {
-  color: green !important;
-  margin-left: 2px;
-}
-
 .explore-card-text {
   color: black;
   font-family:'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
@@ -66,10 +61,31 @@ body {
   font-size: larger;
 }
 
+.profile-name {
+  color: green !important;
+  margin-left: 2px;
+}
+
 .profile-text {
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 420;
   font-size: medium;
+}
+
+.profile-image {
+  border-radius: 50% !important;
+}
+
+.profile-verified {
+  position: relative !important;
+  margin-top: -20px;
+  left: 10%;
+}
+
+.profile-location {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: smaller;
+  color: antiquewhite;
 }
 
 .index-text {
@@ -95,5 +111,3 @@ body {
   font-size: x-small;
   font-family: Georgia, Times, serif;
 }
-
-/* Slideshow */

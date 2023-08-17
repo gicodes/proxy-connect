@@ -113,6 +113,7 @@ export default function SignUpPage() {
                   id="password"
                   type="password"
                   name="password"
+                  autoComplete="password"
                   required
                   className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -138,8 +139,8 @@ export default function SignUpPage() {
               </div>
             </div>
             {/* ________T & C________ */}
-            <div className="block text-sm font-medium leading-6 text-white-900">
-              <label htmlFor="acceptTerms" className="pr-5">
+            <div className="block text-sm leading-6 text-white-900 mt-2">
+              <label htmlFor="acceptTerms" className="font-semibold pr-2">
                 Accept Terms & Conditions
               </label>
               <input
@@ -147,7 +148,6 @@ export default function SignUpPage() {
                 type="checkbox"
                 name="acceptTerms"
                 required
-                className="mt-3"
               />
               <div className="invalid-feedback">
                 {errors.acceptTerms?.message}
