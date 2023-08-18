@@ -8,7 +8,7 @@ const GoToSignIn = () => {
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <DefaultWarnAlert
-            header={"Oops.. you must be signed in!"}
+            header={"You must be signed in!"}
             body={`Sign in to continue viewing`}
           />
           <VStack mt={"10"}>

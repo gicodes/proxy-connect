@@ -38,7 +38,13 @@ export const authOptions: NextAuthOptions = {
   // secret is not required but critical for redirect requests
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: '/auth/sign-in'
+    signIn: '/auth/sign-in',
+    error: '/404',
+  },
+  callbacks: {
+    session({ session, token, user }) {
+      return session // The return type will match the one returned in `useSession()`
+    },
   },
 }
 

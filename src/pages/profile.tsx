@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { MdVerifiedUser } from "react-icons/md";
 import Spinner from "@/components/templates/spinner";
 import { formOptions } from "@/lib/utils/yupValidation";
@@ -11,25 +12,11 @@ import { Button, Card, HStack, Text, VStack } from "@chakra-ui/react";
 import { RxDotFilled } from "react-icons/rx";
 
 /* 3+ pending functions to implement
-  state variables: user, {image, names, bio and contact}.
+  user session object: must be defined with db & google provider.
   default form values: fetch user and set form values if in edit mode.
   function handleSubmit: send all updated information to rider/[id] API && spinner.
   and more... e.g getServerSideProps should be uncommented to secure users Profile routing.
 */
-
-// Defining User
-interface User {
-  id: string;
-  bio: string;
-  name: string;
-  email: string;
-  avatar: string;
-  subscribed: boolean;
-  riderUser: boolean;
-  revenue: number;
-  contact: number;
-  rating: number;
-}
 
 export default function Profile() {
   // state variables user info & action
@@ -40,6 +27,12 @@ export default function Profile() {
   const [user, setUser] = useState<any>({});
   const [edit, setEdit] = useState<any>(false);
   const { data: session, status } = useSession();
+
+  // async function getUserSession() {
+  //   return await getSession();
+  // }
+  // const userSession = getUserSession();
+  // console.log(userSession);
 
   useEffect(() => {
     const user = session?.user;
@@ -62,8 +55,8 @@ export default function Profile() {
   // var user object
   const id = user?.id;
   const name = user?.name;
-  const email = user?.email;
-  const contact = user?.phone || "+ 123-456-7890";
+  const email = user?.email || "email@rydergp";
+  const contact = user?.phone || "012-345-6789";
   const avatar = user?.image || "/profileAvi.png";
   const location = user?.location || "Abuja FCT, Nigeria";
   const bio = user?.bio || "I am just a placeholder for your bio";
@@ -102,8 +95,7 @@ export default function Profile() {
               <div className="profile-verified">
                 <MdVerifiedUser color="yellowgreen" size={"20"} />
               </div>
-              <hr />
-              <HStack className="flex-1 flex-col mt-2 justify-center">
+              <HStack className="flex-1 flex-col m-2 justify-center">
                 <RxDotFilled size={"20"} color="green" />
                 <Text className="profile-location">{location}</Text>
               </HStack>
@@ -111,6 +103,7 @@ export default function Profile() {
                 <Text className="m-1 text-center leading-9 profile-text">
                   {bio}
                 </Text>
+                <hr />
                 <Text className="mt-5 text-center profile-numbers">
                   {contact}
                 </Text>
@@ -127,7 +120,7 @@ export default function Profile() {
               <>
                 <main className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                   <form
-                    action={`/api/riders/edit`}
+                    // action={`/api/riders/edit`}
                     className="space-y-6"
                     method="POST"
                   >
@@ -268,6 +261,7 @@ export default function Profile() {
                     Done editing?{"  "}
                     <a
                       type="submit"
+                      // href={"#"}
                       href={`/api/riders/edit`}
                       className="pl-2 font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
                       onClick={() => handleSubmitEdit()}

@@ -34,7 +34,7 @@ export default function Dashboard({}) {
               <Input
                 id="search"
                 variant="filled"
-                onClick={handleSearch}
+                // onClick={handleSearch}
                 placeholder="Search for a ryder"
               />
             </form>

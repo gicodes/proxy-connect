@@ -61,10 +61,23 @@ export default function Header({ children }: { children: React.ReactNode }) {
     { name: "Sign out", href: "", onClick: () => signOutUser() },
   ];
 
+  // useEffect(() => {
+  //   async function updateSession() {
+  //     update({
+  //       ...session,
+  //       user: {
+  //         ...session?.user,
+  //       },
+  //     });
+  //   }
+
+  //   updateSession(); // update session
+  // }, []);
+
   const user = {
-    name: session?.user.name,
-    email: session?.user.email,
-    image: session?.user.image,
+    name: session?.user.name || "Ryder GP User",
+    email: session?.user.email || "user@ryder.gp",
+    image: session?.user.image || "/ProfileAvi.png",
   };
 
   return (
