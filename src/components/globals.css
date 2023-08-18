@@ -61,6 +61,24 @@ body {
   font-size: larger;
 }
 
+.error-info-text {
+  color: #808080;
+  font-weight: 400;
+  font-style: italic;
+  font-size: x-small;
+  font-family: Georgia, Times, serif;
+}
+
+.sub-heading {
+  margin-top: 12px;
+  color: #909090;
+}
+
+.alertCloseBtn {
+  border: 1px solid #808080;
+  align-self: flex-start;
+}
+
 .profile-name {
   color: green !important;
   margin-left: 2px;
@@ -94,20 +112,8 @@ body {
   font-size: medium;
 }
 
-.sub-heading {
-  margin-top: 12px;
-  color: #909090;
-}
-
-.alertCloseBtn {
-  border: 1px solid #808080;
-  align-self: flex-start;
-}
-
-.error-info-text {
-  color: #808080;
-  font-weight: 400;
-  font-style: italic;
-  font-size: x-small;
-  font-family: Georgia, Times, serif;
+.profile-numbers {
+  color: #ffffffb0;
+  font-size: small;
+  font-weight: 600;
 }

@@ -63,7 +63,7 @@ export default function Profile() {
   const id = user?.id;
   const name = user?.name;
   const email = user?.email;
-  const contact = user?.phone || "+123 456 7890";
+  const contact = user?.phone || "+ 123-456-7890";
   const avatar = user?.image || "/profileAvi.png";
   const location = user?.location || "Abuja FCT, Nigeria";
   const bio = user?.bio || "I am just a placeholder for your bio";
@@ -86,7 +86,7 @@ export default function Profile() {
       <>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <VStack border={"1px solid gray"} className="rounded-md">
+            <VStack className="rounded-md">
               <Card className="w-full">
                 <Text className="m-2 text-center text-lg font-normal leading-9">
                   Hello... <span className="profile-name">{name}</span>
@@ -94,24 +94,27 @@ export default function Profile() {
               </Card>
               <a href="#">
                 <img
-                  className="mt-2 mx-auto h-20 w-auto profile-image"
+                  className="mt-5 mx-auto h-20 w-auto profile-image"
                   src={avatar}
                   alt="profile image"
                 />
               </a>
-              <div className="profile-verified mb-2">
+              <div className="profile-verified">
                 <MdVerifiedUser color="yellowgreen" size={"20"} />
               </div>
-              <Card className="w-full">
+              <hr />
+              <HStack className="flex-1 flex-col mt-2 justify-center">
+                <RxDotFilled size={"20"} color="green" />
+                <Text className="profile-location">{location}</Text>
+              </HStack>
+              <Card pt={"2"} pb={"5"} className="w-full">
                 <Text className="m-1 text-center leading-9 profile-text">
                   {bio}
                 </Text>
-                <hr />
-                <HStack className="m-3 flex-1 flex-col justify-center">
-                  <RxDotFilled color="#707070" />
-                  <Text className="profile-location">{location}</Text>
-                </HStack>
-                <Text className="mb-3 text-center font-bold">{contact}</Text>
+                <Text className="mt-5 text-center profile-numbers">
+                  {contact}
+                </Text>
+                <Text className="text-center text-gray-200">{email}</Text>
               </Card>
             </VStack>
           </div>
