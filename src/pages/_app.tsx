@@ -15,7 +15,7 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps<{ session: Session }>) {
-  // console.log(session);
+  console.log(`app session: ${session}`);
   return (
     <SessionProvider session={session}>
       <ChakraProvider theme={theme}>

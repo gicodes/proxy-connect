@@ -69,6 +69,12 @@ body {
   font-family: Georgia, Times, serif;
 }
 
+.index-text {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: 360;
+  font-size: medium;
+}
+
 .sub-heading {
   margin-top: 12px;
   color: #909090;
@@ -79,6 +85,17 @@ body {
   align-self: flex-start;
 }
 
+.profile-c1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-c2 {
+  position: relative !important;
+  padding-bottom: 20px;
+  right: 10%;
+}
+
 .profile-name {
   color: green !important;
   margin-left: 2px;
@@ -87,7 +104,7 @@ body {
 .profile-text {
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 420;
-  font-size: medium;
+  font-size: small;
 }
 
 .profile-image {
@@ -97,7 +114,7 @@ body {
 .profile-verified {
   position: relative !important;
   margin-top: -20px;
-  left: 10%;
+  left: 30%;
 }
 
 .profile-location {
@@ -106,14 +123,13 @@ body {
   color: antiquewhite;
 }
 
-.index-text {
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  font-weight: 360;
-  font-size: medium;
+.profile-email {
+  font-size: small;
+  font-weight: 300;
 }
 
 .profile-numbers {
   color: #ffffffb0;
   font-size: small;
-  font-weight: 600;
+  font-weight: 500;
 }

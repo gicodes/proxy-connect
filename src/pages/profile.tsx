@@ -1,15 +1,12 @@
-import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { getSession } from "next-auth/react";
-import { MdVerifiedUser } from "react-icons/md";
 import Spinner from "@/components/templates/spinner";
 import { formOptions } from "@/lib/utils/yupValidation";
 import GoToSignIn from "@/components/templates/unAuthPage";
 import { alertService } from "@/components/alert/services";
-import { Button, Card, HStack, Text, VStack } from "@chakra-ui/react";
-import { RxDotFilled } from "react-icons/rx";
+import ProfileComponent from "@/components/pages/profile";
 
 /* 3+ pending functions to implement
   user session object: must be defined with db & google provider.
@@ -27,12 +24,6 @@ export default function Profile() {
   const [user, setUser] = useState<any>({});
   const [edit, setEdit] = useState<any>(false);
   const { data: session, status } = useSession();
-
-  // async function getUserSession() {
-  //   return await getSession();
-  // }
-  // const userSession = getUserSession();
-  // console.log(userSession);
 
   useEffect(() => {
     const user = session?.user;
@@ -53,12 +44,11 @@ export default function Profile() {
   // some code differentiating between ridersRepo crud and google
 
   // var user object
-  const id = user?.id;
-  const name = user?.name;
+  const name = user?.name || "Ryder GP User";
   const email = user?.email || "email@rydergp";
   const contact = user?.phone || "012-345-6789";
   const avatar = user?.image || "/profileAvi.png";
-  const location = user?.location || "Abuja FCT, Nigeria";
+  const location = user?.location || "Abuja, Nigeria";
   const bio = user?.bio || "I am just a placeholder for your bio";
   // implement in user logic route
   const revenue = user?.revenue || "0";
@@ -77,44 +67,19 @@ export default function Profile() {
   if (status === "authenticated") {
     return (
       <>
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <VStack className="rounded-md">
-              <Card className="w-full">
-                <Text className="m-2 text-center text-lg font-normal leading-9">
-                  Hello... <span className="profile-name">{name}</span>
-                </Text>
-              </Card>
-              <a href="#">
-                <img
-                  className="mt-5 mx-auto h-20 w-auto profile-image"
-                  src={avatar}
-                  alt="profile image"
-                />
-              </a>
-              <div className="profile-verified">
-                <MdVerifiedUser color="yellowgreen" size={"20"} />
-              </div>
-              <HStack className="flex-1 flex-col m-2 justify-center">
-                <RxDotFilled size={"20"} color="green" />
-                <Text className="profile-location">{location}</Text>
-              </HStack>
-              <Card pt={"2"} pb={"5"} className="w-full">
-                <Text className="m-1 text-center leading-9 profile-text">
-                  {bio}
-                </Text>
-                <hr />
-                <Text className="mt-5 text-center profile-numbers">
-                  {contact}
-                </Text>
-                <Text className="text-center text-gray-200">{email}</Text>
-              </Card>
-            </VStack>
-          </div>
+        <div className="w-full flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+          <ProfileComponent
+            bio={bio}
+            name={name}
+            email={email}
+            avatar={avatar}
+            contact={contact}
+            location={location}
+          />
           <div className="mt-10 flex flex-col justify-center">
-            <Button onClick={() => handleToggleEdit()}>
-              Edit your information
-            </Button>
+            <button onClick={() => handleToggleEdit()}>
+              <b>Edit your information</b>
+            </button>
             {/* _________NAMES_________ */}
             {edit && (
               <>

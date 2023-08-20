@@ -17,10 +17,10 @@ const DefaultErrorAlert = ({
 }) => {
   return (
     <Alert mt="10" status={"error"}>
-      <Box>
+      <Box w={"full"}>
         <AlertTitle mb="1" display="flex">
           <AlertIcon mt="1" boxSize="4" />
-          {header}
+          <span className="ml-6">{header}</span>
         </AlertTitle>
         <hr />
         <AlertDescription className="text-center text-lg text-bold text-white-500">
