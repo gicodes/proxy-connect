@@ -51,37 +51,32 @@ async function retrieve({ username, password }
 }
 
 // update method for userRepo CRUD
-async function update(
-  {email, params} : {email: string | undefined, params: any}
+async function update( 
+  email: string | undefined, params: any, imageFile: string | any
   ) {
   // validate user with email as credentials & google sessions both have user.email
-  const user = await User.findOne({ email });
+  const user = await User.findOne({email} );
   if (!user) throw new Error('User not found');
 
-  // if email is being updated, check for exising or ignore
-  /* if (user.email !== params.email 
+ /* 
+  // if email is being updated, check for exising, otherwise ignore
+  if (user.email !== params.email 
     && await User.findOne({ email: params.email })) {
       throw new Error('email "' + params.email + '" is already taken');
-  } */
+  } 
+  */
 
-  // if password is being updated, hash before update
-  if (params.password) {
-      params.hash = bcrypt.hashSync(params.password, 10);
+  // if password is being updated, compare before hash, otherwise ignore
+  if (params.password.length > 0) {
+    if (bcrypt.compareSync(params.password, user.hash)) {
+      throw new Error('Server CL: current password is incorrect');
+    }
+    
+    params.hash = bcrypt.hashSync(params.password, 10);
   }
-  
-  // if persisting user location, otherwise ignore
-  /* const { longitude, latitude } = params;
-    await User.findByIdAndUpdate(email, { 
-      location: {
-        type: 'Point',
-        coordinates: [ longitude, latitude ],
-      }
-    })
-  } */
-
-  // copy params properties to user
-  console.log(`user: ${user}, params: ${params}`);
+  // assign params object to user
   Object.assign(user, params);
+  user.image = imageFile;
   await user.save();
 }
 

@@ -7,7 +7,7 @@ const Custom500 = () => {
       <div className="h-screen w-full flex justify-center items-center">
         <VStack>
           <h1 className="text-2xl font-light text-white mb-5">
-            500 <span className="mx-3 text-4xl">|</span> Internal Server Occured
+            500 <span className="mx-3 text-4xl">|</span> Internal Server Error
           </h1>
           <a
             href="/"

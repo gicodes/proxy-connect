@@ -13,9 +13,10 @@ export default async function handler(
       }
   
       if (req.method === "PUT") {
+        let imageFile;
         const session = await getServerSession();
         const { latitude, longitude } = req.body;
-        await ridersRepo.update(session?.user.name, {longitude, latitude});
+        await ridersRepo.update(session?.user.email, {longitude, latitude}, imageFile);
       };
   
     }

@@ -1,12 +1,10 @@
-import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
+import { useColorMode } from "@chakra-ui/react";
 import Spinner from "@/components/templates/spinner";
 import { signOut, useSession } from "next-auth/react";
-import { formOptions } from "@/lib/utils/yupValidation";
 import GoToSignIn from "@/components/templates/unAuthPage";
 import { alertService } from "@/components/alert/services";
 import ProfileComponent from "@/components/pages/profileCard";
-import { useColorMode } from "@chakra-ui/react";
 
 export default function Profile() {
   // state variables user info & action
@@ -14,24 +12,18 @@ export default function Profile() {
     autoClose: false,
     keepAfterRouteChange: false,
   });
-  const [newBio, setNewBio] = useState("");
   const [user, setUser] = useState<any>({});
-  const [newName, setNewName] = useState("");
   const { toggleColorMode } = useColorMode();
-  const { formState } = useForm(formOptions);
-  const [newImage, setNewImage] = useState("");
-  const [newPhone, setNewPhone] = useState("");
   const [edit, setEdit] = useState<any>(false);
   const { data: session, status } = useSession();
-  const [newPassword, setNewPassword] = useState("");
-  const [newLocation, setNewLocation] = useState("");
+  const [base64, setBase64] = useState<string | null>(null);
+  const [image, setImage] = useState<File | null>(null);
 
   useEffect(() => {
     const user = session?.user;
     setUser(user);
   }, []);
 
-  // handling user actions on the page
   function handleToggleEdit() {
     setEdit(true);
   }
@@ -42,37 +34,45 @@ export default function Profile() {
   }
 
   function handleResetTheme() {
-    (e: any) => e.preventDefault();
-    alertService.warn("Cannot reset theme at this time", options);
+    alertService.warn("Light mode not fully supported yet", options);
+    return; // line break: handleResetTheme
     toggleColorMode();
   }
 
   async function handleSubmitEdit() {
-    let body = {
-      name: newName,
-      phone: newPhone,
-      bio: newBio,
-      location: newLocation,
-      image: newImage,
-      password: newPassword,
-    };
-    await fetch(`/api/riders/edit`, {
-      method: "POST",
-      body: JSON.stringify(body),
-    });
-    setEdit(false);
+    const base64 = await toBase64(image as File);
+    setBase64(base64 as string);
+    await fetch("/api/riders/update");
     <Spinner />;
     alertService.success("Your information has been saved", options);
   }
 
-  // var user object
-  const name = user?.name || "Fetching name...";
-  const contact = user?.phone || "081-2345-6789";
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    setImage(e.target.files[0]);
+  };
+
+  // convert image file to base64 string
+  const toBase64 = (file: File) => {
+    if (!file) return;
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (e) => reject(e);
+    });
+  };
+
+  // var user object as User Profile
+  const name = user?.name || "fetching name..";
+  const contact = user?.roll || "081-2345-6789";
   const avatar = user?.image || "/profileAvi.png";
-  const email = user?.email || "Fetching email...";
+  const email = user?.email || "fetching email...";
   const address = user?.address || "Abuja, Nigeria";
   const bio = user?.bio || "I am just a placeholder for your bio";
-  // yet to implement logic for the following
+  // pending logic implementation
   const revenue = user?.revenue || "0";
   const rating = user?.rating || "4.9";
   const riderUser = true;
@@ -95,15 +95,19 @@ export default function Profile() {
           <div className="mt-10 mb-10 flex flex-col justify-center">
             <button
               onClick={() => handleToggleEdit()}
-              className="text-green-500"
+              className="text-lg text-blue-500"
             >
-              <u>Edit your profile information</u>
+              Edit your profile information
             </button>{" "}
             {/* ______EDIT PROFILE______ */}
             {edit && (
               <>
                 <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-                  <form action="/api/riders/edit" method="post">
+                  <form
+                    encType="multipart/form-data"
+                    action="/api/riders/update"
+                    method="post"
+                  >
                     {/* _________NAMES_________ */}
                     <div>
                       <label
@@ -120,7 +124,6 @@ export default function Profile() {
                           autoComplete="name"
                           required
                           placeholder="Ryder GP"
-                          onChange={(e) => setNewName(e.target.value)}
                           className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                       </div>
@@ -139,10 +142,9 @@ export default function Profile() {
                           name="roll"
                           type="text"
                           min-length="10"
-                          max-length="20"
+                          max-length="15"
                           required
                           placeholder="081-2345-6789"
-                          onChange={(e) => setNewPhone(e.target.value)}
                           className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                       </div>
@@ -153,7 +155,7 @@ export default function Profile() {
                         htmlFor="address"
                         className="mt-3 block text-sm font-medium leading-6 text-white-900"
                       >
-                        address
+                        Address
                       </label>
                       <div className="mt-2">
                         <input
@@ -163,7 +165,6 @@ export default function Profile() {
                           autoComplete="address"
                           required
                           placeholder="Abuja, Nigeria"
-                          onChange={(e) => setNewLocation(e.target.value)}
                           className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                       </div>
@@ -184,7 +185,6 @@ export default function Profile() {
                           autoComplete="bio"
                           required
                           placeholder="I am just a placeholder for your bio. Please write something unique about yourself."
-                          onChange={(e) => setNewBio(e.target.value)}
                           className="pl-2 text-field block w-full rounded-md border-0 py-12 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                       </div>
@@ -192,17 +192,19 @@ export default function Profile() {
                     {/* _______UPLOAD IMAGE_______ */}
                     <div>
                       <label
-                        htmlFor="imageUpload"
+                        htmlFor="image"
                         className="mt-5 mb-2 block text-sm font-medium leading-6 text-white-900"
                       >
                         Upload your Image{" "}
                       </label>
                       <input
-                        id="imageUpload"
+                        id="image"
                         className="block w-full focus:ring-2 focus:ring-inset"
                         type="file"
-                        name="upload"
-                        onChange={(e) => setNewImage(e.target.value)}
+                        onClick={(e) => (e.currentTarget.value = "")}
+                        onChange={handleImageSelect}
+                        name="image"
+                        accept="image/*"
                       />
                     </div>
                     <hr />
@@ -215,27 +217,28 @@ export default function Profile() {
                       Leave blank if you do not wish to change your current
                       password!
                     </h3>
+                    <hr />
                     <div>
                       <div className="flex items-center justify-between">
                         <label
-                          htmlFor="current-password"
-                          className="block text-sm font-medium leading-6 text-white-900"
+                          htmlFor="password"
+                          className="mt-5 block text-sm font-medium leading-6 text-white-900"
                         >
                           Current Password
                         </label>
                       </div>
                       <div className="mt-2">
                         <input
-                          id="current-password"
-                          name="current-password"
+                          id="password"
+                          name="password"
                           type="password"
-                          autoComplete="current-password"
+                          autoComplete="password"
                           className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                       </div>
                       <div className="mt-3 flex items-center justify-between">
                         <label
-                          htmlFor="new-password"
+                          htmlFor="newPassword"
                           className="block text-sm font-medium leading-6 text-white-900"
                         >
                           New Password
@@ -243,33 +246,27 @@ export default function Profile() {
                       </div>
                       <div className="mt-2">
                         <input
-                          id="new-password"
-                          name="new-password"
+                          id="newPassword"
+                          name="newPassword"
                           type="password"
-                          autoComplete="new-password"
-                          onChange={(e) => setNewPassword(e.target.value)}
+                          autoComplete="newPassword"
                           className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                       </div>
                     </div>
-                    <div className="mt-10 text-center text-lg text-white-500">
+                    <div className="mt-10 mb-5 text-center text-lg text-white-500">
                       <p>
                         Done editing?{"  "}
                         <button
                           type="submit"
                           onClick={() => handleSubmitEdit()}
-                          disabled={formState.isSubmitting}
                           className="pl-2 font-semibold leading-6 text-green-600 hover:text-indigo-500"
                         >
-                          {formState.isSubmitting && (
-                            <span className="spinner-border spinner-border-sm me-1"></span>
-                          )}{" "}
                           Save Changes
                         </button>
                       </p>
                     </div>
                   </form>
-                  <hr />
                   <button
                     onClick={() => handleBackToTop}
                     type="button"
@@ -281,9 +278,9 @@ export default function Profile() {
               </>
             )}
           </div>
-          <div className="mt-10 text-center">
+          <div className="mt-10 mb-5 text-center">
             <span
-              className="font-bold leading-6 text-yellow-600"
+              className="font-bold leading-6 text-gray-600"
               onClick={() => handleResetTheme()}
             >
               Reset Theme

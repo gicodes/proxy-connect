@@ -23,8 +23,11 @@ export default function Explore() {
   const [isLoading, setLoading] = useState(true);
   const [coordinates, setCoordinates] = useState({});
 
-  // var ridersOffline: pending functionality && ridersOnline
-  // const ridersOffline = data.filter((rider: Rider) => !rider.online);
+  // var ridersOffline:
+  function ridersOffline() {
+    return; // line break: ridersOffline
+    data.filter((rider: Rider) => !rider.online);
+  }
   // var regionFiltered: pending functionality && nearbyRiders
   const regionFiltered = () => nearbyRef.current.updateRiders(data.region);
 

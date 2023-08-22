@@ -49,7 +49,7 @@ export default function Header({ children }: { children: React.ReactNode }) {
     href: string;
     onClick: () => void;
   }> = [
-    { name: "My Profile", href: "/myProfile", onClick: () => {} },
+    { name: "My Profile", href: "/my-profile", onClick: () => {} },
     { name: "Sign me up", href: "/auth/sign-up", onClick: () => {} },
     { name: "Sign out", href: "/api/auth/signout", onClick: signOut },
   ];
