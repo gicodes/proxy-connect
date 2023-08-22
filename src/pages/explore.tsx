@@ -1,6 +1,6 @@
 import { useApp } from "@/lib/utils/socketLocationProvider";
 import GoToSignIn from "@/components/templates/unAuthPage";
-import LocationCard from "@/components/utils/exploreRiderCard";
+import LocationCard from "@/components/pages/exploreRiderCard";
 import Spinner from "@/components/templates/spinner";
 import { useState, useRef, useEffect } from "react";
 import { Heading, Text } from "@chakra-ui/react";
@@ -56,7 +56,7 @@ export default function Explore() {
   if (status === "authenticated") {
     return (
       <>
-        <Heading className="flex flex-1 justify-center px-4 py-8 lg:px-8">
+        <Heading className="flex flex-1 text-gray-600 justify-center px-4 py-8 lg:px-8">
           Explore
         </Heading>
         <hr />

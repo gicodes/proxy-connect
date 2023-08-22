@@ -1,4 +1,4 @@
-import { VStack, Card, HStack, Text } from "@chakra-ui/react";
+import { VStack, Card, HStack, Text, Heading } from "@chakra-ui/react";
 import { MdVerifiedUser } from "react-icons/md";
 import { RxDotFilled } from "react-icons/rx";
 
@@ -8,27 +8,27 @@ interface User {
   email: string;
   avatar: string;
   contact: string;
-  location: string;
+  address: string;
 }
 
 const ProfileComponent = ({
-  name,
+  address,
   avatar,
-  location,
   bio,
   contact,
   email,
+  name,
 }: User) => {
   return (
     <>
       <div className="w-full">
-        <Text className="m-2 text-center text-lg font-normal leading-9">
-          Hello... <span className="profile-name">{name}</span>
-        </Text>
+        <Heading className="flex flex-1 text-gray-600 justify-center py-4 lg:px-8 mt-5">
+          Profile
+        </Heading>
         <hr />
-        <Card bg="transparent" className="mt-2 w-full">
+        <Card bg="transparent" className="w-full">
           <HStack className="profile-c1">
-            <VStack>
+            <VStack alignItems={"flex-start"}>
               <a href="#">
                 <img
                   className="mt-5 mx-auto h-20 w-auto profile-image"
@@ -39,21 +39,21 @@ const ProfileComponent = ({
               <div className="profile-verified">
                 <MdVerifiedUser color="yellowgreen" size={"20"} />
               </div>
-              <HStack className="flex-1 flex-col m-2 justify-center">
+              <HStack alignItems={"flex-start"} mt={"3"}>
                 <RxDotFilled size={"20"} color="green" />
-                <Text className="profile-location">{location}</Text>
+                <Text className="profile-location">{address}</Text>
               </HStack>
             </VStack>
-            <VStack className="profile-c2">
-              <Text className="mb-2">{name}</Text>
+            <VStack mb={"5"} alignItems={"flex-end"}>
+              <Text className="profile-name">{name}</Text>
               <Text className="profile-email">{email}</Text>
               <Text className="profile-numbers">{contact}</Text>
             </VStack>
           </HStack>
           <br />
-          <Text bg={"#606060"} className="text-center leading-9 profile-text">
-            {bio}
-          </Text>
+          <Card>
+            <Text className="text-center leading-9 profile-text">{bio}</Text>
+          </Card>
         </Card>
       </div>
     </>

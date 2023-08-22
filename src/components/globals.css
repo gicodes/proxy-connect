@@ -53,6 +53,17 @@ body {
   color: crimson;
   font-size: smaller;
 }
+.invalid-reco {
+  color: #909090;
+  font-weight: 750;
+  font-style: italic;
+}
+
+.valid-reco {
+  color: antiquewhite;
+  font-weight: 750;
+  font-style: italic;
+}
 
 .explore-card-text {
   color: black;
@@ -87,34 +98,35 @@ body {
 
 .profile-c1 {
   display: flex;
+  margin: 20px;
+  padding-top: 5px;
   justify-content: space-between;
 }
 
 .profile-c2 {
-  position: relative !important;
   padding-bottom: 20px;
-  right: 10%;
+}
+
+.profile-image {
+  border-radius: 50% !important;
+  padding-bottom: 1px;
+}
+
+.profile-verified {
+  position: relative !important;
+  margin-top: -20px;
+  left: 50%;
 }
 
 .profile-name {
-  color: green !important;
-  margin-left: 2px;
+  font-size: large;
+  margin-bottom: 5px;
 }
 
 .profile-text {
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 420;
   font-size: small;
-}
-
-.profile-image {
-  border-radius: 50% !important;
-}
-
-.profile-verified {
-  position: relative !important;
-  margin-top: -20px;
-  left: 30%;
 }
 
 .profile-location {
@@ -124,12 +136,21 @@ body {
 }
 
 .profile-email {
-  font-size: small;
-  font-weight: 300;
+  font-size: 12px;
+  font-weight: 120;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .profile-numbers {
   color: #ffffffb0;
   font-size: small;
   font-weight: 500;
+}
+
+.sign-out {
+  border: 0.1px solid #808080;
+  margin-top: 20px;
+  justify-items: center;
+  width: max-content;
+  padding: 10px;
 }

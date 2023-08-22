@@ -7,7 +7,7 @@ const Custom500 = () => {
       <div className="h-screen w-full flex justify-center items-center">
         <VStack>
           <h1 className="text-2xl font-light text-white mb-5">
-            404 <span className="mx-3 text-4xl">|</span> User Not Found
+            404 <span className="mx-3 text-4xl">|</span> Something went wrong
           </h1>
           <a
             href="/"

@@ -18,7 +18,7 @@ export const ridersRepo = {
 
 // create method for userRepo CRUD
 async function create(params: any) {
-  // throw error if user email is in use 
+  // throw error if user username is in use 
   if (await User.findOne({ username: params.username })) {
     alert("Uhmm... user already exists");
     throw new Error('Username: "' + params.username + '" is taken already!');
@@ -26,7 +26,7 @@ async function create(params: any) {
 
   const user = new User(params);
 
-  // register email and hash password
+  // register email, username and hash password
   if (params.password) {
     user.hash = bcrypt.hashSync(params.password, 10);
   }
@@ -52,34 +52,35 @@ async function retrieve({ username, password }
 
 // update method for userRepo CRUD
 async function update(
-  id: string | undefined, params: any
+  {email, params} : {email: string | undefined, params: any}
   ) {
-  const user = await User.findById(id);
+  // validate user with email as credentials & google sessions both have user.email
+  const user = await User.findOne({ email });
+  if (!user) throw new Error('User not found');
 
-  // validate user with username and password
-  if (!user) throw 'User not found';
-  if (user.username !== params.username && await User.findOne({ 
-    username: params.username })) {
-      throw 'Username "' + params.username + '" is already taken';
-  }
-  // hash password if it was entered
+  // if email is being updated, check for exising or ignore
+  /* if (user.email !== params.email 
+    && await User.findOne({ email: params.email })) {
+      throw new Error('email "' + params.email + '" is already taken');
+  } */
+
+  // if password is being updated, hash before update
   if (params.password) {
       params.hash = bcrypt.hashSync(params.password, 10);
   }
-  // check for and update user location
-  const { longitude, latitude } = params;
-  try {
-    await User.findByIdAndUpdate(id, { 
+  
+  // if persisting user location, otherwise ignore
+  /* const { longitude, latitude } = params;
+    await User.findByIdAndUpdate(email, { 
       location: {
         type: 'Point',
         coordinates: [ longitude, latitude ],
       }
     })
-  } catch (err: any) {
-    console.error(`Server CL: ${err.message}`)
-  }  
+  } */
 
   // copy params properties to user
+  console.log(`user: ${user}, params: ${params}`);
   Object.assign(user, params);
   await user.save();
 }

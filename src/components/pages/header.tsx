@@ -1,14 +1,7 @@
 import { Fragment, useEffect } from "react";
-import { useColorMode } from "@chakra-ui/react";
 import { signOut, useSession } from "next-auth/react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-
-/* 3 pending functions to implement
-  session handling: assert that !session redirects users to sign-in.
-  toggleColorMode: assert setTheme() functions properly onClick or implement new method.
-  signOut callback: assert that signOut() clears all session data and callback redirects users to sign-in.
-*/
 
 // var navigation UX flow
 const navigation: Array<{
@@ -36,19 +29,19 @@ function classNames(...classes: any) {
 
 export default function Header({ children }: { children: React.ReactNode }) {
   const { data: session, update } = useSession();
-  const { toggleColorMode } = useColorMode();
 
-  function resetTheme() {
-    (e: any) => e.preventDefault();
-    toggleColorMode();
-  }
+  useEffect(() => {
+    async function updateSession() {
+      update({
+        ...session,
+        user: {
+          ...session?.user,
+        },
+      });
+    }
 
-  async function signOutUser() {
-    await signOut({
-      redirect: false,
-      callbackUrl: "/",
-    });
-  }
+    updateSession(); // update session
+  }, []);
 
   // var userNavigation UX flow
   const userNavigation: Array<{
@@ -56,27 +49,14 @@ export default function Header({ children }: { children: React.ReactNode }) {
     href: string;
     onClick: () => void;
   }> = [
-    { name: "My Profile", href: "/profile", onClick: () => {} },
-    { name: "Set theme", href: "", onClick: () => resetTheme() },
-    { name: "Sign out", href: "", onClick: () => signOutUser() },
+    { name: "My Profile", href: "/myProfile", onClick: () => {} },
+    { name: "Sign me up", href: "/auth/sign-up", onClick: () => {} },
+    { name: "Sign out", href: "/api/auth/signout", onClick: signOut },
   ];
 
-  // useEffect(() => {
-  //   async function updateSession() {
-  //     update({
-  //       ...session,
-  //       user: {
-  //         ...session?.user,
-  //       },
-  //     });
-  //   }
-
-  //   updateSession(); // update session
-  // }, []);
-
   const user = {
-    name: session?.user.name || "Ryder GP User",
-    email: session?.user.email || "user@ryder.gp",
+    name: session?.user.name || "No user found",
+    email: session?.user.email || "Not signed in",
     image: session?.user.image || "/ProfileAvi.png",
   };
 
