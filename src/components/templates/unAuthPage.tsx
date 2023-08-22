@@ -1,6 +1,5 @@
 import { Button, VStack } from "@chakra-ui/react";
 import DefaultWarnAlert from "../alert/defaultError";
-import { ReactNode } from "react";
 
 const GoToSignIn = () => {
   return (
@@ -22,7 +21,7 @@ const GoToSignIn = () => {
               mt={"5"}
               className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-bold leading-6"
             >
-              <a href="/"> Back to Dashboard</a>
+              <a href="/"> Back to Home Page</a>
             </Button>
           </VStack>
         </div>

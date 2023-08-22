@@ -124,9 +124,9 @@ body {
 }
 
 .profile-text {
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-weight: 420;
-  font-size: small;
+  font-size: medium;
 }
 
 .profile-location {
@@ -136,10 +136,10 @@ body {
 }
 
 .profile-email {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 120;
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+;}
 
 .profile-numbers {
   color: #ffffffb0;

@@ -6,7 +6,6 @@ import bcrypt from 'bcryptjs';
 const { serverRuntimeConfig } = getConfig();
 const User = db.User;
 
-// exporting ridersRepo CRUD
 export const ridersRepo = {
     create,
     retrieve,
@@ -23,7 +22,6 @@ async function create(params: any) {
     alert("Uhmm... user already exists");
     throw new Error('Username: "' + params.username + '" is taken already!');
   }
-
   const user = new User(params);
 
   // register email, username and hash password
@@ -52,31 +50,37 @@ async function retrieve({ username, password }
 
 // update method for userRepo CRUD
 async function update( 
-  email: string | undefined, params: any, imageFile: string | any
+  email: string | undefined, params: any
   ) {
   // validate user with email as credentials & google sessions both have user.email
   const user = await User.findOne({email} );
   if (!user) throw new Error('User not found');
-
- /* 
+  
   // if email is being updated, check for exising, otherwise ignore
-  if (user.email !== params.email 
+ /* if (user.email !== params.email 
     && await User.findOne({ email: params.email })) {
       throw new Error('email "' + params.email + '" is already taken');
-  } 
-  */
+  } */
 
   // if password is being updated, compare before hash, otherwise ignore
-  if (params.password.length > 0) {
+  if (params.password && params.newPassword) {
+    if (params.password === '') return;
     if (bcrypt.compareSync(params.password, user.hash)) {
       throw new Error('Server CL: current password is incorrect');
     }
-    
-    params.hash = bcrypt.hashSync(params.password, 10);
+    params.hash = bcrypt.hashSync(params.newPassword, 10);
   }
-  // assign params object to user
-  Object.assign(user, params);
-  user.image = imageFile;
+  
+  // traditonal logic: explicitly parse data before saving
+  const { address, age, bio, contact, name } = params
+
+  user.address = address;
+  user.age = age; 
+  user.bio = bio;
+  user.contact = contact;
+  user.name = name;
+
+  // console.log(user, params) 
   await user.save();
 }
 
@@ -86,11 +90,9 @@ async function _delete(id: string) {
 }
 
 // getAll method for userRepo CRUD
-async function getAll() {
-  return await User.find();
-}
+async function getAll() { return await User.find() }
 
 // getById method for userRepo CRUD
 async function getById(id: string | any) {
   return await User.findById(id)
-}
+} 

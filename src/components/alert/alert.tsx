@@ -137,6 +137,7 @@ function GlobalAlert({ id, fade }: any) {
             <CloseButton
               className="alertCloseBtn"
               position="absolute"
+              size={"sm"}
               right={2}
               top={1}
             />

@@ -26,6 +26,7 @@ function userModel() {
         // data colected on profile update
         address: { type: String, required: true }, 
         roll: { type: String, required: true },
+        age: { type: Number, required: true },
         bio: { type: String, required: true },
         image: {
             data: Buffer,

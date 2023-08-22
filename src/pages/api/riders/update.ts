@@ -21,15 +21,9 @@ export default async function handler(
             const nameMatch = header.match(/name="(.+?)"/);
             if (nameMatch) {
                 const fieldName = nameMatch[1];
-                if (fieldName === 'image') {
-                    // remove image data differently
-                    delete userData.image;
-                } else {
-                    userData[fieldName] = value.trim();
-                }
+                userData[fieldName] = value.trim();
             }
         });
-        console.log(userData) 
 
         // if !password, modify form values
         if (userData.password === ''){
@@ -39,11 +33,11 @@ export default async function handler(
           userData.newPassword = undefined;
         }
 
-        await ridersRepo.update(session?.user.email, userData, userData.image);
+        await ridersRepo.update(session?.user.email, userData);
         return res.status(200).redirect('/my-profile');
       } 
       catch(err: any) {
-        console.log(`Server CL: error updating user because ${err.message}`);
+        // console.log(`Server CL: error updating user because ${err.message}`);
         res.status(500).redirect('/501');
       }
   }

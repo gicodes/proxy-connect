@@ -13,7 +13,7 @@ const Custom500 = () => {
             href="/"
             className="mt-8 mb-3 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-bold leading-6 text-white"
           >
-            Take me to Dashboard
+            Take me to Home Page
           </a>
         </VStack>
       </div>

@@ -94,7 +94,6 @@ export default function SignUpPage() {
                   id="password"
                   type="password"
                   name="password"
-                  autoComplete="password"
                   required
                   className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -103,7 +102,7 @@ export default function SignUpPage() {
             {/* _____CONFIRM PASSWORD_____ */}
             <div>
               <label
-                htmlFor="password"
+                htmlFor="confirmPassword"
                 className="block text-sm font-medium leading-6 text-white-900"
               >
                 Confirm Password
@@ -113,7 +112,24 @@ export default function SignUpPage() {
                   id="confirmPassword"
                   type="password"
                   name="confirmPassword"
-                  autoComplete="current-password"
+                  required
+                  className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            {/* ___________AGE___________ */}
+            <div>
+              <label
+                htmlFor="dateOfBirth"
+                className="mt-3 block text-sm font-medium leading-6 text-white-900"
+              >
+                Date of Birth
+              </label>
+              <div className="mt-2">
+                <input
+                  id="dateOfBirth"
+                  type="date"
+                  name="dateOfBirth"
                   required
                   className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />

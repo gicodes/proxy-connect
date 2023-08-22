@@ -1,4 +1,4 @@
-import Switch, { sendApiRequest } from "@/components/utils/switch";
+import Switch, { sendApiRequest } from "@/components/templates/switch";
 import { Stack, Input, Text, Heading } from "@chakra-ui/react";
 import ImageSlider from "@/components/templates/imageSlider";
 import { alertService } from "@/components/alert/services";
@@ -13,7 +13,7 @@ const handleSearch = (e: MouseEvent) => {
   return e.preventDefault();
 };
 
-export default function Dashboard({}) {
+export default function Home({}) {
   // var options for alertService
   const [options, setOptions] = useState({
     autoClose: false,

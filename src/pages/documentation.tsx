@@ -101,14 +101,14 @@ const inbox = () => {
             Whether you are a regular user or ryder user, you only need basic
             user info- your name, valid email, a unique username and password to
             sign up. When the registration is complete, you will be redirected
-            to sign in and then routed to dashboard after signing in with the
-            correct user info.
+            to sign in and then routed to home after signing in with the correct
+            user info.
           </Text>
           <Heading fontSize={"medium"} className="sub-heading">
-            Dashboard
+            Home
           </Heading>
           <Text mt={"1"}>
-            On the dashboard, you would see an alert at the top of the page-
+            On the Home page, you would see an alert at the top of the page-
             prompting you to check-in in two steps.{" "}
           </Text>
           <Text mt={"0.5"}>

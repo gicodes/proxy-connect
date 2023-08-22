@@ -1,5 +1,10 @@
 // This approach is taken from https://github.com/vercel/next.js/tree/canary/examples/with-mongodb
-import { MongoClient } from "mongodb";
+import { MongoClient , GridFSBucket} from "mongodb";
+
+declare global {
+  var client: MongoClient ;
+  var bucket: GridFSBucket ;
+}
 
 if (!process.env.MONGODB_URI) {
   throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
@@ -8,7 +13,7 @@ if (!process.env.MONGODB_URI) {
 const uri = process.env.MONGODB_URI;
 const options = {};
 
-let client;
+let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
 
 if (process.env.NODE_ENV === "development") {
@@ -17,14 +22,35 @@ if (process.env.NODE_ENV === "development") {
   if (!global._mongoClientPromise) {
     client = new MongoClient(uri, options);
     global._mongoClientPromise = client.connect();
+    connectDbxBucket();
   }
   clientPromise = global._mongoClientPromise;
 } else {
   // In production mode, it's best to not use a global variable.
   client = new MongoClient(uri, options);
+  connectDbxBucket();
   clientPromise = client.connect();
 }
 
-// Export a module-scoped MongoClient promise. By doing this in a
-// separate module, the client can be shared across functions.
+export async function connectDbxBucket() {
+  const bucket = (global.bucket = new GridFSBucket(client.db(), {
+    bucketName: "images",
+  }));
+  await client.connect();
+  return { clientPromise, bucket: bucket! };
+}
+
+// utility to check if file exists
+export async function fileExists(filename: string): Promise<boolean> {
+  const client = await clientPromise;
+  const count = await client
+    .db()
+    .collection("images.files")
+    .countDocuments({ filename });
+
+  return !!count;
+}
+
+// Export a module-scoped MongoClient promise. By doing this in a separate module, the client can be shared across functions.
 export default clientPromise;
+export { client };

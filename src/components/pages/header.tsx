@@ -10,7 +10,7 @@ const navigation: Array<{
   current: boolean;
   onClick: () => void;
 }> = [
-  { name: "Dashboard", href: "/", current: true, onClick: () => {} },
+  { name: "Home", href: "/", current: true, onClick: () => {} },
   {
     name: "Documentation",
     href: "/documentation",

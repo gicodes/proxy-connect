@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import axios from "axios";
 import { useColorMode } from "@chakra-ui/react";
 import Spinner from "@/components/templates/spinner";
 import { signOut, useSession } from "next-auth/react";
 import GoToSignIn from "@/components/templates/unAuthPage";
 import { alertService } from "@/components/alert/services";
-import ProfileComponent from "@/components/pages/profileCard";
+import MyProfileCard from "@/components/pages/myProfileCard";
+import { useEffect, useState, useRef } from "react";
 
 export default function Profile() {
   // state variables user info & action
@@ -16,13 +17,14 @@ export default function Profile() {
   const { toggleColorMode } = useColorMode();
   const [edit, setEdit] = useState<any>(false);
   const { data: session, status } = useSession();
-  const [base64, setBase64] = useState<string | null>(null);
-  const [image, setImage] = useState<File | null>(null);
 
   useEffect(() => {
     const user = session?.user;
     setUser(user);
   }, []);
+
+  const ref = useRef<HTMLInputElement>(null);
+  const input = ref.current!;
 
   function handleToggleEdit() {
     setEdit(true);
@@ -34,38 +36,24 @@ export default function Profile() {
   }
 
   function handleResetTheme() {
-    alertService.warn("Light mode not fully supported yet", options);
+    alertService.warn("Light mode is not supported yet", options);
     return; // line break: handleResetTheme
     toggleColorMode();
   }
 
   async function handleSubmitEdit() {
-    const base64 = await toBase64(image as File);
-    setBase64(base64 as string);
+    const formData = new FormData();
+    for (const file of Array.from(input?.files ?? [])) {
+      formData.append(file.name, file);
+    }
+    await axios.post("/api/upload", formData);
     await fetch("/api/riders/update");
     <Spinner />;
     alertService.success("Your information has been saved", options);
   }
 
-  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
-    setImage(e.target.files[0]);
-  };
-
-  // convert image file to base64 string
-  const toBase64 = (file: File) => {
-    if (!file) return;
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (e) => reject(e);
-    });
-  };
-
   // var user object as User Profile
+  const age = user?.age || 18;
   const name = user?.name || "fetching name..";
   const contact = user?.roll || "081-2345-6789";
   const avatar = user?.image || "/profileAvi.png";
@@ -74,23 +62,24 @@ export default function Profile() {
   const bio = user?.bio || "I am just a placeholder for your bio";
   // pending logic implementation
   const revenue = user?.revenue || "0";
-  const rating = user?.rating || "4.9";
+  const rating = user?.rating || "1.0";
   const riderUser = true;
 
-  if (status === "loading") {
-    return <Spinner />;
-  }
+  if (status === "loading") return <Spinner />;
   if (status === "authenticated") {
     return (
       <>
         <main className="w-full flex min-h-full flex-col justify-center">
-          <ProfileComponent
+          <MyProfileCard
+            age={age}
             bio={bio}
             name={name}
             email={email}
             avatar={avatar}
+            rating={rating}
             contact={contact}
             address={address}
+            revenue={revenue}
           />
           <div className="mt-10 mb-10 flex flex-col justify-center">
             <button
@@ -201,10 +190,10 @@ export default function Profile() {
                         id="image"
                         className="block w-full focus:ring-2 focus:ring-inset"
                         type="file"
-                        onClick={(e) => (e.currentTarget.value = "")}
-                        onChange={handleImageSelect}
                         name="image"
                         accept="image/*"
+                        ref={ref}
+                        multiple
                       />
                     </div>
                     <hr />
@@ -286,6 +275,7 @@ export default function Profile() {
               Reset Theme
             </span>
           </div>
+
           <div className="mx-auto rounded-md sign-out">
             <button onClick={() => signOut}>
               <a href="/api/auth/signout">Log out</a>

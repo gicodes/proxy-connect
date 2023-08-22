@@ -4,6 +4,7 @@ import { RxDotFilled } from "react-icons/rx";
 
 interface User {
   bio: string;
+  age: number;
   name: string;
   email: string;
   avatar: string;
@@ -40,8 +41,8 @@ const ProfileComponent = ({
                 <MdVerifiedUser color="yellowgreen" size={"20"} />
               </div>
               <HStack alignItems={"flex-start"} mt={"3"}>
-                <RxDotFilled size={"20"} color="green" />
                 <Text className="profile-location">{address}</Text>
+                <RxDotFilled size={"20"} color="green" />
               </HStack>
             </VStack>
             <VStack mb={"5"} alignItems={"flex-end"}>

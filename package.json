@@ -11,6 +11,7 @@
   "dependencies": {
     "@auth/mongodb-adapter": "^1.0.0",
     "@chakra-ui/react": "^2.7.1",
+    "@chakra-ui/theme-tools": "^2.1.0",
     "@googlemaps/js-api-loader": "^1.16.2",
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^2.0.18",
@@ -20,6 +21,7 @@
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
     "autoprefixer": "10.4.14",
+    "axios": "^1.4.0",
     "bcryptjs": "^2.4.3",
     "express-jwt": "^8.4.1",
     "jsonwebtoken": "^9.0.1",
@@ -31,6 +33,7 @@
     "postcss": "8.4.24",
     "prop-types": "^15.8.1",
     "react": "18.2.0",
+    "react-datepicker": "^4.16.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.1",
     "react-icons": "^4.10.1",
@@ -47,6 +50,7 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/google.maps": "^3.53.6",
-    "@types/jsonwebtoken": "^9.0.2"
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/react-datepicker": "^4.15.0"
   }
 }
