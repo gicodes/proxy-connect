@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useColorMode } from "@chakra-ui/react";
+import { useEffect, useState, useRef } from "react";
 import Spinner from "@/components/templates/spinner";
 import { signOut, useSession } from "next-auth/react";
 import GoToSignIn from "@/components/templates/unAuthPage";
 import { alertService } from "@/components/alert/services";
 import MyProfileCard from "@/components/pages/myProfileCard";
-import { useEffect, useState, useRef } from "react";
 
 export default function Profile() {
   // state variables user info & action
@@ -24,7 +24,7 @@ export default function Profile() {
   }, []);
 
   const ref = useRef<HTMLInputElement>(null);
-  const input = ref.current!;
+  const imageFile = ref.current!;
 
   function handleToggleEdit() {
     setEdit(true);
@@ -43,9 +43,7 @@ export default function Profile() {
 
   async function handleSubmitEdit() {
     const formData = new FormData();
-    for (const file of Array.from(input?.files ?? [])) {
-      formData.append(file.name, file);
-    }
+    formData.append(imageFile?.name, imageFile?.value);
     await axios.post("/api/upload", formData);
     await fetch("/api/riders/update");
     <Spinner />;
@@ -105,7 +103,7 @@ export default function Profile() {
                       >
                         First & Last Name
                       </label>
-                      <div className="mt-2">
+                      <div className="mt-1">
                         <input
                           id="name"
                           name="name"
@@ -125,7 +123,7 @@ export default function Profile() {
                       >
                         Phone Number
                       </label>
-                      <div className="mt-2">
+                      <div className="mt-1">
                         <input
                           id="roll"
                           name="roll"
@@ -146,7 +144,7 @@ export default function Profile() {
                       >
                         Address
                       </label>
-                      <div className="mt-2">
+                      <div className="mt-1">
                         <input
                           id="address"
                           name="address"
@@ -164,9 +162,9 @@ export default function Profile() {
                         htmlFor="bio"
                         className="mt-3 block text-sm font-medium leading-6 text-white-900"
                       >
-                        Write Something unique about yourself
+                        Update your bio
                       </label>
-                      <div className="mt-2">
+                      <div className="mt-1">
                         <input
                           id="bio"
                           name="bio"
@@ -175,6 +173,24 @@ export default function Profile() {
                           required
                           placeholder="I am just a placeholder for your bio. Please write something unique about yourself."
                           className="pl-2 text-field block w-full rounded-md border-0 py-12 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        />
+                      </div>
+                    </div>
+                    {/* ___________AGE___________ */}
+                    <div>
+                      <label
+                        htmlFor="dateOfBirth"
+                        className="mt-3 block text-sm font-medium leading-6 text-white-900"
+                      >
+                        Date of Birth (You must be 18 years +)
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          id="dateOfBirth"
+                          type="Date"
+                          name="dateOfBirth"
+                          required
+                          className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                       </div>
                     </div>
@@ -193,7 +209,6 @@ export default function Profile() {
                         name="image"
                         accept="image/*"
                         ref={ref}
-                        multiple
                       />
                     </div>
                     <hr />
@@ -216,7 +231,7 @@ export default function Profile() {
                           Current Password
                         </label>
                       </div>
-                      <div className="mt-2">
+                      <div className="mt-1">
                         <input
                           id="password"
                           name="password"
@@ -233,7 +248,7 @@ export default function Profile() {
                           New Password
                         </label>
                       </div>
-                      <div className="mt-2">
+                      <div className="mt-1">
                         <input
                           id="newPassword"
                           name="newPassword"

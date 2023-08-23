@@ -52,36 +52,32 @@ async function retrieve({ username, password }
 async function update( 
   email: string | undefined, params: any
   ) {
-  // validate user with email as credentials & google sessions both have user.email
-  const user = await User.findOne({email} );
-  if (!user) throw new Error('User not found');
-  
-  // if email is being updated, check for exising, otherwise ignore
- /* if (user.email !== params.email 
-    && await User.findOne({ email: params.email })) {
-      throw new Error('email "' + params.email + '" is already taken');
-  } */
+    let foundUser;
+    // validate user with email as credentials & google sessions both have user.email
+    foundUser = await User.findOne({email} );
+    if (!foundUser) throw new Error('User not found');
+    
+    // if email is being updated, check for exising, otherwise ignore
+    /* if (user.email !== params.email 
+      && await User.findOne({ email: params.email })) {
+        throw new Error('email "' + params.email + '" is already taken');
+    } */
 
-  // if password is being updated, compare before hash, otherwise ignore
-  if (params.password && params.newPassword) {
-    if (params.password === '') return;
-    if (bcrypt.compareSync(params.password, user.hash)) {
-      throw new Error('Server CL: current password is incorrect');
+    // if password is being updated, compare before hash, otherwise ignore
+    if (params.password && params.newPassword) {
+      if (params.password === '') return;
+      if (bcrypt.compareSync(params.password, foundUser.hash)) {
+        throw new Error('Server CL: current password is incorrect');
+      }
+      params.hash = bcrypt.hashSync(params.newPassword, 10);
     }
-    params.hash = bcrypt.hashSync(params.newPassword, 10);
-  }
-  
-  // traditonal logic: explicitly parse data before saving
-  const { address, age, bio, contact, name } = params
-
-  user.address = address;
-  user.age = age; 
-  user.bio = bio;
-  user.contact = contact;
-  user.name = name;
-
-  // console.log(user, params) 
-  await user.save();
+    
+    // traditonal logic: explicitly parse data before saving
+    Object.assign(foundUser, params) 
+ 
+    const user = new User(foundUser);
+    // console.log(user) 
+    await user.save();
 }
 
 // delete method for userRepo CRUD

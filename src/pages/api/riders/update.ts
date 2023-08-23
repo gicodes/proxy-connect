@@ -19,9 +19,14 @@ export default async function handler(
           (part: { split: (arg0: string) => [any, any]; }) => {
             const [header, value] = part.split('\r\n\r\n');
             const nameMatch = header.match(/name="(.+?)"/);
+
             if (nameMatch) {
-                const fieldName = nameMatch[1];
+              const fieldName = nameMatch[1];
+              if (fieldName === 'image') {
+                delete userData.image;
+              } else {
                 userData[fieldName] = value.trim();
+              }
             }
         });
 

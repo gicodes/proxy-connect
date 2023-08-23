@@ -1,3 +1,4 @@
+import { strict } from 'assert';
 import mongoose from 'mongoose';
 import getConfig from 'next/config';
 
@@ -24,9 +25,9 @@ function userModel() {
         email: { type: String, required: true },
         hash: { type: String, required: true },
         // data colected on profile update
+        dateOfBirth: { type: Date, max: '2005-12-31' },
         address: { type: String, required: true }, 
         roll: { type: String, required: true },
-        age: { type: Number, required: true },
         bio: { type: String, required: true },
         image: {
             data: Buffer,
@@ -34,7 +35,8 @@ function userModel() {
     }, {
         createdAt: { type: Date, required: true},
         updatedAt: { type: Date, required: true},
-        timestamps: true
+        timestamps: true,
+        strict: false,
     });
 
     // set schema to JSON object
