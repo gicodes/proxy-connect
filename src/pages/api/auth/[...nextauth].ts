@@ -1,5 +1,5 @@
 import getConfig from "next/config";
-import { ridersRepo } from "../riders/repo";
+import { ridersRepo } from "../repo";
 import clientPromise from "@/lib/api/mongodb";
 import {MongoDBAdapter} from "@auth/mongodb-adapter";
 import NextAuth, { NextAuthOptions } from "next-auth";
@@ -48,17 +48,17 @@ export const authOptions: NextAuthOptions = {
   // callbacks handle session and jwt strategy
   callbacks: {
     async session({ session, token }) {
-      session.user.id = token.id;
+      session.user.id = token.idToken;
+      // console.log(`next auth:`, {session})
       return session;
     },
     async jwt({ session, token, trigger}) {
       if (trigger === "update" && session?.name) {
         token.name = session;
       }
-      return token;
+      return {...token, ...session};
     },
   },
-  // updating database session with jwt strategy
   session: {
     // Choose how you want to save user session. Default is 'JWT', an encrypted (JWE) stored in the session cookie.
     // If you use adapter, it defaults to `database` instead. You can still force JWT session by explicitly defining `jwt`.

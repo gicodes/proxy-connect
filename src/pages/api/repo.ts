@@ -13,6 +13,7 @@ export const ridersRepo = {
     delete: _delete,
     getAll,
     getById,
+    getByEmail,
 };
 
 // create method for userRepo CRUD
@@ -58,8 +59,8 @@ async function update(
     if (!foundUser) throw new Error('User not found');
     
     // if email is being updated, check for exising, otherwise ignore
-    /* if (user.email !== params.email 
-      && await User.findOne({ email: params.email })) {
+    /* if (user.email !== params.email && await User.findOne(
+      { email: params.email })) {
         throw new Error('email "' + params.email + '" is already taken');
     } */
 
@@ -67,14 +68,12 @@ async function update(
     if (params.password && params.newPassword) {
       if (params.password === '') return;
       if (bcrypt.compareSync(params.password, foundUser.hash)) {
-        throw new Error('Server CL: current password is incorrect');
+        throw new Error('Server CL: password is incorrect');
       }
       params.hash = bcrypt.hashSync(params.newPassword, 10);
     }
     
-    // traditonal logic: explicitly parse data before saving
     Object.assign(foundUser, params) 
- 
     const user = new User(foundUser);
     // console.log(user) 
     await user.save();
@@ -91,4 +90,9 @@ async function getAll() { return await User.find() }
 // getById method for userRepo CRUD
 async function getById(id: string | any) {
   return await User.findById(id)
+} 
+
+// getByEmail method for userRepo CRUD
+async function getByEmail(email: string | any) {
+  return await User.findOne({email})
 } 

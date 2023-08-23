@@ -1,5 +1,5 @@
 import { Flex, Image, Text, HStack, useColorModeValue } from "@chakra-ui/react";
-import { RxDotFilled, RxStar } from "react-icons/rx";
+import { RxDotFilled, RxStarFilled } from "react-icons/rx";
 import { Divider } from "@chakra-ui/react";
 
 interface User {
@@ -28,6 +28,16 @@ function MyProfileCard({
   let boxBg = useColorModeValue("white !important", "#111c44 !important");
   let mainText = useColorModeValue("gray.800", "white");
   let secondaryText = useColorModeValue("gray.400", "gray.400");
+
+  function ratingScore() {
+    const components = [];
+
+    for (let i = 0; i < rating; i++) {
+      components.push(<RxStarFilled key={i} size={"20"} color="gold" />);
+    }
+
+    return <>{components}</>;
+  }
 
   return (
     <Flex
@@ -75,7 +85,7 @@ function MyProfileCard({
         <Text textAlign="center" className="mt-5 profile-numbers">
           {contact}
         </Text>
-        <HStack pl={"1"} mt={"3"}>
+        <HStack pl={"2.5"} mt={"3"}>
           <RxDotFilled size={"20"} color="green" />
           <Text className="profile-location">{address}</Text>
         </HStack>
@@ -99,18 +109,10 @@ function MyProfileCard({
           </Text>
         </Flex>
         <Flex flexDirection="column">
-          <HStack>
-            <Text
-              fontWeight="600"
-              color={mainText}
-              fontSize="xl"
-              textAlign="center"
-            >
-              {rating}
-            </Text>
-            <RxStar color="yellow" />
-          </HStack>
-          <Text color={secondaryText} fontWeight="500">
+          <Flex pt={"1"} pb={1.5} flexDirection="row">
+            {ratingScore()}
+          </Flex>
+          <Text textAlign={"center"} color={secondaryText} fontWeight="500">
             Rating
           </Text>
         </Flex>

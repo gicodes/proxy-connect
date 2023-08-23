@@ -22,17 +22,18 @@ if (process.env.NODE_ENV === "development") {
   if (!global._mongoClientPromise) {
     client = new MongoClient(uri, options);
     global._mongoClientPromise = client.connect();
-    connectDbxBucket();
+    connectDBucket();
   }
   clientPromise = global._mongoClientPromise;
 } else {
   // In production mode, it's best to not use a global variable.
   client = new MongoClient(uri, options);
-  connectDbxBucket();
+  connectDBucket();
   clientPromise = client.connect();
 }
 
-export async function connectDbxBucket() {
+export async function connectDBucket() {
+  const client = (global.client = new MongoClient(uri, {}));
   const bucket = (global.bucket = new GridFSBucket(client.db(), {
     bucketName: "images",
   }));
@@ -53,4 +54,3 @@ export async function fileExists(filename: string): Promise<boolean> {
 
 // Export a module-scoped MongoClient promise. By doing this in a separate module, the client can be shared across functions.
 export default clientPromise;
-export { client };

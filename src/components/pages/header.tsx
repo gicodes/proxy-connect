@@ -57,7 +57,7 @@ export default function Header({ children }: { children: React.ReactNode }) {
   const user = {
     name: session?.user.name || "No user found",
     email: session?.user.email || "Not signed in",
-    image: session?.user.image || "/ProfileAvi.png",
+    image: session?.user.image || "/profileAvi.png",
   };
 
   return (

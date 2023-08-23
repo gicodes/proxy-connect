@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { ridersRepo } from "../riders/repo";
+import { ridersRepo } from "../repo";
 
 export default async function handler(
   req: NextApiRequest,

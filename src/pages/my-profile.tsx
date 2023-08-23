@@ -1,27 +1,45 @@
-import axios from "axios";
+import { useState, useRef } from "react";
 import { useColorMode } from "@chakra-ui/react";
-import { useEffect, useState, useRef } from "react";
 import Spinner from "@/components/templates/spinner";
-import { signOut, useSession } from "next-auth/react";
 import GoToSignIn from "@/components/templates/unAuthPage";
 import { alertService } from "@/components/alert/services";
 import MyProfileCard from "@/components/pages/myProfileCard";
+import { getSession, signOut, useSession } from "next-auth/react";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { ridersRepo } from "./api/repo";
 
-export default function Profile() {
+type User = {
+  bio: string;
+  age: number;
+  name: string;
+  roll: string;
+  email: string;
+  image: string;
+  address: string;
+  rating: number;
+  revenue: number;
+};
+
+export const getServerSideProps: GetServerSideProps<{
+  user: User;
+}> = async ({ req }) => {
+  const session = await getSession({ req });
+  const data = await ridersRepo.getByEmail(session?.user.email);
+  const user = JSON.parse(JSON.stringify(data));
+  return { props: { user } };
+};
+
+export default function Profile({
+  user,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   // state variables user info & action
   const [options, setOptions] = useState({
     autoClose: false,
     keepAfterRouteChange: false,
   });
-  const [user, setUser] = useState<any>({});
   const { toggleColorMode } = useColorMode();
   const [edit, setEdit] = useState<any>(false);
   const { data: session, status } = useSession();
-
-  useEffect(() => {
-    const user = session?.user;
-    setUser(user);
-  }, []);
 
   const ref = useRef<HTMLInputElement>(null);
   const imageFile = ref.current!;
@@ -44,7 +62,11 @@ export default function Profile() {
   async function handleSubmitEdit() {
     const formData = new FormData();
     formData.append(imageFile?.name, imageFile?.value);
-    await axios.post("/api/upload", formData);
+    await fetch("/api/upload", {
+      method: "POST",
+      body: JSON.stringify(formData),
+    });
+
     await fetch("/api/riders/update");
     <Spinner />;
     alertService.success("Your information has been saved", options);
@@ -59,8 +81,8 @@ export default function Profile() {
   const address = user?.address || "Abuja, Nigeria";
   const bio = user?.bio || "I am just a placeholder for your bio";
   // pending logic implementation
-  const revenue = user?.revenue || "0";
-  const rating = user?.rating || "1.0";
+  const revenue = user?.revenue || 0;
+  const rating = user?.rating || 2.0;
   const riderUser = true;
 
   if (status === "loading") return <Spinner />;
@@ -182,7 +204,7 @@ export default function Profile() {
                         htmlFor="dateOfBirth"
                         className="mt-3 block text-sm font-medium leading-6 text-white-900"
                       >
-                        Date of Birth (You must be 18 years +)
+                        Update Date of Birth
                       </label>
                       <div className="mt-1">
                         <input
@@ -272,7 +294,7 @@ export default function Profile() {
                     </div>
                   </form>
                   <button
-                    onClick={() => handleBackToTop}
+                    onClick={() => handleBackToTop()}
                     type="button"
                     className="mt-5 justify-center rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold leading-6"
                   >
@@ -290,7 +312,6 @@ export default function Profile() {
               Reset Theme
             </span>
           </div>
-
           <div className="mx-auto rounded-md sign-out">
             <button onClick={() => signOut}>
               <a href="/api/auth/signout">Log out</a>

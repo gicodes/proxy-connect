@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { authOptions } from "../auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
-import { ridersRepo } from "./repo";
+import { ridersRepo } from "../repo";
 
 export default async function handler(
   req: NextApiRequest, res: NextApiResponse
