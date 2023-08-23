@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { FormEvent, useRef } from "react";
 
 const ImageUploader = () => {
@@ -18,7 +17,10 @@ const ImageUploader = () => {
     }
 
     // 4. use axios to send the FormData
-    await axios.post("/api/upload", formData);
+    await fetch("/api/upload", {
+      method: "POST",
+      body: JSON.stringify(formData),
+    });
   };
   return (
     <>

@@ -64,7 +64,7 @@ export default function Profile({
     formData.append(imageFile?.name, imageFile?.value);
     await fetch("/api/upload", {
       method: "POST",
-      body: JSON.stringify(formData),
+      body: formData,
     });
 
     await fetch("/api/riders/update");
