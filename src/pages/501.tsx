@@ -10,7 +10,7 @@ const Custom501 = () => {
             501 <span className="mx-3 text-4xl">|</span> User not updated !
           </h1>
           <a
-            href="/my-profile"
+            href="/profile"
             className="mt-8 mb-3 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-bold leading-6 text-white"
           >
             Back To Profile

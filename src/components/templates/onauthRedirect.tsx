@@ -1,5 +1,5 @@
 import { Button, VStack } from "@chakra-ui/react";
-import DefaultWarnAlert from "../alert/defaultError";
+import DefaultWarnAlert from "../alert/errorAlert";
 
 const GoToSignIn = () => {
   return (

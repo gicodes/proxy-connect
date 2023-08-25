@@ -1,6 +1,6 @@
+import GoToSignIn from "@/components/templates/onauthRedirect";
 import { useApp } from "@/lib/utils/socketLocationProvider";
-import GoToSignIn from "@/components/templates/unAuthPage";
-import LocationCard from "@/components/pages/exploreRiderCard";
+import LocationCard from "@/components/pages/myExploreCard";
 import Spinner from "@/components/templates/spinner";
 import { useState, useRef, useEffect } from "react";
 import { Heading, Text } from "@chakra-ui/react";

@@ -7,6 +7,7 @@ export default async function handler(
   req: NextApiRequest, res: NextApiResponse
   ) {
     const session = await getServerSession(req, res, authOptions)
+    if (req.body.length < 4) {console.log("Invalid data"); return;}
     if (req && req.method === "POST"){
       try {
         // extracting userData from body
@@ -39,7 +40,7 @@ export default async function handler(
         }
 
         await ridersRepo.update(session?.user.email, userData);
-        return res.status(200).redirect('/my-profile');
+        return res.status(200).redirect('/profile');
       } 
       catch(err: any) {
         // console.log(`Server CL: error updating user because ${err.message}`);

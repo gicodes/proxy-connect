@@ -10,6 +10,7 @@ export default async function handler(
     return res.status(200)
     .redirect('/auth/sign-in');
   } catch (err: any) {
-    res.status(500).json({ message: 'Internal server error' });
+    console.log(err);
+    res.status(500).redirect('/error');
   }
 } 

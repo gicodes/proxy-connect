@@ -3,7 +3,6 @@ import { alertService } from "@/components/alert/services";
 import { useState } from "react";
 
 const upcoming = () => {
-  // var options for alertService
   const [options, setOptions] = useState({
     autoClose: false,
     keepAfterRouteChange: false,
@@ -18,7 +17,10 @@ const upcoming = () => {
       <VStack mt={"10"}>
         <span
           onClick={() =>
-            alertService.warn("You are not subscribed yet!!", options)
+            alertService.warn(
+              "You are not subscribed yet!!",
+              setOptions({ autoClose: true, keepAfterRouteChange: false })
+            )
           }
         >
           Click to see upcoming rides and requests

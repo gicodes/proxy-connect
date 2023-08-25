@@ -83,7 +83,7 @@ function GlobalAlert({ id, fade }: any) {
   }, []);
 
   function omit({ arr, key }: any) {
-    return arr.map((obj: any) => {
+    return arr?.map((obj: any) => {
       const { [key]: omitted, ...rest } = obj;
       return rest;
     });
@@ -122,7 +122,7 @@ function GlobalAlert({ id, fade }: any) {
     return alertTypeStatus[alert.type];
   }
 
-  if (!alerts.length) return null;
+  if (!alerts?.length) return null;
 
   return (
     <div>

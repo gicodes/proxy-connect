@@ -1,21 +1,22 @@
 import { Flex, Image, Text, HStack, useColorModeValue } from "@chakra-ui/react";
+import { FaUpload } from "react-icons/fa";
 import { RxDotFilled, RxStarFilled } from "react-icons/rx";
 import { Divider } from "@chakra-ui/react";
 
 interface User {
   bio: string;
-  age: number;
   name: string;
   email: string;
   avatar: string;
+  rating: number;
+  orders: number;
+  revenue: number;
   contact: string;
   address: string;
-  rating: number;
-  revenue: number;
 }
 
-function MyProfileCard({
-  age,
+export default function MyProfileCard({
+  orders,
   address,
   avatar,
   bio,
@@ -85,7 +86,7 @@ function MyProfileCard({
         <Text textAlign="center" className="mt-5 profile-numbers">
           {contact}
         </Text>
-        <HStack pl={"2.5"} mt={"3"}>
+        <HStack mt={"3"}>
           <RxDotFilled size={"20"} color="green" />
           <Text className="profile-location">{address}</Text>
         </HStack>
@@ -102,14 +103,14 @@ function MyProfileCard({
             fontSize="xl"
             textAlign="center"
           >
-            {age}
+            {orders}
           </Text>
           <Text color={secondaryText} fontWeight="500">
-            Age
+            Rides
           </Text>
         </Flex>
         <Flex flexDirection="column">
-          <Flex pt={"1"} pb={1.5} flexDirection="row">
+          <Flex pt={"1"} pb={1.5} justifyContent={"center"} flexDirection="row">
             {ratingScore()}
           </Flex>
           <Text textAlign={"center"} color={secondaryText} fontWeight="500">
@@ -123,7 +124,10 @@ function MyProfileCard({
             color={mainText}
             textAlign="center"
           >
-            <span className="text-green-500">$</span> {revenue}
+            <span hidden className="text-green-500">
+              $
+            </span>{" "}
+            {revenue}
           </Text>
           <Text color={secondaryText} fontWeight="500">
             Revenue
@@ -133,5 +137,3 @@ function MyProfileCard({
     </Flex>
   );
 }
-
-export default MyProfileCard;

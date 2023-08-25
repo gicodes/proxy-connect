@@ -14,7 +14,6 @@ const handleSearch = (e: MouseEvent) => {
 };
 
 export default function Home({}) {
-  // var options for alertService
   const [options, setOptions] = useState({
     autoClose: false,
     keepAfterRouteChange: false,
