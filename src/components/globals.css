@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+.map {
+  height: 400px;
+  width: 100%;
+}
+
+.map-button {
+  background-color: white;
+  color: #000;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 0 0.5em;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  height: 40px;
+  cursor: pointer;
+}
+
+.map-button:hover {
+  background: rgb(235, 235, 235);
+}
+
+.invalid-feedback {
+  color: crimson;
+  font-size: smaller;
+}
+.invalid-reco {
+  color: #909090;
+  font-weight: 750;
+  font-style: italic;
+}
+
+.valid-reco {
+  color: antiquewhite;
+  font-weight: 750;
+  font-style: italic;
+}
+
+.explore-card-text {
+  color: black;
+  font-family:'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
+  font-weight: 300;
+  font-size: larger;
+}
+
+.error-info-text {
+  color: #808080;
+  font-weight: 400;
+  font-style: italic;
+  font-size: x-small;
+  font-family: Georgia, Times, serif;
+}
+
+.index-text {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: 360;
+  font-size: medium;
+}
+
+.sub-heading {
+  margin-top: 12px;
+  color: #909090;
+}
+
+.alertCloseBtn {
+  border: 1px solid #808080;
+  align-self: flex-start;
+}
+
+.profile-c1 {
+  display: flex;
+  margin: 20px;
+  padding-top: 5px;
+  justify-content: space-between;
+}
+
+.profile-c2 {
+  padding-bottom: 20px;
+}
+
+.profile-image {
+  border-radius: 50% !important;
+  padding-bottom: 1px;
+}
+
+.profile-verified {
+  position: relative !important;
+  margin-top: -20px;
+  left: 50%;
+}
+
+.profile-name {
+  font-size: large;
+  margin-bottom: 5px;
+}
+
+.profile-text {
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: 420;
+  font-size: medium;
+}
+
+.profile-location {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: smaller;
+  color: antiquewhite;
+}
+
+.profile-email {
+  font-size: 15px;
+  font-weight: 120;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+;}
+
+.profile-numbers {
+  color: #ffffffb0;
+  font-size: small;
+  font-weight: 500;
+}
+
+.sign-out {
+  border: 0.1px solid #808080;
+  margin-top: 20px;
+  justify-items: center;
+  width: max-content;
+  padding: 10px;
+}
