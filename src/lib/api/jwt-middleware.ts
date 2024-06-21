@@ -9,7 +9,7 @@ export { jwtMiddleware };
 export { default } from "next-auth/middleware"
 
 // secure certain pages with config object and a matcher:
-export const config = { matcher: ["/explore", "profile"] }
+export const config = { matcher: ["/connect", "profile"] }
 
 function jwtMiddleware({req, res}: any) {
     const middleware = expressjwt({ secret: serverRuntimeConfig.secret, algorithms: ['HS256'] }).unless({

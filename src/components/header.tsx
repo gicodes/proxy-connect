@@ -3,7 +3,7 @@ import { signOut, useSession } from "next-auth/react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
-// var navigation UX flow
+// Navbar props
 const navigation: Array<{
   name: string;
   href: string;
@@ -11,18 +11,17 @@ const navigation: Array<{
   onClick: () => void;
 }> = [
   { name: "Home", href: "/", current: true, onClick: () => {} },
+  { name: "Console", href: "/console", current: false, onClick: () => {} },
+  { name: "Connect", href: "/connect", current: false, onClick: () => {} },
   {
-    name: "Documentation",
-    href: "/documentation",
-    current: false,
+    href: "/knowledge-base",
+    name: "Knowledge Base",
     onClick: () => {},
+    current: false,
   },
-  { name: "Explore", href: "/explore", current: false, onClick: () => {} },
-  { name: "History", href: "/history", current: false, onClick: () => {} },
-  { name: "Upcoming", href: "/upcoming", current: false, onClick: () => {} },
 ];
 
-// function: Tailwind classes UI flow
+// Tailwind props & classes
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
@@ -44,13 +43,14 @@ export default function Header({ children }: { children: React.ReactNode }) {
   }, []);
 
   // var userNavigation UX flow
+  // sign in | sign out
   const userNavigation: Array<{
     name: string;
     href: string;
     onClick: () => void;
   }> = [
     { name: "My Profile", href: "/profile", onClick: () => {} },
-    { name: "Sign me up", href: "/auth/sign-up", onClick: () => {} },
+    { name: "Sign in", href: "/auth/sign-up", onClick: () => {} },
     { name: "Sign out", href: "/api/auth/signout", onClick: signOut },
   ];
 
@@ -62,24 +62,15 @@ export default function Header({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <div className="min-h-full">
+      <div className="min-h-full min-w-full">
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
             <>
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="max-w-8xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                   <div className="flex items-center">
-                    <div className="flex-shrink-0">
-                      <a href="/">
-                        <img
-                          className="h-8 w-8"
-                          src="/RyderGP bold/favicon-32x32.png"
-                          alt="rydergp.logo"
-                        />
-                      </a>
-                    </div>
                     <div className="hidden md:block">
-                      <div className="ml-10 flex items-baseline space-x-4">
+                      <div className="ml-10 flex items-baseline space-x-10">
                         {navigation.map((item) => (
                           <a
                             key={item.name}
@@ -107,6 +98,7 @@ export default function Header({ children }: { children: React.ReactNode }) {
                         <span className="sr-only">View notifications</span>
                         <BellIcon className="h-6 w-6" aria-hidden="true" />
                       </button>
+
                       {/* Profile dropdown */}
                       <Menu as="div" className="relative ml-3">
                         <div>
@@ -149,26 +141,39 @@ export default function Header({ children }: { children: React.ReactNode }) {
                       </Menu>
                     </div>
                   </div>
-                  <div className="-mr-2 flex md:hidden">
-                    {/* Mobile menu button */}
-                    <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <span className="sr-only">Open main menu</span>
-                      {open ? (
-                        <XMarkIcon
-                          className="block h-6 w-6"
-                          aria-hidden="true"
-                        />
-                      ) : (
-                        <Bars3Icon
-                          className="block h-6 w-6"
-                          aria-hidden="true"
-                        />
-                      )}
-                    </Disclosure.Button>
+
+                  {/* Mobile menu button */}
+                  <div className="min-w-full md:hidden">
+                    <div className="flex justify-around....">
+                      <div className="flex-1">
+                        <a href="/">
+                          <img
+                            className="h-8 w-8"
+                            src="/RyderGP bold/favicon-32x32.png"
+                            alt="rydergp.logo"
+                          />
+                        </a>
+                      </div>
+                      <div>
+                        <Disclosure.Button className="rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                          <span className="sr-only">Open main menu</span>
+                          {open ? (
+                            <XMarkIcon
+                              className="block h-6 w-6"
+                              aria-hidden="true"
+                            />
+                          ) : (
+                            <Bars3Icon
+                              className="block h-6 w-6"
+                              aria-hidden="true"
+                            />
+                          )}
+                        </Disclosure.Button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-
               <Disclosure.Panel className="md:hidden">
                 <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                   {navigation.map((item) => (
@@ -230,7 +235,8 @@ export default function Header({ children }: { children: React.ReactNode }) {
             </>
           )}
         </Disclosure>
-        {children}
+
+        <div>{children}</div>  
       </div>
     </>
   );

@@ -1,6 +1,6 @@
 import GoToSignIn from "@/components/templates/onauthRedirect";
 import { useApp } from "@/lib/utils/socketLocationProvider";
-import LocationCard from "@/components/pages/myExploreCard";
+import LocationCard from "@/components/templates/myExploreCard";
 import Spinner from "@/components/templates/spinner";
 import { useState, useRef, useEffect } from "react";
 import { Heading, Text } from "@chakra-ui/react";
@@ -32,7 +32,7 @@ export default function Explore() {
   const regionFiltered = () => nearbyRef.current.updateRiders(data.region);
 
   useEffect(() => {
-    fetch("/api/explore")
+    fetch("/api/connect")
       .then((res) => res.json())
       .then((data) => {
         setData(data);

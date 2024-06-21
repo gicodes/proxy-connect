@@ -49,7 +49,7 @@ function GlobalAlert({ id, fade }: any) {
         if (!alert.message) {
           setAlerts((alerts: AlertTypes[]) => {
             // filter out alerts without 'keepAfterRouteChange' flag
-            const filteredAlerts = alerts.filter((x) => x.keepAfterRouteChange);
+            const filteredAlerts = alerts?.filter((x) => x.keepAfterRouteChange);
 
             // remove 'keepAfterRouteChange' flag on the rest
             return omit(filteredAlerts);

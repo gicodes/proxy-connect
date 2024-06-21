@@ -1,8 +1,8 @@
 import SocketLocationProvider from "@/lib/utils/socketLocationProvider";
-import { Box, ChakraProvider, VStack } from "@chakra-ui/react";
 import { GlobalAlert } from "@/components/alert/alert";
+import { ChakraProvider } from "@chakra-ui/react";
 import { SessionProvider } from "next-auth/react";
-import Header from "@/components/pages/header";
+import Header from "@/components/header";
 import theme from "../components/utils/_theme";
 import { Inter } from "next/font/google";
 import type { AppProps } from "next/app";
@@ -15,20 +15,15 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps<{ session: Session }>) {
-  // console.log(`app session: ${session}`);
   return (
     <SessionProvider session={session}>
       <ChakraProvider theme={theme}>
-        <SocketLocationProvider>
-          <Header>
-            <VStack>
-              <Box w="full" maxW="container.md" minH="100vh" p="4">
-                <GlobalAlert />
-                <Component className={inter.className} {...pageProps} />
-              </Box>
-            </VStack>
-          </Header>
-        </SocketLocationProvider>
+        <Header>
+          <SocketLocationProvider>
+            <GlobalAlert />
+            <Component className={inter.className} {...pageProps} />
+          </SocketLocationProvider>
+        </Header>
       </ChakraProvider>
     </SessionProvider>
   );

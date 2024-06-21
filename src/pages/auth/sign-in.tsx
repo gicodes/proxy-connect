@@ -137,12 +137,12 @@ export default function AuthPage({
                     <Text paddingTop="4" fontSize="12.3">
                       <b>Sign in with credentials</b> allow default login for
                       user accounts created using a username and password. (
-                      <span className="invalid-reco">Not recommended</span>)
+                      <span className="invalid-text">Not recommended</span>)
                     </Text>
                     <Text paddingTop="4" fontSize="12">
                       <b>Sign in with google</b> allows login or registering a
                       user account with existing gmail. Redirects to google. (
-                      <span className="valid-reco">Recommended</span>)
+                      <span className="valid-text">Recommended</span>)
                     </Text>
                   </AlertDescription>
                 </Box>

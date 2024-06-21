@@ -128,7 +128,7 @@ export default function SignUpPage() {
                 name="acceptTerms"
                 required
               />
-              <div className="invalid-feedback">
+              <div className="text-error">
                 {errors.acceptTerms?.message}
               </div>
             </div>

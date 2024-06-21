@@ -101,7 +101,7 @@ export default function SwitchHeader(props: {
 
   // combines toggleColorMode and router
   const handleCheckIn2 = () => {
-    router.push("/explore");
+    router.push("/connect");
   };
 
   return (

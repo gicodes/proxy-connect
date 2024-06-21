@@ -32,8 +32,7 @@ export const getServerSideProps: GetServerSideProps<{
 
 export default function Profile({
   user,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  // states to store user data & instances
+}: any) {
   const [options, setOptions] = useState({
     autoClose: false,
     keepAfterRouteChange: false,
@@ -60,7 +59,6 @@ export default function Profile({
     toggleColorMode();
   }
 
-  // var user object as User Profile
   const orders = user?.orders || 0;
   const name = user?.name || "fetching name..";
   const contact = user?.roll || "081-2345-6789";
