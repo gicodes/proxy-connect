@@ -1,25 +1,51 @@
+import { Button } from '@chakra-ui/react';
 import React from 'react'
 
-const Body = () => {
+const IndexBodyText = () => {
   return (
     <>
-      <div className='mx-auto body-text'>
+      <div className='mx-auto body-text-1'>
         <h2 className='m-1 p-1 title'> 
-          <span className='text-success'>ProxyConnect </span>helps you 
-          <span className='block p-1'></span>Locate the <span className='text-warning'>services </span>you need <span className='ar text-info'>around you..</span>
+            <div className='block'>
+                <span className='text-success'>ProxyConnect </span>
+                <span>helps you locate </span>
+            </div>
+            <span>
+                <span className='text-warning '>services </span>
+                <span>you need </span> 
+            </span>
+            <div className='block'>
+                <span className='text-info'>around you</span>
+            </div>       
         </h2>
-        <span className='block spaced-2'></span>
-        <span className='h4l'>'Technology is best when it brings people together' <span className='h5b'> — Matt Mullenweg</span ></span>    
+        <div className='h4l mt-6'>
+            'Technology is best when it brings people together' 
+            <span className='h5b'> — Matt Mullenweg</span>
+        </div>    
       </div>
     </>
   )
 }
 
-export default Body;
+export default IndexBodyText;
+
+export const IndexButtonGroup = () => {
+    return (
+        <> 
+            <div className='button-group'>
+                <div className='index-start'>
+                    Start free trial
+                </div>
+                <div className='index-watch'>
+                    Watch demo
+                </div>
+            </div>
+        </>
+    )
+}
 
 /*
-        
-        <main className="container-fluid position-absolute">
+    <main className="container-fluid position-absolute">
             <div className="h-100 p-6 mb-12">        
                 <section id="functionality">
                     <Stack p={"6"}>

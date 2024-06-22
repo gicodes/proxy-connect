@@ -1,5 +1,5 @@
 import ImageSlider from "@/components/templates/imageSlider";
-import Body from "@/components/templates/bodyText";
+import IndexBodyText, { IndexButtonGroup } from "@/components/templates/bodyText";
 import { useState } from "react";
 
 export default function Home({}) {
@@ -7,6 +7,7 @@ export default function Home({}) {
     autoClose: false,
     keepAfterRouteChange: false,
   });
+  
   function handleOptionChange(e: any) {
     const { name, checked } = e.target;
     setOptions((options) => ({ ...options, [name]: checked }));
@@ -17,12 +18,15 @@ export default function Home({}) {
       <main className="noCss-sq">
         <div className="index-container-1">
           <div className="flex-1">
-            <Body/>
+            <IndexBodyText/>
           </div>
           <div className="flex-1">
             <ImageSlider/>
-          </div>
+          </div>   
         </div>
+        <div className="index-btn-group">
+          <IndexButtonGroup />
+        </div> 
       </main>
     </>
   );

@@ -92,9 +92,8 @@ h5 {
   color: orange;
 }
 
-.ar {
+.flex-end {
   display: flex;
-  font-size: 44px;
   justify-content: flex-end;
 }
 
@@ -120,21 +119,29 @@ h5 {
   display: block;
 }
 
-.spaced-1 {
-  margin-top: 20px;
+.flex-wrap-1 {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.min-h1 {
+  min-height: 10px;
+}
+
+.min-h6 {
+  min-height: 60px;
+}
+
+.spaced {
+  margin-top: 10px;
 }
 
 .spaced-2 {
-  min-height: 50px;
+  margin-top: 20px;
 }
 
-
-.sign-out {
-  border: 0.1px solid #808080;
-  margin-top: 20px;
-  justify-items: center;
-  width: max-content;
-  padding: 10px;
+.spaced-5 {
+  min-height: 50px;
 }
 
 .index-container-1 {
@@ -143,8 +150,63 @@ h5 {
   justify-content: around;
 }
 
-.body-text {
+.body-text-1 {
   width: 77%
+}
+
+.index-start, .index-watch {
+  font-size: large;
+  font-weight: 500;
+  border-radius: 5px;
+  padding: 20px 40px 20px 40px;
+}
+
+.button-group {
+  display: flex;
+}
+
+.index-start {
+  background-color: royalblue;
+  margin-right: 20px;
+}
+
+.index-start:hover {
+  background-color: darkblue;
+}
+
+.index-watch {
+  background-color: whitesmoke;
+  border: royalblue;
+  color: royalblue;
+  margin-left: 20px;
+  font-weight: 600;
+}
+
+.index-watch:hover {
+  background-color: lightgray;
+}
+
+.index-btn-group {
+  width: 55%;
+  margin-top: -55px;
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (min-width: 820px) and (max-width: 1025px) {
+  .index-btn-group {
+    margin-top: 55px;
+    width: 100%
+  }
+
+  .body-text-1 {
+    width: 75%
+  }
+
+  .img-slider {
+    min-width: 360px;
+    max-height: 300px;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -152,7 +214,7 @@ h5 {
     display: block;
   }
   
-  .body-text {
+  .body-text-1 {
     width: 75%;
     margin-bottom: 25px;
   }
@@ -161,11 +223,33 @@ h5 {
     width: 100%;
     min-width: 100%;
   }
+
+  .index-btn-group {
+    margin-top: 10%;
+    width: 100%;
+  }
+
+  .index-start, .index-watch {
+    margin-right: 0;
+    margin-left: 0;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .button-group {
+    display: block;
+    width: 100%;
+  }
 }
 
 /* image slider custom styles */
 .img-slider {
   width: 75%;
+}
+
+.img:hover {
+  border: 1px solid white;
 }
 
 .img {
@@ -197,6 +281,7 @@ h5 {
 }
 
 .justify-center {
+  display: flex;
   justify-content: center;
 }
 
@@ -282,4 +367,12 @@ h5 {
   color: #ffffffb0;
   font-size: small;
   font-weight: 500;
+}
+
+.sign-out {
+  border: 0.1px solid #808080;
+  margin-top: 20px;
+  justify-items: center;
+  width: max-content;
+  padding: 10px;
 }
