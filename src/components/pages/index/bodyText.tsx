@@ -29,21 +29,6 @@ const IndexBodyText = () => {
 
 export default IndexBodyText;
 
-export const IndexButtonGroup = () => {
-    return (
-        <> 
-            <div className='button-group'>
-                <div className='index-start'>
-                    Start free trial
-                </div>
-                <div className='index-watch'>
-                    Watch demo
-                </div>
-            </div>
-        </>
-    )
-}
-
 /*
     <main className="container-fluid position-absolute">
             <div className="h-100 p-6 mb-12">        

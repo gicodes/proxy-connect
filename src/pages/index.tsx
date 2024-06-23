@@ -1,18 +1,8 @@
-import ImageSlider from "@/components/templates/imageSlider";
-import IndexBodyText, { IndexButtonGroup } from "@/components/templates/bodyText";
-import { useState } from "react";
+import IndexButtonGroup from "@/components/pages/index/indexBtnGrp";
+import ImageSlider from "@/components/pages/index/imageSlider";
+import IndexBodyText from "@/components/pages/index/bodyText";
 
 export default function Home({}) {
-  const [options, setOptions] = useState({
-    autoClose: false,
-    keepAfterRouteChange: false,
-  });
-  
-  function handleOptionChange(e: any) {
-    const { name, checked } = e.target;
-    setOptions((options) => ({ ...options, [name]: checked }));
-  };
-
   return (
     <>
       <main className="noCss-sq">
