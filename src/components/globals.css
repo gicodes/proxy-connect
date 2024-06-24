@@ -73,6 +73,7 @@ h5 {
   color: crimson;
   font-size: smaller;
 }
+.text-gray { color: #808080 }
 .text-info {
   color: lightblue;
 }
@@ -85,12 +86,6 @@ h5 {
 .text-warning {
   color: orange;
 }
-
-.flex-end {
-  display: flex;
-  justify-content: flex-end;
-}
-
 .text-not-valid {
   color: rgb(154, 139, 8);
   font-weight: 500;
@@ -140,6 +135,11 @@ h5 {
 .flex-wrap-1 {
   display: flex;
   flex-wrap: wrap;
+}
+
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .block { display: block }

@@ -27,7 +27,7 @@ const SignUpPage = () => {
             <div>
               <label
                 htmlFor="lastName"
-                className="block text-sm font-medium leading-6 text-white-900"
+                className="text-sm font-medium leading-6 text-gray"
               >
                 First Name
               </label>
@@ -45,7 +45,7 @@ const SignUpPage = () => {
             <div>
               <label
                 htmlFor="lastName"
-                className="block text-sm font-medium leading-6 text-white-900"
+                className="text-sm font-medium leading-6 text-gray"
               >
                 Last Name
               </label>
@@ -63,7 +63,7 @@ const SignUpPage = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium leading-6 text-white-900"
+                className="text-sm font-medium leading-6 text-gray"
               >
                 Email address
               </label>
@@ -82,7 +82,7 @@ const SignUpPage = () => {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-white-900"
+                  className="text-sm font-medium leading-6 text-gray"
                 >
                   Password
                 </label>
@@ -100,7 +100,7 @@ const SignUpPage = () => {
             <div>
               <label
                 htmlFor="confirmPassword"
-                className="block text-sm font-medium leading-6 text-white-900"
+                className="text-sm font-medium leading-6 text-gray"
               >
                 Confirm Password
               </label>
