@@ -1,66 +1,65 @@
 import { formOptions } from "@/lib/utils/yupValidation";
+import { Card } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 
-export default function SignUpPage() {
+const SignUpPage = () => {
   const { formState, reset } = useForm(formOptions);
   const { errors } = formState;
 
   return (
     <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="flex-col px-6 py-12 lg:px-8">
+        <Card className="sm:mx-auto sm:w-full sm:max-w-sm pb-6">
           <a href="#">
             <img
               className="mx-auto h-20 w-auto"
               src="/Ryder-GP/android-chrome-512x512.png"
               alt="rydergp.badge"
             />
+            <hr className="w-50 mx-auto mb-4"/>
           </a>
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white-900">
+          <h2 className="mt-2 text-center text-2xl font-bold leading-9 tracking-tight text-white-900">
             Sign up for an account
           </h2>
-        </div>
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        </Card>
+        <Card className="mt-2 sm:mx-auto sm:w-full sm:max-w-sm px-6 py-6">
           <form action="/api/auth/sign-up" className="space-y-6" method="post">
-            {/* __________NAMES__________ */}
             <div>
               <label
-                htmlFor="name"
+                htmlFor="lastName"
                 className="block text-sm font-medium leading-6 text-white-900"
               >
-                First & Last Name (In Sequence)
+                First Name
               </label>
               <div className="mt-2">
                 <input
-                  id="name"
+                  id="firstName"
                   type="text"
-                  name="name"
-                  autoComplete="name"
+                  name="firstName"
+                  autoComplete="firstName"
                   required
                   className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
-            {/* _______USER NAME_______ */}
             <div>
               <label
-                htmlFor="username"
+                htmlFor="lastName"
                 className="block text-sm font-medium leading-6 text-white-900"
               >
-                Username (Used to sign in)
+                Last Name
               </label>
               <div className="mt-2">
                 <input
-                  id="username"
+                  id="lastName"
                   type="text"
-                  name="username"
-                  autoComplete="username"
+                  name="lastName"
+                  autoComplete="lastName"
                   required
                   className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
-            {/* ________EMAIL________ */}
             <div>
               <label
                 htmlFor="email"
@@ -79,7 +78,6 @@ export default function SignUpPage() {
                 />
               </div>
             </div>
-            {/* ________PASSWORD________ */}
             <div>
               <div className="flex items-center justify-between">
                 <label
@@ -99,7 +97,6 @@ export default function SignUpPage() {
                 />
               </div>
             </div>
-            {/* _____CONFIRM PASSWORD_____ */}
             <div>
               <label
                 htmlFor="confirmPassword"
@@ -117,7 +114,6 @@ export default function SignUpPage() {
                 />
               </div>
             </div>
-            {/* ________T & C________ */}
             <div className="block text-sm leading-6 text-white-900 mt-2">
               <label htmlFor="acceptTerms" className="font-semibold pr-2">
                 Accept Terms & Conditions
@@ -152,7 +148,7 @@ export default function SignUpPage() {
               </button>
             </div>
           </form>
-          <p className="mt-10 text-center text-sm text-white-500">
+          <p className="my-6 mx-auto text-sm">
             Already Own an Account?{"  "}
             <a
               href="/auth/sign-in"
@@ -161,8 +157,10 @@ export default function SignUpPage() {
               Return to Login
             </a>
           </p>
-        </div>
+        </Card>
       </div>
     </>
   );
 }
+
+export default SignUpPage;

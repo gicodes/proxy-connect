@@ -1,13 +1,13 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
+import { ridersRepo } from "./api/repo";
+import { GetServerSideProps } from "next";
 import { useColorMode } from "@chakra-ui/react";
 import Spinner from "@/components/templates/spinner";
-import GoToSignIn from "@/components/templates/onauthRedirect";
 import { alertService } from "@/components/alert/services";
-import MyProfileCard from "@/components/pages/profile/myProfileCard";
-import { getSession, signOut, useSession } from "next-auth/react";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { ridersRepo } from "./api/repo";
+import GoToSignIn from "@/components/templates/onauthRedirect";
 import ProfileForm from "@/components/pages/profile/profileForm";
+import { getSession, signOut, useSession } from "next-auth/react";
+import MyProfileCard from "@/components/pages/profile/myProfileCard";
 
 type User = {
   bio: string;
@@ -15,9 +15,9 @@ type User = {
   roll: string;
   email: string;
   image: string;
-  address: string;
   orders: number;
   rating: number;
+  address: string;
   revenue: number;
 };
 
@@ -120,12 +120,15 @@ export default function Profile({
           </div>
           <div className="mx-auto rounded-md sign-out">
             <button onClick={() => signOut}>
-              <a href="/api/auth/signout">Log out</a>
+              <a href="/api/auth/signout">
+                Log out
+              </a>
             </button>
           </div>
         </main>
       </>
     );
   }
+
   return <GoToSignIn />;
 }

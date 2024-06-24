@@ -91,15 +91,13 @@ h5 {
   justify-content: flex-end;
 }
 
-.invalid-text {
-  color: #909090;
-  font-weight: 750;
-  font-style: italic;
+.text-not-valid {
+  color: rgb(154, 139, 8);
+  font-weight: 500;
 }
-.valid-text {
-  color: antiquewhite;
-  font-weight: 750;
-  font-style: italic;
+.text-valid {
+  color: rgb(112, 150, 36);
+  font-weight: 500;
 }
 .error-info-text {
   color: #808080;
@@ -139,34 +137,22 @@ h5 {
 }
 
 /* other utility custom styles */
-.block {
-  display: block;
-}
-
 .flex-wrap-1 {
   display: flex;
   flex-wrap: wrap;
 }
 
-.min-h1 {
-  min-height: 10px;
-}
+.block { display: block }
 
-.min-h6 {
-  min-height: 60px;
-}
+.min-h1 { min-height: 10px }
 
-.spaced {
-  margin-top: 10px;
-}
+.min-h6 { min-height: 60px }
 
-.spaced-2 {
-  margin-top: 20px;
-}
+.spaced { margin-top: 10px }
 
-.spaced-5 {
-  min-height: 50px;
-}
+.spaced-2 { margin-top: 20px }
+
+.spaced-5 { min-height: 50px }
 
 .index-container-1 {
   margin-top: 75px;
@@ -174,9 +160,7 @@ h5 {
   justify-content: around;
 }
 
-.body-text-1 {
-  width: 77%
-}
+.body-text-1 { width: 77% }
 
 .index-start, .index-watch {
   font-size: large;
@@ -185,9 +169,7 @@ h5 {
   padding: 20px 40px 20px 40px;
 }
 
-.button-group {
-  display: flex;
-}
+.button-group { display: flex }
 
 .index-start {
   background-color: royalblue;
@@ -216,6 +198,7 @@ h5 {
   display: flex;
   justify-content: center;
 }
+
 /* image slider custom styles */
 .img-slider {
   width: 75%;
@@ -350,22 +333,6 @@ h5 {
   color: whitesmoke;
 }
 
-@media screen and (min-width: 820px) and (max-width: 1025px) {
-  .index-btn-group {
-    margin-top: 55px;
-    width: 100%
-  }
-
-  .body-text-1 {
-    width: 75%
-  }
-
-  .img-slider {
-    min-width: 360px;
-    max-height: 300px;
-  }
-}
-
 @media screen and (max-width: 768px) {
   .index-container-1, .section-container {
     display: block;
@@ -408,4 +375,23 @@ h5 {
   .sm-mx {
     text-align: center;
   }
+}
+
+@media screen and (min-width: 820px) and (max-width: 1025px) {
+  .index-btn-group {
+    margin-top: 55px;
+    width: 100%
+  }
+
+  .body-text-1 {
+    width: 75%
+  }
+
+  .img-slider {
+    min-width: 360px;
+    max-height: 300px;
+  }
+}
+
+@media screen and (min-width: 768px) {
 }
