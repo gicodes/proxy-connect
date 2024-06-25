@@ -77,6 +77,10 @@ h5 {
 .text-secondary { color: cornflowerblue }
 .text-success { color: rgb(0, 160, 0) }
 .text-warning { color: orange }
+.text-flex-sm {
+  color: lightgray;
+  font-size: small;
+}
 
 .text-not-valid {
   color: rgb(154, 139, 8);
@@ -244,7 +248,7 @@ h5 {
   padding: 20px;
 }
 .img-container {
-  height: 333px;
+  height: 269px;
   overflow: hidden;
 }
 .header-img {
@@ -375,9 +379,15 @@ h5 {
     text-align: center;
   }
 
+  .img-container {
+    height: auto;
+    max-height: 180px;
+  } 
+
   .pr-info-group {
     display: block;
   }
+
   .avatar-img {
     width: 40%;
     margin-left: 4%;

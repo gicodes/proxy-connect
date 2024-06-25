@@ -57,7 +57,7 @@ export default function ProfileCard({
               alt="profile header" 
               className="header-img"
               src="https://images.unsplash.com/photo-1718062457089-b8ba9ee33da7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              />
+            />
           </div>
         </div>
         <div className={`pb-6 flex flex-col ${class3}`}>
@@ -77,18 +77,18 @@ export default function ProfileCard({
                   className="avatar-img" 
                   alt="my profile avatar"
                   />
-                  <hr className="w-100"/>
                 </div>
+                <hr className="-mt2"/>
                 <div className="pr-info py-4">
                   <div>
                     <Text className="h5b text-primary">{name}</Text>
-                    <Text className="text-gray mt-2">{role} at {company}</Text>
+                    <Text className="text-flex-sm mt-4">{role} at {company}</Text>
                     <Text className="text-light mt-4">{address}</Text>
                   </div>
                   <div>
-                  <Text className="py-3 fs-s px-6">{email}</Text>
-                  <Text className="py-3 fs-s px-6 text-light">{phone}</Text>
-                </div>
+                    <Text className="py-3 fs-s">{email}</Text>
+                    <Text className="py-3 fs-s text-light">{phone}</Text>
+                  </div>
                 </div>
               </div>
               <div onClick={toggleEdit} className="ml-6 flex-end">
@@ -110,7 +110,7 @@ export default function ProfileCard({
                     justify="space-between" 
                     w="100%" 
                     px="50px" 
-                    py="40px"
+                    py="30px"
                   >
                     <VStack>
                       <Text>{orders}</Text>

@@ -26,10 +26,7 @@ const ProfileEdit = () => {
         </button>
       </Card>
       {edit && (
-      <Card 
-        p={5}
-        className='edit-container'
-      >
+      <Card p={5} className='edit-container'>
         <ProfileForm />
         <button
           onClick={() => handleBackToTop()}
