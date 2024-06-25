@@ -121,9 +121,9 @@ const SignInPage = ({
               Not a member?{"  "}
               <a
                 href="/auth/sign-up"
-                className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-              >
-                Start registration process
+                className="pl-2 font-semibold leading-6 text-warning hover:text-indigo-500"
+                >
+                Go to Sign up
               </a>
             </p>
           </Card>
