@@ -1,32 +1,14 @@
-import { Fragment, useEffect } from "react";
-import { signOut, useSession } from "next-auth/react";
+import { navigation } from "./nav-props";
+import { useSession } from "next-auth/react";
+import { classNames } from "./tailwind-classes";
+import { userNavigation } from "./user-navigate";
+import { Fragment, useState, useEffect } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
-// Navbar props
-const navigation: Array<{
-  name: string;
-  href: string;
-  current: boolean;
-  onClick: () => void;
-}> = [
-  { name: "Home", href: "/", current: true, onClick: () => {} },
-  { name: "Console", href: "/console", current: false, onClick: () => {} },
-  { name: "Connect", href: "/connect", current: false, onClick: () => {} },
-  {
-    href: "/knowledge-base",
-    name: "Knowledge Base",
-    onClick: () => {},
-    current: false,
-  },
-];
-
-// Tailwind props & classes
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export default function Header({ children }: { children: React.ReactNode }) {
+  const [ nav, setNav ] = useState(false);
   const { data: session, update } = useSession();
 
   useEffect(() => {
@@ -42,21 +24,13 @@ export default function Header({ children }: { children: React.ReactNode }) {
     updateSession(); // update session
   }, []);
 
-  // var userNavigation UX flow
-  // sign in | sign out
-  const userNavigation: Array<{
-    name: string;
-    href: string;
-    onClick: () => void;
-  }> = [
-    { name: "My Profile", href: "/profile", onClick: () => {} },
-    { name: "Sign in", href: "/auth/sign-up", onClick: () => {} },
-    { name: "Sign out", href: "/api/auth/signout", onClick: signOut },
-  ];
-
+  const handleOpenMenu = ()=> {
+    setNav(!nav)
+  }
+  
   const user = {
-    name: session?.user.name || "No user found",
-    email: session?.user.email || "Not signed in",
+    name: session?.user.name || "Gi codes",
+    email: session?.user.email || "reply@gicodes.dev",
     image: session?.user.image || "/profileAvi.png",
   };
 
@@ -155,7 +129,9 @@ export default function Header({ children }: { children: React.ReactNode }) {
                         </a>
                       </div>
                       <div>
-                        <Disclosure.Button className="rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <Disclosure.Button 
+                          onClick={handleOpenMenu}
+                          className="rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
                           <span className="sr-only">Open main menu</span>
                           {open ? (
                             <XMarkIcon
@@ -175,7 +151,7 @@ export default function Header({ children }: { children: React.ReactNode }) {
                 </div>
               </div>
               <Disclosure.Panel className="md:hidden">
-                <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+                <div className="space-y-1 my-3 px-3 pb-3 sm:px-3">
                   {navigation.map((item) => (
                     <Disclosure.Button
                       key={item.name}
@@ -194,7 +170,7 @@ export default function Header({ children }: { children: React.ReactNode }) {
                   ))}
                 </div>
                 <div className="border-t border-gray-700 pb-3 pt-4">
-                  <div className="flex items-center px-5">
+                  <div className="flex my-3 items-center px-5">
                     <div className="flex-shrink-0">
                       <img
                         className="h-8 w-8 rounded-full"
@@ -218,25 +194,37 @@ export default function Header({ children }: { children: React.ReactNode }) {
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
                     </button>
                   </div>
+                  <br/><hr/>
                   <div className="mt-3 space-y-1 px-2">
-                    {userNavigation.map((item) => (
-                      <Disclosure.Button
-                        key={item.name}
-                        as="a"
-                        href={item.href}
-                        className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                      >
-                        {item.name}
-                      </Disclosure.Button>
-                    ))}
+                    {userNavigation
+                      .filter(item => {
+                        if (item.name === "Sign in" && session) return false;
+                        if (item.name === "Sign out" && !session) return false;
+                        return true;
+                      })
+                      .map(item => (
+                        <Disclosure.Button
+                          key={item.name}
+                          as="a"
+                          href={item.href}
+                          className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                          onClick={item.onClick}
+                        >
+                          {item.name}
+                        </Disclosure.Button>
+                      ))}
                   </div>
                 </div>
               </Disclosure.Panel>
             </>
           )}
         </Disclosure>
-
-        <div>{children}</div>  
+        
+        <Disclosure>
+          <div className={nav ? `hidden` : ""}>
+            {children}
+          </div>
+        </Disclosure>
       </div>
     </>
   );

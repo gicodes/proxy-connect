@@ -11,15 +11,15 @@ const IndexBodyText = () => {
                 </div>
                 <span>
                     <span className='text-warning '>services </span>
-                    <span>you need </span> 
+                    <span>you need, </span> 
                 </span>
                 <div className='block'>
                     <span className='text-info'>around you</span>
                 </div>       
             </h2>
-            <div className='h4l mt-6'>
+            <div className='h4l mt-6 mb-6'>
                 'Technology is best when it brings people together' 
-                <span className='h5b'> — Matt Mullenweg</span>
+                <span className='h5b block'> — Matt Mullenweg</span>
             </div>    
         </div>
     </>

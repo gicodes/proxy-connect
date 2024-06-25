@@ -337,7 +337,7 @@ h5 {
 }
 
 @media screen and (max-width: 768px) {
-  .index-container-1, .section-container {
+  .index-container-1, .section-container, .block-sm {
     display: block;
   }
   

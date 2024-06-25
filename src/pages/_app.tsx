@@ -2,7 +2,7 @@ import SocketLocationProvider from "@/lib/utils/socketLocationProvider";
 import { GlobalAlert } from "@/components/alert/alert";
 import { ChakraProvider } from "@chakra-ui/react";
 import { SessionProvider } from "next-auth/react";
-import Header from "@/components/header";
+import Header from "@/components/header/header";
 import theme from "../components/utils/_theme";
 import { Inter } from "next/font/google";
 import type { AppProps } from "next/app";

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import Header from "@/components/header";
+import Header from "@/components/header/header";
 import AccessDenied from "@/components/pages/noAccess";
 
 export default function ProtectedPage() {
