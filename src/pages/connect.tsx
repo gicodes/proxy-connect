@@ -49,7 +49,7 @@ export default function Explore() {
     return <Spinner />;
   }
 
-  if (status !== "authenticated") {
+  if (status === "authenticated") {
     return (
       <>
         <div>

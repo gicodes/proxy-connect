@@ -7,17 +7,17 @@ import { User } from "@/components/pages/profile/userType";
 import GoToSignIn from "@/components/templates/onauthRedirect";
 import ProfileCard from "@/components/pages/profile/profile-card";
 
-// export const getServerSideProps: GetServerSideProps<{
-//   user: User;
-// }> = async ({ req }) => {
-//   const session = await getSession({ req });
-//   const data = await ridersRepo.getByEmail(session?.user?.email);
-//   const user = JSON.parse(JSON.stringify(data));
+export const getServerSideProps: GetServerSideProps<{
+  user: User;
+}> = async ({ req }) => {
+  const session = await getSession({ req });
+  const data = await ridersRepo.getByEmail(session?.user?.email);
+  const user = JSON.parse(JSON.stringify(data));
 
-//   return { 
-//     props: { user }
-//   }
-// };
+  return { 
+    props: { user }
+  }
+};
 
 const Profile = ({
   user,
@@ -40,7 +40,7 @@ const Profile = ({
   let image;
 
   if (status === "loading") return <Spinner />;
-  if (status !== "authenticated") {
+  if (status === "authenticated") {
     return (
       <>
         <main className="w-full flex min-h-full flex-col justify-center">
