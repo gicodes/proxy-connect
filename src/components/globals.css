@@ -374,6 +374,10 @@ h5 {
     border-right: none;
     border-bottom: 1px solid gray;
   }
+  .section-page {
+    padding: 2%;
+    margin-top: 5%;
+  }
 
   .sm-mx {
     text-align: center;

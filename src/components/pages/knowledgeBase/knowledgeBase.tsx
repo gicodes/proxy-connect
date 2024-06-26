@@ -15,7 +15,7 @@ const SelectSection = (
     return (
         <>
             <div>
-                <Stack p={"6"}>
+                <Stack p={"2"}>
                     <Heading className="h5b pl-5 sm-mx">
                         {heading1}
                     </Heading>
