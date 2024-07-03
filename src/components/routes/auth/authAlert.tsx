@@ -23,6 +23,11 @@ const AuthAlert = () => {
                       google account. Redirects to google origin. 
                       <span className="text-valid block">(Recommended)</span>
                     </Text>
+                    <Text paddingTop="4" fontSize="12">
+                      <b>Sign in with Instagram</b> allow sign in with
+                      your instagram account. 
+                      <span className="text-not-valid block">(Coming soon)</span>
+                    </Text>
                   </AlertDescription>
                 </Box>
               </Alert>

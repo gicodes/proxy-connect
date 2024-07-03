@@ -26,15 +26,15 @@ export const authOptions: NextAuthOptions = {
       }
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || serverRuntimeConfig,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || serverRuntimeConfig,
+      clientId: process.env.GOOGLE_CLIENT_ID || serverRuntimeConfig.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || serverRuntimeConfig.GOOGLE_CLIENT_SECRET,
     }),
     InstagramProvider({
       clientId: process.env.INSTAGRAM_CLIENT_ID,
       clientSecret: process.env.INSTAGRAM_CLIENT_SECRET
     })
   ],
-  secret: process.env.NEXTAUTH_SECRET || serverRuntimeConfig,
+  secret: process.env.NEXTAUTH_SECRET || serverRuntimeConfig.NEXTAUTH_SECRET,
   pages: {
     // newer updates should create 'auth/error', 
     // 'verify-request' and 'new-user' landings
