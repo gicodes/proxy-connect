@@ -50,6 +50,7 @@ const SignInPage = ({
       </Card>
       <Card className="mt-2 sm:mx-auto sm:w-full sm:max-w-sm px-6 py-6">
         <form className="space-y-6">
+          <p className="py-3">Select Account Type</p>
           <div className="flex flex-1">
             <div 
               id="userA" 
