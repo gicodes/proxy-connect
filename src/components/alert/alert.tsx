@@ -52,7 +52,7 @@ function GlobalAlert({ id, fade }: any) {
             const filteredAlerts = alerts?.filter((x) => x.keepAfterRouteChange);
 
             // remove 'keepAfterRouteChange' flag on the rest
-            return omit(filteredAlerts);
+            return omit({ arr: filteredAlerts, key: 'keepAfterRouteChange' });
           });
         } else {
           // add alert to array with unique id
@@ -82,7 +82,7 @@ function GlobalAlert({ id, fade }: any) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function omit({ arr, key }: any) {
+  function omit({ arr, key }: { arr: any[], key: string } = { arr: [], key: '' }) {
     return arr?.map((obj: any) => {
       const { [key]: omitted, ...rest } = obj;
       return rest;

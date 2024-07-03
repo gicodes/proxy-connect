@@ -29,7 +29,7 @@ export async function sendApiRequest() {
       navigator.geolocation.getCurrentPosition(async ({ coords }) => {
         const { latitude, longitude } = coords;
         try {
-          // bound for resolution or modification via ridersRepo
+          // bound for resolution or modification via businessRepo
           await fetch(`/api/riders/[${session?.user.name}]`, {
             method: "PUT",
             body: JSON.stringify({ latitude, longitude }),

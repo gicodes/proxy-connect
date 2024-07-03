@@ -5,7 +5,7 @@ const nextConfig = {
   serverRuntimeConfig: {
       connectionString: "",
       // changes made here should also be made in production env
-      secret: process.env.MY_SECRET
+      secret: "ozoNcb97eYDsr6+BBZ4iy3CXICiixxzPM86/fUu6iFQ=" || process.env.MY_SECRET 
   },
   publicRuntimeConfig: {
       apiUrl: process.env.NODE_ENV === 'development'

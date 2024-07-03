@@ -1,4 +1,5 @@
 import SocketLocationProvider from "@/lib/utils/socketLocationProvider";
+import { AuthProvider } from "@/contexts/auth-context";
 import { GlobalAlert } from "@/components/alert/alert";
 import { ChakraProvider } from "@chakra-ui/react";
 import { SessionProvider } from "next-auth/react";
@@ -14,17 +15,22 @@ const inter = Inter({ subsets: ["latin"] });
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
-}: AppProps<{ session: Session }>) {
+}: AppProps<{ session: Session }>
+) {
   return (
     <SessionProvider session={session}>
-      <ChakraProvider theme={theme}>
-        <Header>
-          <SocketLocationProvider>
-            <GlobalAlert />
-            <Component className={inter.className} {...pageProps} />
-          </SocketLocationProvider>
-        </Header>
-      </ChakraProvider>
+      <AuthProvider>
+        <ChakraProvider theme={theme}>
+          <Header>
+            <SocketLocationProvider>
+              <GlobalAlert />
+              <Component 
+                className={inter.className} {...pageProps}
+              />
+            </SocketLocationProvider>
+          </Header>
+        </ChakraProvider>
+      </AuthProvider>
     </SessionProvider>
   );
 }

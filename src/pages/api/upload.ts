@@ -1,5 +1,6 @@
 // app/api/upload/route.ts for Next 13.4+
-import { connectDBucket, fileExists } from "@/lib/api/mongodb";
+import { connectDBucket } from "@/lib/api/mongodb/connectBucket";
+import { fileExists } from "@/lib/api/mongodb/mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 
@@ -23,19 +24,17 @@ export default async function handler(
     const uploadStream = bucket.openUploadStream(filename);
     req.pipe(uploadStream);
 
-    uploadStream.on('error', (error) => {
+    uploadStream.on('error', (error: any) => {
       console.error('Error uploading picture:', error);
       res.status(500).json({ error: 'Error uploading picture' });
       client.close();
     });
 
     uploadStream.on('finish', () => {
-      console.log('Picture uploaded successfully');
       res.status(200).json({ message: 'Picture uploaded successfully' });
       client.close();
     });
 
-    console.log('Successfully uploaded')
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error(error);

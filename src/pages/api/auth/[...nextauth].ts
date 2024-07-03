@@ -1,69 +1,65 @@
 import getConfig from "next/config";
-import { ridersRepo } from "../repo";
-import clientPromise from "@/lib/api/mongodb";
-import {MongoDBAdapter} from "@auth/mongodb-adapter";
+import { businessRepo } from "../repo";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import InstagramProvider from "next-auth/providers/instagram";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const { serverRuntimeConfig } = getConfig();
 
 export const authOptions: NextAuthOptions = {
-  // using MongoDBAdapter (not supported by my codebase)
-  // adapter: MongoDBAdapter(clientPromise),
-  // providers are necessary for next-auth to work
   providers: [
     CredentialsProvider({
-      name: 'credentials',
-      credentials: { 
-        username: {label: 'Username', type: 'text'},
-        password: {label: 'Password', type: 'password'}
+      name: 'Credentials',
+      credentials: {
+        username: { label: "Username", type: "text", placeholder: "Type in your username" },
+        password: { label: "Password", type: "password" }
       },
-      async authorize(credentials) {
-        if (!credentials) return; 
+      async authorize(credentials, req) {
+        if (!credentials) return null; 
         const { username, password } = credentials;
-        const userExists = await ridersRepo.retrieve({ username, password });
-        // handle case of incorrect credentials here
-        if (!userExists) {
-          throw new Error("No user found")
-        };
-        if (userExists) {
-          return userExists as any;
-        }
-        return null
+        const userExists = await businessRepo.retrieve({ username, password });
+
+        if (!userExists) throw new Error("No user found")
+
+        if (userExists) return userExists as any;
       }
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || serverRuntimeConfig.connectionString,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || serverRuntimeConfig.connectionString,
+      clientId: process.env.GOOGLE_CLIENT_ID || serverRuntimeConfig,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || serverRuntimeConfig,
+    }),
+    InstagramProvider({
+      clientId: process.env.INSTAGRAM_CLIENT_ID,
+      clientSecret: process.env.INSTAGRAM_CLIENT_SECRET
     })
   ],
-  // secret is critical for redirect requests
-  secret: process.env.NEXTAUTH_SECRET,
-  // pages are optional but critical for this sign-in flow
+  secret: process.env.NEXTAUTH_SECRET || serverRuntimeConfig,
   pages: {
-    signIn: '/auth/sign-in',
+    // newer updates should create 'auth/error', 
+    // 'verify-request' and 'new-user' landings
     error: '/404',
+    verifyRequest: '/auth/verify-request', 
+    newUser: '/' 
   },
-  // callbacks handle session and jwt strategy
   callbacks: {
-    async session({ session, token }) {
-      session.user.id = token.idToken;
-      // console.log(`next auth:`, {session})
-      return session;
-    },
-    async jwt({ session, token, trigger}) {
+    jwt({ token, trigger, session }) {
       if (trigger === "update" && session?.name) {
-        token.name = session;
+        token.name = session.name;
       }
-      return {...token, ...session};
+      return token;
+    },
+    async session({ session }) {
+      // Send properties to the client, like token.id
+      return session;
     },
   },
   session: {
-    // Choose how you want to save user session. Default is 'JWT', an encrypted (JWE) stored in the session cookie.
-    // If you use adapter, it defaults to `database` instead. You can still force JWT session by explicitly defining `jwt`.
-    strategy: "jwt"
-  }
-}
+    strategy: "jwt",
+  },
+
+  // Enabling debug messages in the console for technical problems
+  debug: process.env.NODE_ENV === 'development',
+};
 
 export default NextAuth(authOptions);

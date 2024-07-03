@@ -1,13 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { authOptions } from "../auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
-import { ridersRepo } from "../repo";
+import { businessRepo } from "../repo";
 
 export default async function handler(
   req: NextApiRequest, res: NextApiResponse
   ) {
     const session = await getServerSession(req, res, authOptions)
-    if (req.body.length < 4) {console.log("Invalid data"); return;}
+    if (req.body.length < 4) {
+      console.error("Invalid data"); 
+      return;
+    }
     if (req && req.method === "POST"){
       try {
         // extracting userData from body
@@ -39,7 +42,7 @@ export default async function handler(
           userData.newPassword = undefined;
         }
 
-        await ridersRepo.update(session?.user.email, userData);
+        await businessRepo.update(session?.user.email, userData);
         return res.status(200).redirect('/profile');
       } 
       catch(err: any) {

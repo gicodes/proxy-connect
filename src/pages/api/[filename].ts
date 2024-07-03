@@ -1,6 +1,6 @@
 // app/api/uploads/[filename]/route.ts for next 13.4+
 import { NextApiRequest, NextApiResponse } from "next";
-import { connectDBucket } from "@/lib/api/mongodb";
+import { connectDBucket } from "@/lib/api/mongodb/connectBucket";
 import { NextResponse } from "next/server";
 
 type Params = {
@@ -12,7 +12,6 @@ export async function handler(
   ) {
   if (req && req.method === "POST"){
     try {
-      console.log(req.query);
       const { bucket } = await connectDBucket();
       const { filename } = req.query;
       if (!filename) {
@@ -34,6 +33,6 @@ export async function handler(
       res.status(500).json({ error: 'An error occurred' });
     }
   } else { 
-    console.log("Didb't download");
+    console.error("Request failed! Failed to download!");
   }
 } 

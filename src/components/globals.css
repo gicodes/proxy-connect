@@ -70,6 +70,7 @@ h5 {
   color: crimson;
   font-size: smaller;
 }
+
 .text-danger { color: tomato }
 .text-gray { color: #909090 }
 .text-light { color: lightgrey}
@@ -83,11 +84,11 @@ h5 {
 }
 
 .text-not-valid {
-  color: rgb(154, 139, 8);
+  color: rgba(228, 209, 38, 0.864);
   font-weight: 500;
 }
 .text-valid {
-  color: rgb(112, 150, 36);
+  color: rgb(111, 164, 4);
   font-weight: 500;
 }
 .error-info-text {
@@ -147,6 +148,12 @@ h5 {
 .spaced { margin-top: 10px }
 .spaced-2 { margin-top: 20px }
 .spaced-5 { min-height: 50px }
+
+.bordered { border: 1px solid #606060;}
+.r-border { border-right: 1px solid #606060;}
+.t-border {  border-top: 1px solid #606060;}
+.b-border {  border-bottom: 1px solid #606060;}
+.l-border {  border-left: 1px solid #606060;}
 
 .index-container-1 {
   margin-top: 75px;
@@ -212,6 +219,7 @@ h5 {
 
 /* map custom styles */
 .map {
+  display: block;
   height: 400px;
   width: 100%;
 }
@@ -427,9 +435,10 @@ h5 {
 
   .pr-info { margin-right: 10%;}
   .pr-bio { width: 75%; }
+  .edit-btn, .edit-container { width: 50%; }
+
   .pr-bio, .edit-btn, .edit-container {
     margin-left: auto;
     margin-right: auto;
   }
-  .edit-btn, .edit-container { width: 50%; }
 }

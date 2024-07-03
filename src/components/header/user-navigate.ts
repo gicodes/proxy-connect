@@ -8,6 +8,6 @@ export const userNavigation: Array<{
   }> = [
     { name: "My Profile", href: "/profile", onClick: () => {} },
     { name: "Settings", href: "/", onClick: () => {} },
-    { name: "Sign in", href: "/auth/sign-up", onClick: () => {} },
+    { name: "Sign in", href: "/auth/sign-in", onClick: () => {} },
     { name: "Sign out", href: "/api/auth/signout", onClick: signOut },
   ];

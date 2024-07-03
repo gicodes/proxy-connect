@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from "react";
-import ProfileForm from "@/components/pages/profile/profile-form";
+import ProfileForm from "@/components/routes/profile/profile-form";
 import { Card } from '@chakra-ui/react';
 
 const ProfileEdit = () => {

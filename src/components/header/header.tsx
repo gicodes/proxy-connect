@@ -2,12 +2,15 @@ import { navigation } from "./nav-props";
 import { useSession } from "next-auth/react";
 import { classNames } from "./tailwind-classes";
 import { userNavigation } from "./user-navigate";
+import NavNotificationArea from "./nav-user-tab";
 import { Fragment, useState, useEffect } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 
-export default function Header({ children }: { children: React.ReactNode }) {
+export default function Header(
+  { children }: { children: React.ReactNode }
+) {
   const [ nav, setNav ] = useState(false);
   const { data: session, update } = useSession();
 
@@ -21,7 +24,7 @@ export default function Header({ children }: { children: React.ReactNode }) {
       });
     }
 
-    updateSession(); // update session
+    updateSession();
   }, []);
 
   const handleOpenMenu = ()=> {
@@ -95,7 +98,12 @@ export default function Header({ children }: { children: React.ReactNode }) {
                           leaveTo="transform opacity-0 scale-95"
                         >
                           <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            {userNavigation.map((item) => (
+                            {userNavigation
+                              .filter(item => {
+                                if (item.name === "Sign in" && session) return false;
+                                if (item.name === "Sign out" && !session) return false;
+                                return true;
+                              }).map((item) => (
                               <Menu.Item key={item.name}>
                                 {({ active }) => (
                                   <a
@@ -170,31 +178,11 @@ export default function Header({ children }: { children: React.ReactNode }) {
                   ))}
                 </div>
                 <div className="border-t border-gray-700 pb-3 pt-4">
-                  <div className="flex my-3 items-center px-5">
-                    <div className="flex-shrink-0">
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src={user.image}
-                        alt="your profile photo"
-                      />
-                    </div>
-                    <div className="ml-3">
-                      <div className="text-base font-medium leading-none text-white mb-2">
-                        {user.name}
-                      </div>
-                      <div className="text-sm font-medium leading-none text-gray-400 mt-1">
-                        {user.email}
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      className="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                    >
-                      <span className="sr-only">View notifications</span>
-                      <BellIcon className="h-6 w-6" aria-hidden="true" />
-                    </button>
-                  </div>
-                  <br/><hr/>
+                  <NavNotificationArea 
+                    image={user.image} name={user.name} email={user.email} 
+                  />
+                  <br/>
+                  <hr/>
                   <div className="mt-3 space-y-1 px-2">
                     {userNavigation
                       .filter(item => {

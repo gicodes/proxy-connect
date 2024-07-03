@@ -6,7 +6,7 @@ export type User = {
   image: any;
   name: string;
   orders: any[];
-  phone: number;
+  phone: number | any;
   rating: number;
   revenue: number;
   role: string;

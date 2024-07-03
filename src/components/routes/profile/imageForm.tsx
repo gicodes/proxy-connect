@@ -14,7 +14,6 @@ export default function ImageForm() {
 
     const formData = new FormData();
     formData.append("file", file);
-    console.log(formData);
 
     try {
       const response = await fetch("/api/upload", {
@@ -26,9 +25,9 @@ export default function ImageForm() {
       });
 
       if (response.ok) {
-        console.log("Picture uploaded successfully");
+        alert("Picture uploaded successfully");
       } else {
-        console.error("Failed to upload picture");
+        alert("Failed to upload picture");
       }
     } catch (error) {
       console.error("An error occurred:", error);

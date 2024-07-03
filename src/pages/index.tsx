@@ -1,6 +1,6 @@
-import IndexButtonGroup from "@/components/pages/index/indexBtnGrp";
-import ImageSlider from "@/components/pages/index/imageSlider";
-import IndexBodyText from "@/components/pages/index/bodyText";
+import IndexButtonGroup from "@/components/routes/index/indexBtnGrp";
+import ImageSlider from "@/components/routes/index/imageSlider";
+import IndexBodyText from "@/components/routes/index/bodyText";
 
 export default function Home() {
   return (

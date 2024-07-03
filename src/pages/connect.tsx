@@ -1,12 +1,12 @@
 import LocationCard from "@/components/templates/myExploreCard";
+import LoadingConnect from "@/components/routes/connect/loading";
 import GoToSignIn from "@/components/templates/onauthRedirect";
-import { Rider } from "@/components/pages/connect/ryderType";
+import { Rider } from "@/components/routes/connect/ryderType";
 import { useApp } from "@/lib/utils/socketLocationProvider";
 import Spinner from "@/components/templates/spinner";
 import { useState, useRef, useEffect } from "react";
 import { Heading, Text } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
-import LoadingConnect from "@/components/pages/connect/loading";
 
 export default function Explore() {
   // states to store ref objects
@@ -16,11 +16,6 @@ export default function Explore() {
   const [isLoading, setLoading] = useState(true);
   const [coordinates, setCoordinates] = useState({});
 
-
-  function ridersOffline() {
-    return; // line break: ridersOffline
-    data.filter((rider: Rider) => !rider.online);
-  }
   // var regionFiltered: pending functionality && nearbyRiders
   const regionFiltered = () => nearbyRef.current.updateRiders(data.region);
 
@@ -83,5 +78,6 @@ export default function Explore() {
       </>
     );
   }
+
   return <GoToSignIn />;
 }

@@ -1,135 +1,120 @@
 import { useState } from "react";
-import AuthAlert from "./auth-alert";
-import { Card } from "@chakra-ui/react";
-import { signIn, getProviders } from "next-auth/react";
+import { useRouter } from "next/router";
+import { Button, Card } from "@chakra-ui/react";
+import UserB from "@/components/routes/auth/userB";
 import type { InferGetServerSidePropsType } from "next";
-
-// 1 pending implementation: forgot password protocol
-
-interface Provider { id: string };
-
-export async function getServerSideProps() {
-  const providers = await getProviders();
-  return {
-    props: { providers: providers ?? [] },
-  };
-}
+import AuthAlert from "../../components/routes/auth/authAlert";
+import { ClientSafeProvider, getProviders, signIn, useSession } from "next-auth/react";
 
 const SignInPage = ({
   providers,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const [username, setUsername] = useState("");
+  const router = useRouter();
+  const { data: session } = useSession();
+  const [email, setEmail] = useState("");
+  const [userB, setUserB] = useState(false);
   const [password, setPassword] = useState("");
-  const callbackUrl = "/";
 
-  function handleSignIn(provider: Provider) {
-    if (provider.id === "credentials") {
-      signIn("credentials", { username, password, callbackUrl });
-    }
-    signIn(provider.id, { callbackUrl });
+  const handleBusinessAcc = () => {
+    setUserB(true)
+  }
+  const handleIndividualAcc = () => {
+    setUserB(false)
+  }
+
+  const handleSignIn = (provider: ClientSafeProvider)=> {
+    if (session) {
+      alert("You are signed in already!");
+      router.push("/profile")
+      return;
+    } else {
+      signIn(provider.name, {callbackUrl: '/'})
+      alert(`You are being redirected to ${provider.name}'s origin for secure sign-in!`)
+    }  
   }
 
   return (
-    <>
-      <div className="flex-col px-6 py-12 lg:px-8">
-          <Card className="sm:mx-auto sm:w-full sm:max-w-sm pb-6">
-            <a href="#">
-              <img
-                className="mx-auto h-20 w-auto"
-                src="/Ryder-GP/android-chrome-512x512.png"
-                alt="rydergp.badge"
-              />
-              <hr className="w-50 mx-auto mb-4"/>
-            </a>
-            <h2 className="mt-2 text-center text-2xl font-bold leading-9 tracking-tight text-white-900">
-              Sign in to your account
-            </h2>
-          </Card>
-          <Card className="mt-2 sm:mx-auto sm:w-full sm:max-w-sm px-6 py-6">
-            <form className="space-y-6">
-              <div>
-                <label
-                  htmlFor="email"
-                  className="text-sm font-medium leading-6 text-gray"                
-                >
-                  Username
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="username"
-                    name="username"
-                    type="text"
-                    autoComplete="username"
-                    required
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
+    <div className="flex-col px-6 py-12 lg:px-8">
+      <Card className="sm:mx-auto sm:w-full sm:max-w-sm pb-6">
+        <a href="#">
+          <img
+            className="mx-auto h-20 w-auto"
+            src="/Ryder-GP/android-chrome-512x512.png"
+            alt="rydergp.badge"
+          />
+          <hr className="w-50 mx-auto mb-4"/>
+        </a>
+        <h2 className="mt-2 text-center text-2xl font-bold leading-9 tracking-tight text-white-900">
+          Sign in to Proxyconnect
+        </h2>
+      </Card>
+      <Card className="mt-2 sm:mx-auto sm:w-full sm:max-w-sm px-6 py-6">
+        <form className="space-y-6">
+          <div className="flex flex-1">
+            <div 
+              id="userA" 
+              className="w-100 p-3" 
+              onClick={handleIndividualAcc}
+            >
+              <Button variant={userB ? `outline` : `solid`}>Individual</Button>
+            </div>
+            <div
+              id="userB" 
+              className="w-100 p-3" 
+              onClick={handleBusinessAcc}
+            >
+              <Button variant={userB ? `solid` : `outline`}>Business</Button>
+            </div>
+          </div>
+          { userB && 
+            <UserB 
+              email={email} 
+              setEmail={setEmail} 
+              password={password} 
+              setPassword={setPassword}
+            />
+          }
+          <div>
+          { !userB &&
+            <>
+              { Object.values(providers).map((provider) => (
+                <div key={provider.id}>
+                  <button
+                    type="submit"
+                    onClick={() => handleSignIn(provider)}
+                    className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 font-semibold leading-6 hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mb-5"
+                  >
+                    Sign in with {provider.id}
+                  </button>
+                  <hr />
                 </div>
-              </div>
-              <div>
-                <div className="flex items-center justify-between">
-                  <label
-                    htmlFor="password"
-                    className="text-sm font-medium leading-6 text-gray"
-                    >
-                    Password
-                  </label>
-                  <div className="text-sm">
-                    <a
-                      href="#"
-                      className="font-semibold text-indigo-600 hover:text-indigo-500"
-                    >
-                      Forgot password?
-                    </a>
-                  </div>
-                </div>
-                <div className="mt-2">
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    autoComplete="current-password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
-
-              <div>
-                {Object.values(providers).map((provider) => (
-                  <div key={provider.id}>
-                    <button
-                      type="submit"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleSignIn(provider);
-                      }}
-                      className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mb-5"
-                    >
-                      Sign in with {provider.id}
-                    </button>
-                    <hr />
-                  </div>
-                ))}
+              ))}
               <AuthAlert />
-              </div>
-            </form>
-            <p className="mt-10 mb-10 text-center text-sm text-white-500">
-              Not a member?{"  "}
-              <a
-                href="/auth/sign-up"
-                className="pl-2 font-semibold leading-6 text-warning hover:text-indigo-500"
-                >
-                Go to Sign up
-              </a>
-            </p>
-          </Card>
-        </div>
-    </>
+            </>
+            }
+          </div>
+        </form>
+        <p className="mt-5 mb-10 text-center text-sm text-white-500">
+          Not a member?{" "}
+          <a
+            href="/auth/sign-up"
+            className="pl-2 font-semibold leading-6 text-warning hover:text-indigo-500"
+          >
+            Go to Sign up
+          </a>
+        </p>
+      </Card>
+    </div>
   );
-}
+};
 
 export default SignInPage;
+
+
+export async function getServerSideProps() {
+  const providers = await getProviders();
+
+  return {
+    props: { providers: providers ?? [] },
+  };
+}
