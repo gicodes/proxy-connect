@@ -1,8 +1,8 @@
-import LocationCard from "@/components/templates/myExploreCard";
+import LocationCard from "@/components/routes/connect/myExploreCard";
 import LoadingConnect from "@/components/routes/connect/loading";
 import GoToSignIn from "@/components/templates/onauthRedirect";
-import { Rider } from "@/components/routes/connect/ryderType";
-import { useApp } from "@/lib/utils/socketLocationProvider";
+import { Rider } from "@/components/routes/connect/serviceType";
+import { useApp } from "@/components/socket/socketLocationProvider";
 import Spinner from "@/components/templates/spinner";
 import { useState, useRef, useEffect } from "react";
 import { Heading, Text } from "@chakra-ui/react";
@@ -46,12 +46,13 @@ export default function Explore() {
 
   if (status === "authenticated") {
     return (
-      <>
+      <div>
         <div>
           <Heading className="text-gray-600 justify-center px-4 py-8 lg:px-8">
             Explore
-          </Heading>
-          <hr />
+          </Heading><hr />
+        </div>
+        <div>
           <Text
             className="justify-center px-4 py-8 lg:px-8"
             fontSize={"18"}
@@ -59,11 +60,12 @@ export default function Explore() {
           >
             Send and receive location from ryders{" "}
           </Text>
-          {isLoading ? <Spinner /> : null}
-          {!data ? (<LoadingConnect/>
-            
-          ) : (
-            data.map((rider: Rider, index: any) => (
+        </div>
+
+        {isLoading && <Spinner />}
+
+        <div className="explore-container">
+          {data.map((rider: Rider, index: any) => (
               <LocationCard
                 key={index}
                 {...{
@@ -72,10 +74,9 @@ export default function Explore() {
                   text: rider.firstName,
                 }}
               />
-            ))
-          )}
+            ))}
+          </div>   
         </div>
-      </>
     );
   }
 

@@ -1,71 +1,76 @@
 import { createContext, useContext, useRef } from "react";
 import { useEffect, useState } from "react";
 import { useToast } from "@chakra-ui/toast";
+import { User } from "../user/userProps";
 import io from "socket.io-client";
-
-// Defining Rider
-interface Rider {
-  id: any;
-  socketId: any;
-  currentRider: any;
-  coords: { latitude: number; longitude: number } | null;
-}
 
 const Context = createContext<any>(null);
 
-function SocketLocationProvider({ children }: { children: React.ReactNode }) {
-  // var socket&Location with useRef
+function SocketLocationProvider(
+  { children }: { children: React.ReactNode }
+) {
   const socketRef = useRef<any | null>();
   const watchLocation = useRef<any | null>();
 
-  // state objects to store rider variables
-  const [riders, setRiders] = useState<Rider[]>([]);
-  const [currentRider, setcurrentRider] = useState<Rider>();
+  const [users, setUsers] = useState<User[]>([]);
+  const [currentUser, setCurrentUser] = useState<User>();
   const [hasAccessLocation, setHasAccessLocation] = useState(false);
 
   const toast = useToast();
 
   useEffect(() => {
-    // Connect socket-client
-    fetch("/api/server/socket");
+    fetch("/api/socket-connect/socket");
     socketRef.current = io();
-
-    // if socketRef, init Rider flow
+  
     if (socketRef.current) {
-      socketRef.current.on("new-rider", (data: Rider) => {
-        setRiders((riders) => [...riders, data]);
+      socketRef.current.on("all-users", (data: User[]) => {
+        setUsers(data);
       });
-      socketRef.current.on("all-riders", (data: Rider[]) => {
-        setRiders(data);
+
+      socketRef.current.on("new-user", (data: User) => {
+        setUsers((users) => [...users, data]);
       });
-      socketRef.current.on("current-rider", (data: Rider) => {
-        setcurrentRider(data);
+      
+      socketRef.current.on("current-user", (data: User) => {
+        setCurrentUser(data);
       });
-      socketRef.current.on("position-change", (data: Rider) => {
-        riders.map((rider) => {
-          if (rider.socketId === data.socketId) return data;
-          return rider;
+
+      if (currentUser?.userType === "Individual") {
+          socketRef.current.on("join-individuals", (data: User) => {
+          // Handle join-individuals event
+          // Example: Add individual users to a separate state or handle as needed
         });
+      } else {
+        socketRef.current.on("join-business", (data: User) => {
+          // Handle join-business event
+          // Example: Add business users to a separate state or handle as needed
+        });
+      }
+      
+      socketRef.current.on("position-change", (data: User) => {
+        setUsers((users) =>
+          users.map((user) => (user.socketId === data.socketId ? data : user))
+        );
       });
     }
-
-    // watch position changes
+  
     if (hasAccessLocation) {
       watchLocation.current = navigator.geolocation.watchPosition(
         positionChange,
         locationResolveError
       );
     }
-
+  
     return () => {
-      // return geoLocation.clearWatch before socket disconnect
       navigator.geolocation.clearWatch(watchLocation.current as any);
-      socketRef.current.disconnect();
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+      }
     };
-  }, []);
+  }, [hasAccessLocation]);  
 
-  // Initialize Rider Location
-  function initRiderLocation() {
+  // Initialize User Location
+  function initUserLocation() {
     if (!navigator.geolocation) {
       // using toast, throw error
       toast({
@@ -84,19 +89,28 @@ function SocketLocationProvider({ children }: { children: React.ReactNode }) {
     );
   }
 
-  // callback function on success and join socket connection
+  // Function for join-events with userType handling
   function locationResolveSuccessfully(data: GeolocationPosition) {
     setHasAccessLocation(true);
     const latitude = data.coords.latitude;
     const longitude = data.coords.longitude;
-    if (socketRef.current) {
-      socketRef.current.emit("join", {
-        latitude,
-        longitude,
-      });
+  
+    if (socketRef.current && currentUser) {
+      if (currentUser.userType === "Business") {
+        socketRef.current.emit("join-business", {
+          ...currentUser,
+          latitude,
+          longitude,
+        });
+      } else {
+        socketRef.current.emit("join-individuals", {
+          ...currentUser,
+          latitude,
+          longitude,
+        });
+      }
     }
-
-    // using toast, show success message
+  
     toast({
       title: "Location",
       description: "Location fetched successfully",
@@ -105,6 +119,7 @@ function SocketLocationProvider({ children }: { children: React.ReactNode }) {
       isClosable: true,
     });
   }
+  
 
   // callback function on error and handling error types
   function locationResolveError(error: GeolocationPositionError) {
@@ -127,11 +142,11 @@ function SocketLocationProvider({ children }: { children: React.ReactNode }) {
   }
 
   function positionChange(data: GeolocationPosition) {
-    // get rider coordinates from GeolocationPosition
+    // get user coordinates from GeolocationPosition
     const { latitude, longitude } = data.coords;
     if (socketRef.current) {
       socketRef.current.emit("position-change", {
-        id: currentRider?.id,
+        id: currentUser?.id,
         coords: {
           latitude,
           longitude,
@@ -142,11 +157,10 @@ function SocketLocationProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <Context.Provider
-      // exposing provider
       value={{
-        initRiderLocation,
-        currentRider,
-        riders,
+        initUserLocation,
+        currentUser,
+        users,
       }}
     >
       {children}

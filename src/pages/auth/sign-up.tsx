@@ -1,3 +1,4 @@
+import { alertService } from "@/components/alert/services";
 import { formOptions } from "@/lib/utils/yupValidation";
 import { Card } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
@@ -26,42 +27,6 @@ const SignUpPage = () => {
           <form action="/api/auth/sign-up" className="space-y-6" method="post">
             <div>
               <label
-                htmlFor="lastName"
-                className="text-sm font-medium leading-6 text-gray"
-              >
-                First Name
-              </label>
-              <div className="mt-2">
-                <input
-                  id="firstName"
-                  type="text"
-                  name="firstName"
-                  autoComplete="firstName"
-                  required
-                  className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-            <div>
-              <label
-                htmlFor="lastName"
-                className="text-sm font-medium leading-6 text-gray"
-              >
-                Last Name
-              </label>
-              <div className="mt-2">
-                <input
-                  id="lastName"
-                  type="text"
-                  name="lastName"
-                  autoComplete="lastName"
-                  required
-                  className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-            <div>
-              <label
                 htmlFor="email"
                 className="text-sm font-medium leading-6 text-gray"
               >
@@ -73,6 +38,24 @@ const SignUpPage = () => {
                   type="email"
                   name="email"
                   autoComplete="email"
+                  required
+                  className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="userName"
+                className="text-sm font-medium leading-6 text-gray"
+              >
+                User name
+              </label>
+              <div className="mt-2">
+                <input
+                  id="userName"
+                  type="text"
+                  name="userName"
+                  autoComplete="userName"
                   required
                   className="pl-2 block w-full rounded-md border-0 py-1.5 text-white-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-white-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -124,13 +107,13 @@ const SignUpPage = () => {
                 name="acceptTerms"
                 required
               />
-              <div className="text-error">
-                {errors.acceptTerms?.message}
-              </div>
+              <div className="text-error">{errors.acceptTerms?.message}</div>
             </div>
             <div className="buttons-group">
               <button
-                type="submit"
+                // disabled {type="submit"} due to security concerns-- until further notice. 
+                // type="submit"
+                onClick={() => alert("Oopsie... user registration is temporarily unavailable!")}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 {formState.isSubmitting && (
@@ -152,7 +135,7 @@ const SignUpPage = () => {
             Already Own an Account?{"  "}
             <a
               href="/auth/sign-in"
-              className="pl-2 font-semibold leading-6 text-warning hover:text-indigo-500"
+              className="py-3 px-2 font-semibold text-secondary hover:text-indigo-500"
             >
               Return to Login
             </a>

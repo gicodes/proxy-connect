@@ -7,8 +7,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await getServerSession();
-  console.log({session});     
+  const session = await getServerSession();     
   try {
     const rider = await businessRepo.getById(session?.user.id);
     return res.status(200).json(rider);

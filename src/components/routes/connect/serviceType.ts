@@ -3,5 +3,6 @@ export interface Rider {
   online: boolean;
   username: string;
   firstName: string;
+  lastName: string;
   position: { lat: number; lng: number };
 }

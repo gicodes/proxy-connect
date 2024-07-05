@@ -15,12 +15,8 @@ const SignInPage = ({
   const [userB, setUserB] = useState(false);
   const [password, setPassword] = useState("");
 
-  const handleBusinessAcc = () => {
-    setUserB(true)
-  }
-  const handleIndividualAcc = () => {
-    setUserB(false)
-  }
+  const handleBusinessAcc = () => setUserB(true)
+  const handleIndividualAcc = () => setUserB(false)
 
   const handleSignIn = (provider: ClientSafeProvider)=> {
     if (session) {
@@ -30,7 +26,7 @@ const SignInPage = ({
     } else {
       signIn(provider.name, {callbackUrl: '/'})
       alert(`You are being redirected to ${provider.name}'s origin for secure sign-in!`)
-    }  
+    }
   }
 
   return (
@@ -50,7 +46,7 @@ const SignInPage = ({
       </Card>
       <Card className="mt-2 sm:mx-auto sm:w-full sm:max-w-sm px-6 py-6">
         <form className="space-y-6">
-          <p className="py-3">Select Account Type</p>
+          <p className="py-1 text-yellow-200 text-center">Select Account Type</p>
           <div className="flex flex-1">
             <div 
               id="userA" 
@@ -99,7 +95,7 @@ const SignInPage = ({
           Not a member?{" "}
           <a
             href="/auth/sign-up"
-            className="pl-2 font-semibold leading-6 text-warning hover:text-indigo-500"
+            className="pl-2 font-semibold text-secondary hover:text-indigo-500"
           >
             Go to Sign up
           </a>

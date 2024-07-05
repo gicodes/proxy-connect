@@ -16,7 +16,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
 import { TfiHandPointRight } from "react-icons/tfi";
-import { useApp } from "@/lib/utils/socketLocationProvider";
+import { useApp } from "@/components/socket/socketLocationProvider";
 
 export async function sendApiRequest() {
   // function sendApiRequest is passed as prop to Switch

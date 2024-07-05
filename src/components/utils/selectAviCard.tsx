@@ -1,6 +1,6 @@
 import { useState, Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { useApp } from "@/lib/utils/socketLocationProvider";
+import { useApp } from "@/components/socket/socketLocationProvider";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 // Defining Rider
