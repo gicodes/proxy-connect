@@ -223,14 +223,13 @@ h5 {
 .explore-container {
   width: 100%;
   padding: 1%;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
 }
 
 .explore-card-container {
-  padding: 10px;
+  padding: 5px;
   display: block;
-  min-width: 360px;
+  min-width: 380px;
 }
 
 .explore-card-text {
@@ -469,10 +468,7 @@ h5 {
   }
 
   .explore-container {
-    width: 100%;
-    padding: 1%;
-    display: flex;
-    flex-wrap: wrap;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .explore-card-container {

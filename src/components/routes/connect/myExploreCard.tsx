@@ -1,4 +1,4 @@
-import { Text, HStack, useColorModeValue, Stack } from "@chakra-ui/react";
+import { Text, HStack, Stack } from "@chakra-ui/react";
 import {
   Avatar,
   Button,
@@ -11,9 +11,9 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import seeLocation from "../../map/seeLocation";
-import { RxDotFilled } from "react-icons/rx";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import seeLocation from "../../map/seeLocation";
+import { IoMdCloseCircle } from "react-icons/io";
 import { BsSendExclamationFill } from "react-icons/bs";
 
 interface LocationProps {
@@ -27,12 +27,27 @@ interface LocationProps {
   text: string;
 }
 
-function toggleMap() {
-  document.getElementById("main")?.removeAttribute("hidden");
+function toggleMap(open: boolean) {
+  const mapElement = document.getElementById("main");
+  const locationElement = document.getElementById("location-bar");
+
+  if (mapElement && locationElement) {
+    if (open) {
+      mapElement.removeAttribute("hidden");
+      locationElement.setAttribute("hidden", "true");
+    } else {
+      mapElement.setAttribute("hidden", "true");
+      locationElement.removeAttribute("hidden");
+    }
+  } else {
+    // Handle the case where elements might be null
+    console.warn("Map or location element not found");
+  }
 }
 
+
 function goToMaps() {
-  toggleMap();
+  toggleMap(true);
   return seeLocation();
 }
 
@@ -41,37 +56,22 @@ export default function Location({
   coordinates,
   text,
 }: LocationProps) {
-  let cardBg = useColorModeValue("white !important", "transparent !important");
-  let mainText = useColorModeValue("gray.800", "white");
-  let secondaryText = useColorModeValue("gray.400", "gray.400");
-
   // state variables for to store
   // See Profile, See Map and Send Location instances;
-  const [isHoveringSP, setIsHoveringSP] = useState(false);
   const [isHoveringSM, setIsHoveringSM] = useState(false);
   const [isHoveringSL, setIsHoveringSL] = useState(false);
 
-  function handleMouseOverSM() {
-    setIsHoveringSM(true);
-  }
-  function handleMouseOutSM() {
-    setIsHoveringSM(false);
-  }
+  function handleMouseOverSM(){ setIsHoveringSM(true) }
+  function handleMouseOutSM(){ setIsHoveringSM(false) }
+  function handleMouseOverSL(){ setIsHoveringSL(true) }
+  function handleMouseOutSL(){ setIsHoveringSL(false) }
 
-  function handleMouseOverSL() {
-    setIsHoveringSL(true);
-  }
-  function handleMouseOutSL() {
-    setIsHoveringSL(false);
-  }
-
-  let location = "Abuja, Nigeria"
+  let location = "Abuja, Nigeria";
+  let role = "Regular";
 
   return (
     <>
-      <div 
-        className="explore-card-container sm-mx-auto"
-      >
+      <div className="explore-card-container sm-mx-auto">
         <Card className="lg-m2">
           <div className="p-3">
             <Stack p={"2"}>
@@ -82,21 +82,17 @@ export default function Location({
                     borderWidth={"1px"}
                     size={"xl"}
                   />
-                  <VStack p={2} display={"flex"}>
-                    <Text display={"flex"}>
-                      {location}
-                      <RxDotFilled size={"20"} color="gold" />
-                    </Text>
-                    <Text className="flex-start">
-                      {isCurrentRider ? "You" : text}
-                    </Text>
+                  <VStack p={2} display={"grid"}>
+                    <Text className="text-indigo-300 fs-s">{role}</Text>
+                    <Text className="text-green-300">{isCurrentRider ? "You" : text}</Text>
+                    <Text className="text-gray-300 fs-s">{location}</Text>
                   </VStack>
                 </HStack>
                 <div>
                   <Button
                     background="#505050"
-                    onMouseOver={handleMouseOverSM}
                     onMouseOut={handleMouseOutSM}
+                    onMouseOver={handleMouseOverSM}
                     onClick={() => goToMaps()}
                   >
                     <FaMapMarkerAlt color="black" size="24" />
@@ -105,11 +101,13 @@ export default function Location({
               </HStack>
             </Stack>
             {isHoveringSM && (
-              <>
-                <Text m={"1"}> Click to see this Service on Google Map</Text>
-              </>
+              <div className="p-1 mt-3 text-center">
+                <Text color={"grey"}> 
+                  Click to see this Service on Google Map
+                </Text>
+              </div>
             )}
-            <Card p={1} className={"mt-4 w-full bg-alt"}>
+            <Card id="location-bar" p={1} className={"mt-4 w-full bg-alt"}>
               <StatGroup w="full" p="4" mb="2">
                 <Stat>
                   <StatLabel>Latitude</StatLabel>
@@ -132,7 +130,6 @@ export default function Location({
                 <Button
                   onMouseOver={handleMouseOverSL}
                   onMouseOut={handleMouseOutSL}
-                  // onClick={() => sendLocation()}
                 >
                   <BsSendExclamationFill size={"25"} />
                 </Button>
@@ -140,9 +137,11 @@ export default function Location({
             </Card>
 
             {isHoveringSL && (
-              <>
-                <Text>Click to send your location to this user</Text>
-              </>
+              <div className="text-center p-1 mt-3">
+                <Text color={"yellow"}>
+                  Click to send your location to this user
+                </Text>
+              </div>
             )}
           </div>
 
@@ -150,8 +149,12 @@ export default function Location({
             hidden
             id="main"
             className="container-fluid position-absolute h-100 bg-light"
-          >
-            <div
+          ><hr/>
+            <div className="flex flex-end p-3" onClick={() => toggleMap(false)}>
+              
+              <IoMdCloseCircle color="yellow" size={22}/>
+            </div>
+            <div // this div could be controlled better in newer updates
               id="map"
               className="map mx-auto max-w-7xl py-6 sm:px-6 lg:px-8"
             />
