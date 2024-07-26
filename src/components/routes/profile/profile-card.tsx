@@ -12,7 +12,7 @@ export default function ProfileCard({
   bio,
   email,
   name,
-  orders,
+  orders, // orders is an empty list
   phone,
   rating,
   revenue,
@@ -24,6 +24,8 @@ export default function ProfileCard({
   const [ class3, setClass3 ] = useState("hidden");
 
   let company = "Ryder-GP";
+  let sales = 0;
+
   const ratingScore = () => {
     const components = [];
 
@@ -73,13 +75,12 @@ export default function ProfileCard({
               <div className="pr-info-group">
                 <div id="pr-avatar">
                   <Image 
-                  src={avatar} 
-                  className="avatar-img" 
-                  alt="my profile avatar"
+                    src={avatar} 
+                    className="avatar-img" 
+                    alt="profile avatar"
                   />
                 </div>
-                <hr className="-mt2"/>
-                <div className="pr-info py-4">
+                <div className="pr-info">
                   <div>
                     <Text className="h5b text-primary">{name}</Text>
                     <Text className="text-flex-sm mt-4">{role} at {company}</Text>
@@ -113,8 +114,8 @@ export default function ProfileCard({
                     py="30px"
                   >
                     <VStack>
-                      <Text>{orders}</Text>
-                      <Text>Orders</Text>
+                      <Text>{sales}</Text>
+                      <Text>Sales</Text>
                     </VStack>
                     <VStack>
                       <Text>{ratingScore()}</Text>

@@ -18,7 +18,7 @@ const Profile = (
 
   // pending logic implementation
   const rating = user?.rating || 1;
-  const role = user?.role || "User";
+  const role = user?.role || "Admin";
   const revenue = user?.revenue || 0;
 
   let image;

@@ -67,7 +67,7 @@ export default function Location({
   function handleMouseOutSL(){ setIsHoveringSL(false) }
 
   let location = "Abuja, Nigeria";
-  let role = "Regular";
+  let role = "Admin";
 
   return (
     <>

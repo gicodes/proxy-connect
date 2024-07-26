@@ -293,15 +293,17 @@ h5 {
 }
 
 .pr-info-group {
+  width: 100%;
   display: flex;
 }
 
 .avatar-img {
-  width: 50%;
+  margin: 1%;
   bottom: 50px;
   position: relative;
   border-radius: 50%;
 }
+
 .pr-info {
   width: 100%;
   display: flex;
@@ -415,19 +417,16 @@ h5 {
     height: auto;
     max-height: 180px;
   } 
-
   .pr-info-group {
     display: block;
   }
-
   .avatar-img {
-    width: 40%;
-    margin-left: 4%;
+    width: 100px;
+    margin-left: 1%;
   }
   .pr-info {
     text-align: start;
     padding: 10px;
-    margin: 10px;
     width: 100%;
   }
 
@@ -458,7 +457,7 @@ h5 {
     padding: 5% 20% 5% 20%;
   }
 
-  .pr-info { margin-right: 10%;}
+  .pr-info { margin: 0 40px 0 20px;}
   .pr-bio { width: 75%; }
   .edit-btn, .edit-container { width: 50%; }
 
