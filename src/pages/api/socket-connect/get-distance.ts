@@ -1,7 +1,9 @@
-import { getDistanceBetweenLocations } from '@/components/routes/connect/proxy';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { getDistanceBetweenLocations } from '@/components/routes/connect/proxy';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest, res: NextApiResponse
+) {
   const { origin, destination } = req.query;
 
   try {

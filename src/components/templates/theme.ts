@@ -1,4 +1,4 @@
-import { globalStyles } from "./../utils/styles";
+import { globalStyles } from "../utils/styles";
 import { extendTheme } from "@chakra-ui/react";
 import { buttonStyles } from "./button";
 import { badgeStyles } from "./badge";
