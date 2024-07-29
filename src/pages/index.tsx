@@ -1,4 +1,4 @@
-import IndexButtonGroup from "@/components/app-routes/index/indexBtnGrp";
+import IndexButtonGroup from "@/components/app-routes/index/indexBtnGroup";
 import ImageSlider from "@/components/app-routes/index/imageSlider";
 import IndexBodyText from "@/components/app-routes/index/bodyText";
 

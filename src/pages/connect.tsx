@@ -50,34 +50,35 @@ export default function Connect() {
 
   const { status, data } = useSession();
 
-  if (status === "authenticated") {
-    return (
+  if (status === "loading") return <Spinner />;
+  if (status === "unauthenticated") return <GoToSignIn />;
+  
+  return (
+    <div>
       <div>
-        <div>
-          <Heading className="text-gray-600 justify-center px-4 py-8 lg:px-8">
-            Connect with Proxy
-          </Heading>
-        </div>
-
-        {isLoading && <Spinner />}
-
-        <div className="explore-container">
-          {users?.map(
-            (user: ConnectProps, index: any) => (
-              <ConnectCard
-                key={index} 
-                {...{
-                  coords: user?.coords,
-                  online: true,
-                  username: user?.username,
-                  userType: "Demo",
-                  socketId: null
-                }}              
-              />
-            )
-          )}
-        </div>
+        <Heading className="text-gray-600 justify-center px-4 py-8 lg:px-8">
+          Connect with Proxy
+        </Heading>
       </div>
-    )
-  } else return <Spinner />;
+
+      {isLoading && <Spinner />}
+
+      <div className="explore-container">
+        {users?.map(
+          (user: ConnectProps, index: any) => (
+            <ConnectCard
+              key={index} 
+              {...{
+                coords: user?.coords,
+                online: true,
+                username: user?.username,
+                userType: "Demo",
+                socketId: null
+              }}              
+            />
+          )
+        )}
+      </div>
+    </div>
+  )
 }
