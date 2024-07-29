@@ -1,53 +1,52 @@
+import { UserProps } from "../app-routes/profile/userProps";
 import { createContext, useContext, useRef } from "react";
 import { useEffect, useState } from "react";
 import { useToast } from "@chakra-ui/toast";
-import { User } from "../user/userProps";
 import io from "socket.io-client";
 
 const Context = createContext<any>(null);
 
-function SocketLocationProvider(
+function SocketProvider(
   { children }: { children: React.ReactNode }
 ) {
   const socketRef = useRef<any | null>();
   const watchLocation = useRef<any | null>();
 
-  const [users, setUsers] = useState<User[]>([]);
-  const [currentUser, setCurrentUser] = useState<User>();
+  const [users, setUsers] = useState<UserProps[]>([]);
+  const [currentUser, setCurrentUser] = useState<UserProps>();
   const [hasAccessLocation, setHasAccessLocation] = useState(false);
 
   const toast = useToast();
 
   useEffect(() => {
-    fetch("/api/socket-connect/socket");
+    fetch("/api/socket-provider/socket");
     socketRef.current = io();
   
     if (socketRef.current) {
-      socketRef.current.on("all-users", (data: User[]) => {
+      socketRef.current.on("all-users", (data: UserProps[]) => {
         setUsers(data);
       });
 
-      socketRef.current.on("new-user", (data: User) => {
-        setUsers((users) => [...users, data]);
-      });
-      
-      socketRef.current.on("current-user", (data: User) => {
+      socketRef.current.on("current-user", (data: UserProps) => {
         setCurrentUser(data);
       });
 
-      if (currentUser?.userType === "Individual") {
-          socketRef.current.on("join-individuals", (data: User) => {
-          // Handle join-individuals event
-          // Example: Add individual users to a separate state or handle as needed
+      socketRef.current.on("new-user", (data: UserProps) => {
+        setUsers((users) => [...users, data]);
+      });
+      
+      if (currentUser?.userType === "Business") {
+          socketRef.current.on("join-business", (data: UserProps) => {
+          // handle join-business event
+          // example: Add business users to a separate state or handle as needed
         });
       } else {
-        socketRef.current.on("join-business", (data: User) => {
-          // Handle join-business event
-          // Example: Add business users to a separate state or handle as needed
+        socketRef.current.on("join-demo", (data: UserProps) => {
+        // handle join-demo event
         });
       }
       
-      socketRef.current.on("position-change", (data: User) => {
+      socketRef.current.on("position-change", (data: UserProps) => {
         setUsers((users) =>
           users.map((user) => (user.socketId === data.socketId ? data : user))
         );
@@ -170,4 +169,4 @@ function SocketLocationProvider(
 
 export const useApp = () => useContext(Context);
 
-export default SocketLocationProvider;
+export default SocketProvider;

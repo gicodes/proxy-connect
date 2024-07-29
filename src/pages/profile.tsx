@@ -1,24 +1,24 @@
-import { businessRepo } from "./api/repo";
+import { businessRepo } from "../lib/api/mongodb/repo";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
-import { User } from "@/components/routes/profile/userType";
-import ProtectedRoute from "@/components/routes/protectedRoute";
-import ProfileCard from "@/components/routes/profile/profile-card";
+import { UserProps } from "@/components/app-routes/profile/userProps";
+import ProtectedRoute from "@/components/app-routes/protectedRoute";
+import ProfileCard from "@/components/app-routes/profile/profile-card";
 
 const Profile = (
-  { user }: { user: User | null }
+  { user }: { user: UserProps | null }
 ) => {
   const orders = user?.orders || [];
   const name = user?.name || "Gi codes";
   const phone = user?.phone || '0812-345-6789';
-  const avatar = user?.image || "/profileAvi.png";
+  const avatar = user?.avatar || "/profileAvi.png";
   const email = user?.email || "reply@gicodes.dev";
   const address = user?.address || "Abuja, Nigeria";
   const bio = user?.bio || "I am only a placeholder for your bio";
 
   // pending logic implementation
   const rating = user?.rating || 1;
-  const role = user?.role || "Admin";
+  const role = user?.userType || "Admin";
   const revenue = user?.revenue || 0;
 
   let image;
@@ -32,14 +32,15 @@ const Profile = (
             avatar={avatar}
             bio={bio}
             email={email}
-            image={image}
             name={name}
             orders={orders}
             phone={phone}
             rating={rating}
             revenue={revenue}
-            role={role}
-          />
+            userType={role}
+            id={undefined} 
+            socketId={undefined}          
+            />
         </main>
       </ProtectedRoute>
     </>
@@ -50,7 +51,7 @@ export default Profile;
 
 
 export const getServerSideProps: GetServerSideProps<{
-  user: User | null;
+  user: UserProps | null;
 }> = async ({ req }) => {
   const session = await getSession({ req });
 

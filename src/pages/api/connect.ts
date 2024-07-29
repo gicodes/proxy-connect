@@ -1,13 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { businessRepo } from './repo';
+import { businessRepo } from '../../lib/api/mongodb/repo';
 
 export default async function handler(
     req: NextApiRequest, 
     res: NextApiResponse
     ) {
     try {
-      const riders = await businessRepo.getAll();
-      return res.status(200).json(riders);
+      const users = await businessRepo.getAll();
+      return res.status(200).json(users);
     } catch (err: any) {
       res.status(500).redirect('/404')
     }

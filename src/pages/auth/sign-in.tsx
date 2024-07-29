@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { Button, Card } from "@chakra-ui/react";
-import UserB from "@/components/routes/auth/userB";
+import UserB from "@/components/app-routes/auth/userB";
 import type { InferGetServerSidePropsType } from "next";
-import AuthAlert from "../../components/routes/auth/authAlert";
+import AuthAlert from "../../components/app-routes/auth/authAlert";
 import { ClientSafeProvider, getProviders, signIn, useSession } from "next-auth/react";
 
 const SignInPage = ({

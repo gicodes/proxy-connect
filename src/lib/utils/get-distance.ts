@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getDistanceBetweenLocations } from '@/components/routes/connect/proxy';
+import { getDistanceBetweenLocations } from '@/components/app-routes/connect/proxy';
 
 export default async function handler(
   req: NextApiRequest, res: NextApiResponse

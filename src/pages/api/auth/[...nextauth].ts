@@ -1,5 +1,5 @@
 import getConfig from "next/config";
-import { businessRepo } from "../repo";
+import { businessRepo } from "../../../lib/api/mongodb/repo";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import InstagramProvider from "next-auth/providers/instagram";

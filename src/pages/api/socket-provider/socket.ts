@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Server } from 'socket.io';
-import cors from 'cors';
+
 
 export default function handler(
   req: NextApiRequest, 
@@ -19,7 +19,8 @@ export default function handler(
         methods: ["GET", "POST"]
       }
     })
-      console.log('Server-- Socket-connect initializing...')
+      
+    console.log('Server-- Socket-connect initializing...')
 
     io.on('connection', (socket) => {
       console.log(`Server-- Socket ${socket.id} connected..`)
@@ -30,16 +31,16 @@ export default function handler(
         socket.broadcast.emit('Proxy fam, what do you need today?', data)       
       })
 
+      socket.on("current-user", (data) => {
+        console.log(`Server-- Current user..`)
+        io.emit("current-user", data);
+      })
+
       socket.on("new-user", (data) => {
         console.log(`Server-- New user..`)
         io.emit("new-user", data);
       })
-
-      socket.on("current-user", (data) => {
-        console.log(`Server-- Current users..`)
-        io.emit("current-user", data);
-      })
-
+      
       socket.on("join-individuals", (data) => {
         console.log(`Server-- Join individuals..`)
         io.emit("join-individuals", data)

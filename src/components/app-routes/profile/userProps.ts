@@ -1,13 +1,14 @@
-export type User = {
+export interface UserProps {
+  id: any | string;
   address: string | any;
-  avatar: string | any;
+  avatar: any;
   bio: string;
   email: string;
-  image: any;
   name: string;
   orders: any[];
   phone: number | any;
   rating: number;
   revenue: number;
-  role: string;
+  socketId: any | string | null;
+  userType: "Admin" | "Business" | "Demo" | null;
 };

@@ -1,4 +1,4 @@
-import { db } from '@/lib/utils/mongoose';
+import { db } from '@/lib/api/mongodb/mongoose';
 import getConfig from 'next/config';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';

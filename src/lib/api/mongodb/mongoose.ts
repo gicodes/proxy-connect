@@ -7,9 +7,9 @@ const Schema = mongoose.Schema;
 try {
     mongoose.connect(process.env.MONGODB_URI || serverRuntimeConfig.connectionString);
     mongoose.Promise = global.Promise;
-    // console.log(`Server CL: Mongo DB is connected to ${mongoose.connection.host}`);
+    console.log(`Server CL: Mongo DB is connected to ${mongoose.connection.host}`);
 } catch (error: any) {
-    // console.log(`Server CL {Mng}: ${error.message}`);
+    console.log(`Server CL {Mng}: ${error.message}`);
     throw new Error(`Server CL {Mng}: ${error.message}`);
 }
 

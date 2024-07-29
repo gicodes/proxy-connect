@@ -1,4 +1,3 @@
-import { Text, HStack, Stack } from "@chakra-ui/react";
 import {
   Avatar,
   Button,
@@ -8,70 +7,44 @@ import {
   StatGroup,
   StatLabel,
   StatNumber,
+  HStack,
   VStack,
+  Text,
+  Stack,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { ConnectProps } from "./connectProps";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import seeLocation from "../../map/seeLocation";
 import { IoMdCloseCircle } from "react-icons/io";
 import { BsSendExclamationFill } from "react-icons/bs";
+import { goToMaps, toggleMap } from "@/components/map/toggle-map";
 
-interface LocationProps {
-  isCurrentRider: Boolean;
-  coordinates:
-    | {
-        latitude?: number;
-        longitude?: number;
-      }
-    | undefined;
-  text: string;
-}
+export default function ConnectCard
+  ({
+    coords,
+    online, // display different 4 user online
+    username,
+    userType, // decides other dynamic display
+    socketId, // key for dynamic or mapped data
+  }: ConnectProps
+) {
+  const [MapHoverAction, setMapHoverAction] = useState(false);
+  const [shareHoverAction, setShareHoverAction] = useState(false);
 
-function toggleMap(open: boolean) {
-  const mapElement = document.getElementById("main");
-  const locationElement = document.getElementById("location-bar");
+  function handleMouseOverMap(){ setMapHoverAction(true) }
+  function handleMouseOutMap(){ setMapHoverAction(false) }
 
-  if (mapElement && locationElement) {
-    if (open) {
-      mapElement.removeAttribute("hidden");
-      locationElement.setAttribute("hidden", "true");
-    } else {
-      mapElement.setAttribute("hidden", "true");
-      locationElement.removeAttribute("hidden");
-    }
-  } else {
-    // Handle the case where elements might be null
-    console.warn("Map or location element not found");
-  }
-}
+  function handleMouseOverShare(){ setShareHoverAction(true) }
+  function handleMouseOutShare(){ setShareHoverAction(false) }
 
-
-function goToMaps() {
-  toggleMap(true);
-  return seeLocation();
-}
-
-export default function Location({
-  isCurrentRider,
-  coordinates,
-  text,
-}: LocationProps) {
-  // state variables for to store
-  // See Profile, See Map and Send Location instances;
-  const [isHoveringSM, setIsHoveringSM] = useState(false);
-  const [isHoveringSL, setIsHoveringSL] = useState(false);
-
-  function handleMouseOverSM(){ setIsHoveringSM(true) }
-  function handleMouseOutSM(){ setIsHoveringSM(false) }
-  function handleMouseOverSL(){ setIsHoveringSL(true) }
-  function handleMouseOutSL(){ setIsHoveringSL(false) }
-
-  let location = "Abuja, Nigeria";
-  let role = "Admin";
+  let location = "Lagos, Nigeria";
 
   return (
     <>
-      <div className="explore-card-container sm-mx-auto">
+      <div 
+        /* This div contains & controls certain breakpoint styling */
+        className="explore-card-container sm-mx-auto"
+        > 
         <Card className="lg-m2">
           <div className="p-3">
             <Stack p={"2"}>
@@ -83,16 +56,16 @@ export default function Location({
                     size={"xl"}
                   />
                   <VStack p={2} display={"grid"}>
-                    <Text className="text-indigo-300 fs-s">{role}</Text>
-                    <Text className="text-green-300">{isCurrentRider ? "You" : text}</Text>
+                    <Text className={userType === "Demo" ? `text-yellow-300 fs-s` : 'text-indigo-200'}>{userType}</Text>
+                    <Text className="text-green-300">{username}</Text>
                     <Text className="text-gray-300 fs-s">{location}</Text>
                   </VStack>
                 </HStack>
                 <div>
                   <Button
                     background="#505050"
-                    onMouseOut={handleMouseOutSM}
-                    onMouseOver={handleMouseOverSM}
+                    onMouseOut={handleMouseOutMap}
+                    onMouseOver={handleMouseOverMap}
                     onClick={() => goToMaps()}
                   >
                     <FaMapMarkerAlt color="black" size="24" />
@@ -100,10 +73,10 @@ export default function Location({
                 </div>
               </HStack>
             </Stack>
-            {isHoveringSM && (
+            {MapHoverAction && (
               <div className="p-1 mt-3 text-center">
-                <Text color={"grey"}> 
-                  Click to see this Service on Google Map
+                <Text color={"burlywood"}> 
+                  Toggle to see this Service on Google Map
                 </Text>
               </div>
             )}
@@ -113,7 +86,7 @@ export default function Location({
                   <StatLabel>Latitude</StatLabel>
                   <HStack>
                     <StatNumber fontSize={"20"}>
-                      {coordinates?.latitude}
+                      {coords?.latitude}
                     </StatNumber>
                     <StatArrow type="increase" />
                   </HStack>
@@ -122,24 +95,24 @@ export default function Location({
                   <StatLabel>Longitude</StatLabel>
                   <HStack>
                     <StatNumber fontSize={"20"}>
-                      {coordinates?.longitude}
+                      {coords?.longitude}
                     </StatNumber>
                     <StatArrow type="decrease" />
                   </HStack>
                 </Stat>
                 <Button
-                  onMouseOver={handleMouseOverSL}
-                  onMouseOut={handleMouseOutSL}
+                  onMouseOut={handleMouseOutShare}
+                  onMouseOver={handleMouseOverShare}
                 >
                   <BsSendExclamationFill size={"25"} />
                 </Button>
               </StatGroup>
             </Card>
 
-            {isHoveringSL && (
+            {shareHoverAction && (
               <div className="text-center p-1 mt-3">
                 <Text color={"yellow"}>
-                  Click to send your location to this user
+                  Click to share your accurate location
                 </Text>
               </div>
             )}
@@ -149,12 +122,15 @@ export default function Location({
             hidden
             id="main"
             className="container-fluid position-absolute h-100 bg-light"
-          ><hr/>
-            <div className="flex flex-end p-3" onClick={() => toggleMap(false)}>
-              
+          >
+            <hr/>
+            <div 
+              className="flex flex-end p-3" 
+              onClick={() => toggleMap(false)}
+            > 
               <IoMdCloseCircle color="yellow" size={22}/>
             </div>
-            <div // this div could be controlled better in newer updates
+            <div // this div should be controlled better in newer updates
               id="map"
               className="map mx-auto max-w-7xl py-6 sm:px-6 lg:px-8"
             />

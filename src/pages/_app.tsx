@@ -1,4 +1,4 @@
-import SocketLocationProvider from "@/components/socket/socketLocationProvider";
+import SocketLocationProvider from "@/components/socket-provider/socket";
 import { AuthProvider } from "@/contexts/auth-context";
 import { GlobalAlert } from "@/components/alert/alert";
 import { ChakraProvider } from "@chakra-ui/react";

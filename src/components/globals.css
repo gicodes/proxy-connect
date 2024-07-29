@@ -300,6 +300,7 @@ h5 {
 .avatar-img {
   margin: 1%;
   bottom: 50px;
+  max-width: 150px;
   position: relative;
   border-radius: 50%;
 }
@@ -457,7 +458,7 @@ h5 {
     padding: 5% 20% 5% 20%;
   }
 
-  .pr-info { margin: 0 40px 0 20px;}
+  .pr-info { margin: 25px 20px 0 40px;}
   .pr-bio { width: 75%; }
   .edit-btn, .edit-container { width: 50%; }
 

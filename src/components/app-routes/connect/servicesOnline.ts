@@ -1,4 +1,4 @@
-import { Rider } from "@/components/routes/connect/serviceType";
+import { Rider } from "@/components/app-routes/connect/connectProps";
 
 export function servicesOnline(data: any) {
   data.filter((rider: Rider) => rider.online);

@@ -1,4 +1,4 @@
-import { businessRepo } from './repo';
+import { businessRepo } from '../../lib/api/mongodb/repo';
 import { getServerSession } from "next-auth/next";
 
 import type { NextApiRequest, NextApiResponse } from "next";

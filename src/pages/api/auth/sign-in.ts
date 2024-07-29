@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { businessRepo } from "../repo";
+import { businessRepo } from "../../../lib/api/mongodb/repo";
 
+// auth handler for db sign-in-with email or username
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

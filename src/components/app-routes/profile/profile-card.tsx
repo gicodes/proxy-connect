@@ -2,7 +2,7 @@ import {  Card, Image, Text, HStack, Stack, VStack } from "@chakra-ui/react";
 import { FaEdit, FaEnvelope } from "react-icons/fa";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { RxStarFilled } from "react-icons/rx";
-import { User } from "./userType";
+import { UserProps } from "./userProps";
 import { useState } from "react";
 import ProfileEdit from "./profille-edit";
 
@@ -16,8 +16,8 @@ export default function ProfileCard({
   phone,
   rating,
   revenue,
-  role,
-}: User
+  userType,
+}: UserProps
 ) {
   const [ edit, setEdit ] = useState(false);
   const [ class2, setClass2] = useState("");
@@ -83,7 +83,7 @@ export default function ProfileCard({
                 <div className="pr-info">
                   <div>
                     <Text className="h5b text-primary">{name}</Text>
-                    <Text className="text-flex-sm mt-4">{role} at {company}</Text>
+                    <Text className="text-flex-sm mt-4">{userType} at {company}</Text>
                     <Text className="text-light mt-4">{address}</Text>
                   </div>
                   <div>
