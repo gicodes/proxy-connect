@@ -1,24 +1,23 @@
 import { ConnectProps, Coordinates } from "@/components/app-routes/connect/connectProps";
 import ConnectCard from "@/components/app-routes/connect/connectCard";
 import GoToSignIn from "@/components/templates/onauthRedirect";
+import { calculateDistance } from "@/lib/utils/get-distance";
 import { useState, useEffect, useCallback } from "react";
 import { businessRepo } from "../lib/api/mongodb/repo";
 import Spinner from "@/components/templates/spinner";
 import { useSession } from "next-auth/react";
 import { Heading } from "@chakra-ui/react";
 import { debounce } from "lodash";
-import { calculateDistance } from "@/lib/utils/get-distance";
 
 interface ConnectCardProps extends ConnectProps{
   location: [ number, number ] | any | undefined;
 };
 
 export default function Connect() {
+  const { status, data } = useSession();
   const [users, setUsers] = useState<any>();
   const [isLoading, setLoading] = useState(true);
   const [myCoordinates, setMyCoordinates] = useState<Coordinates>(null);
-
-  const { status, data } = useSession();
 
   const fetchUsers = async () => {
     try {
@@ -42,7 +41,6 @@ export default function Connect() {
             type: "Point",
             coordinates: myCoordinates,
           };
-          // pushing my coordinates for server update
           await businessRepo.update(data?.user?.email, { location });
         } catch (error) {
           console.error("Error updating coordinates:", error);
@@ -64,7 +62,7 @@ export default function Connect() {
     }
   }, []);
 
-  if (status === "loading") return <Spinner />;
+  if (status === "loading" || isLoading) return <Spinner />;
   if (status === "unauthenticated") return <GoToSignIn />;
 
   return (
@@ -78,7 +76,7 @@ export default function Connect() {
           (user: ConnectCardProps, index: any) => {
             const userCoordinates = user?.location?.coordinates;
             const distance = myCoordinates && userCoordinates ? calculateDistance(myCoordinates, userCoordinates) : null;
-            const distanceInMiles = distance?.toFixed(1)
+            const distanceInKm = distance?.toFixed(1)
 
             return (
               <ConnectCard
@@ -86,7 +84,7 @@ export default function Connect() {
                 {...{
                   address: user?.address,
                   bio: user?.bio,
-                  distance: distanceInMiles,
+                  distance: distanceInKm,
                   online: user?.online || false,
                   username: user?.username,
                   userType: user?.userType || "Demo",

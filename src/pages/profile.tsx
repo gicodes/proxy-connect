@@ -1,6 +1,6 @@
-import { businessRepo } from "../lib/api/mongodb/repo";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
+import { businessRepo } from "../lib/api/mongodb/repo";
 import { UserProps } from "@/components/app-routes/profile/userProps";
 import ProtectedRoute from "@/components/app-routes/protectedRoute";
 import ProfileCard from "@/components/app-routes/profile/profile-card";
@@ -8,39 +8,25 @@ import ProfileCard from "@/components/app-routes/profile/profile-card";
 const Profile = (
   { user }: { user: UserProps | null }
 ) => {
-  const orders = user?.orders || [];
-  const name = user?.name || "Gi codes";
-  const phone = user?.phone || '0812-345-6789';
-  const avatar = user?.avatar || "/profileAvi.png";
-  const email = user?.email || "reply@gicodes.dev";
-  const address = user?.address || "Abuja, Nigeria";
-  const bio = user?.bio || "I am only a placeholder for your bio";
-
-  // pending logic implementation
-  const rating = user?.rating || 1;
-  const role = user?.userType || "Admin";
-  const revenue = user?.revenue || 0;
-
-  let image;
-
   return (
     <>
       <ProtectedRoute>
         <main className="w-full flex min-h-full flex-col justify-center">
           <ProfileCard
-            address={address}
-            avatar={avatar}
-            bio={bio}
-            email={email}
-            name={name}
-            orders={orders}
-            phone={phone}
-            rating={rating}
-            revenue={revenue}
-            userType={role}
-            id={undefined} 
-            socketId={undefined}          
-            />
+            address={user?.address || "Nigeria"}
+            age={user?.age}
+            avatar={user?.avatar || "/profileAvi.png"}
+            bio={user?.bio || "update your bio"}
+            company={user?.company || "Ryder-GP"}
+            email={user?.email}
+            name={user?.name}
+            orders={user?.orders}
+            phone={user?.phone}
+            rating={user?.rating || 1}
+            revenue={user?.revenue || 1}
+            socketId={undefined} 
+            userType={user?.userType || "Demo"}          
+          />
         </main>
       </ProtectedRoute>
     </>

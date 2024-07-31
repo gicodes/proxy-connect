@@ -11,7 +11,7 @@ export function calculateDistance(coord1: [number, number], coord2: [number, num
   const [lon1, lat1] = coord1;
   const [lon2, lat2] = coord2;
 
-  const R = 6371; // Earth's radius in kilometers
+  const R = 6371; // earth's radius in kilometers
   const dLat = toRadians(lat2 - lat1);
   const dLon = toRadians(lon2 - lon1);
 
@@ -22,5 +22,5 @@ export function calculateDistance(coord1: [number, number], coord2: [number, num
 
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-  return R * c; // Distance in kilometers
+  return R * c; // distance in kilometers
 }

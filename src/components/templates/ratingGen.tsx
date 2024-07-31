@@ -18,7 +18,7 @@ export function renderStars(rating: number): JSX.Element[] {
 }
 
 // Example usage in a component:
-const UserRating: React.FC<{ rating: number }> = ({ rating }) => {
+const UserRating: React.FC<{ rating: number | any }> = ({ rating }) => {
   return (
     <Stack>
       <HStack spacing={-1}>

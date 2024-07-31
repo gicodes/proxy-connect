@@ -4,7 +4,6 @@ import {
   Card,
   Stat,
   StatArrow,
-  StatGroup,
   StatNumber,
   HStack,
   VStack,
@@ -20,7 +19,6 @@ import { BsSendExclamationFill } from "react-icons/bs";
 import UserRating from "@/components/templates/ratingGen";
 import { goToMaps, toggleMap } from "@/components/map/toggle-map";
 import { FaMapMarkerAlt, FaUserAlt, FaMapPin } from "react-icons/fa";
-
 
 export default function ConnectCard
   ({
@@ -96,9 +94,7 @@ export default function ConnectCard
             )}
 
             <Card id="location-bar" p={1} className={"mt-4 w-full bg-alt"}>
-              <div 
-                className="connect-stat-grp"
-              >
+              <div className="connect-stat-grp">
                 <Stat>
                   {/* left-side set of stats */}
                   <HStack fontSize={15}>
@@ -116,8 +112,7 @@ export default function ConnectCard
                     <StatNumber fontSize={"18"}>
                       {revenue}%
                     </StatNumber>
-                    <StatArrow type={negativeRev ? "decrease" : "increase"} />
-                
+                    <StatArrow type={negativeRev ? "decrease" : "increase"} />      
                     <br/>
                     <UserRating rating={rating}/>
                   </HStack>
@@ -134,7 +129,7 @@ export default function ConnectCard
                     <StatNumber fontSize={"15"} className="sm-fs">
                       {distance}
                     </StatNumber>
-                    {distance && <Text color={"gray.300"}>miles away</Text>}
+                    {distance && <Text color={"gray.300"}>km away</Text>}
                   </HStack>
                 </Stat>
                 <Button 
@@ -172,7 +167,6 @@ export default function ConnectCard
               className="map mx-auto max-w-7xl py-6 sm:px-6 lg:px-8"
             />
           </main>
-
         </Card>
       </div>
     </>

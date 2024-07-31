@@ -5,11 +5,13 @@ import { RxStarFilled } from "react-icons/rx";
 import { UserProps } from "./userProps";
 import { useState } from "react";
 import ProfileEdit from "./profille-edit";
+import UserRating from "@/components/templates/ratingGen";
 
 export default function ProfileCard({
   address,
   avatar,
   bio,
+  company,
   email,
   name,
   orders, // orders is an empty list
@@ -23,18 +25,9 @@ export default function ProfileCard({
   const [ class2, setClass2] = useState("");
   const [ class3, setClass3 ] = useState("hidden");
 
-  let company = "Ryder-GP";
   let sales = 0;
 
-  const ratingScore = () => {
-    const components = [];
-
-    for (let i = 0; i < rating; i++) {
-      components.push(<RxStarFilled key={i} size={"20"} color="gold" />);
-    }
-
-    return <>{components}</>;
-  }
+  const demoType = userType === "Demo";
 
   function toggleEdit() {
     setEdit(true);
@@ -81,10 +74,14 @@ export default function ProfileCard({
                   />
                 </div>
                 <div className="pr-info">
-                  <div>
-                    <Text className="h5b text-primary">{name}</Text>
-                    <Text className="text-flex-sm mt-4">{userType} at {company}</Text>
-                    <Text className="text-light mt-4">{address}</Text>
+                  <div className="p-2">
+                    <Text className="h5b">{name}</Text>
+                    <Text 
+                      color={demoType ? "gray.400" : "indigo.500"}
+                      className="text-flex-sm"
+                    >
+                      {userType} at {company}</Text>
+                    <Text color={"khaki"} className="text-light mt-4">{address}</Text>
                   </div>
                   <div>
                     <Text className="py-3 fs-s">{email}</Text>
@@ -118,7 +115,7 @@ export default function ProfileCard({
                       <Text>Sales</Text>
                     </VStack>
                     <VStack>
-                      <Text>{ratingScore()}</Text>
+                      <UserRating rating={rating} />
                       <Text> Rating </Text>
                     </VStack>
                     <VStack>

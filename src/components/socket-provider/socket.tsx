@@ -145,7 +145,7 @@ function SocketProvider(
     const { latitude, longitude } = data.coords;
     if (socketRef.current) {
       socketRef.current.emit("position-change", {
-        id: currentUser?.id,
+        id: currentUser?.socketId,
         coords: {
           latitude,
           longitude,

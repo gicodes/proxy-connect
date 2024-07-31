@@ -5,7 +5,7 @@ export interface ConnectProps {
   online: boolean;
   username: string;
   userType: "Admin" | "Business" | "Individual" | "Demo" | "Provider Guest" | null;
-  rating: number;
+  rating: number | any;
   revenue: number;
   service: string;
 }
