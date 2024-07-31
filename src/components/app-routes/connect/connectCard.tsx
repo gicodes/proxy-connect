@@ -17,9 +17,9 @@ import { SiWebmoney } from "react-icons/si";
 import { ConnectProps } from "./connectProps";
 import { IoMdCloseCircle } from "react-icons/io";
 import { BsSendExclamationFill } from "react-icons/bs";
-import { FaMapMarkerAlt, FaUserAlt } from "react-icons/fa";
-import { goToMaps, toggleMap } from "@/components/map/toggle-map";
 import UserRating from "@/components/templates/ratingGen";
+import { goToMaps, toggleMap } from "@/components/map/toggle-map";
+import { FaMapMarkerAlt, FaUserAlt, FaMapPin } from "react-icons/fa";
 
 
 export default function ConnectCard
@@ -99,8 +99,8 @@ export default function ConnectCard
                 <Stat>
                   {/* left-side set of stats */}
                   <HStack fontSize={15}>
-                    <FaUserAlt />
-                    <Text color={demoType ? `gray.500` : 'indigo.500'} ml={2}>
+                    <FaUserAlt color={demoType ? 'chocolate' : 'skyblue'} />
+                    <Text color={demoType ? 'gray.500' : 'indigo.500'} ml={2}>
                       {userType}
                     </Text>
                     <Text color={"gray.400"} ml={-1}>
@@ -109,7 +109,7 @@ export default function ConnectCard
                   </HStack>
                   <br/> 
                   <HStack>
-                    <SiWebmoney fontSize={18} />                   
+                    <SiWebmoney fontSize={18} color="skyblue" />                   
                     <StatNumber fontSize={"18"}>
                       {revenue}%
                     </StatNumber>
@@ -123,6 +123,7 @@ export default function ConnectCard
                 {/* right-side set of stats */}
                 <Stat>
                   <HStack mb={2}>
+                    <FaMapPin color="skyblue" />
                     <Text fontWeight={550} color={"gray.400"}>{address}</Text>
                     <GoDotFill color="lightgreen" />
                   </HStack>

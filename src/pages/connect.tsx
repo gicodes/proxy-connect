@@ -14,7 +14,9 @@ export default function Connect() {
   const [isLoading, setLoading] = useState(true);
   const [myCoordinates, setMyCoordinates] = useState<Coordinates>(null);
 
-  interface ConnectCardProps extends ConnectProps{};
+  interface ConnectCardProps extends ConnectProps{
+    location: [ number, number ] | any | undefined;
+  };
 
   const { status, data } = useSession();
 
@@ -85,17 +87,15 @@ export default function Connect() {
                 key={index}
                 {...{
                   address: user?.address,
-                  age: user?.age,
                   bio: user?.bio,
                   distance: distanceInMiles,
                   online: true,
                   username: user?.username,
                   userType: user?.userType || "Demo",
-                  rating: user?.rating || 2,
+                  rating: user?.rating || 1,
                   revenue: user?.revenue || 1,
                   service: user?.service
-                }}              
-              />
+                }}              />
             )}
           )}
       </div>

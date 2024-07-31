@@ -1,9 +1,7 @@
 export interface ConnectProps {
-  location: [ number, number ] | any | undefined;
   address: string;
-  age: number;
   bio: string;
-  distance: number | string;
+  distance: number | string | undefined;
   online: boolean;
   username: string;
   userType: "Admin" | "Business" | "Individual" | "Demo" | null;
