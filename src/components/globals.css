@@ -62,6 +62,11 @@ h5 {
   font-size: 18px;
 }
 
+.hover-link:hover {
+  font-size: 17px;
+  color: #000;
+}
+
 .title {
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
@@ -237,6 +242,42 @@ h5 {
   font-family:'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
   font-weight: 300;
   font-size: larger;
+}
+
+.connect-bio {
+  width: 75;
+  max-width: 400px;
+  min-height: 40px;
+  font-size: small;
+}
+
+.connect-stat-grp {
+  margin-bottom: 10px;
+  padding: 15px;
+  display: flex;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .connect-bio {
+    width: 100%;
+    min-width: 234px;
+    max-width: 234px;
+  }
+  .connect-stat-grp {
+    display: block;
+    width: 100%;
+  }
+  .sm-my {
+    margin: 20px 0 0 0;
+  }
+  .sm-fe {
+    width: 100%;
+    display: flex;
+  }
+  .sm-fs {
+    font-size: small;
+  }
 }
 
 /* map custom styles */

@@ -1,10 +1,10 @@
 export interface ConnectProps {
   address: string;
   bio: string;
-  distance: number | string | undefined;
+  distance: number | string | null | undefined;
   online: boolean;
   username: string;
-  userType: "Admin" | "Business" | "Individual" | "Demo" | null;
+  userType: "Admin" | "Business" | "Individual" | "Demo" | "Provider Guest" | null;
   rating: number;
   revenue: number;
   service: string;

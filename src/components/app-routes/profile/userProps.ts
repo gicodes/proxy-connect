@@ -1,16 +1,16 @@
 export interface UserProps {
-  id: any | string;
-  address: string | any;
+  id: any | string | null;
+  address: string;
   age: number;
-  avatar: any;
+  avatar: any | null;
   bio: string;
   company: string;
   email: string;
   name: string;
-  orders: any[] | null;
-  phone: number | any;
+  orders: any[] | null | undefined;
+  phone: any | number;
   rating: number;
   revenue: number;
   socketId: any | string | null;
-  userType: "Admin" | "Business" | "Demo" | null;
+  userType: "Admin" | "Business" | "Demo" | "Provider Guest" | null;
 };

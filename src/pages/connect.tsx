@@ -9,14 +9,14 @@ import { Heading } from "@chakra-ui/react";
 import { debounce } from "lodash";
 import { calculateDistance } from "@/lib/utils/get-distance";
 
+interface ConnectCardProps extends ConnectProps{
+  location: [ number, number ] | any | undefined;
+};
+
 export default function Connect() {
   const [users, setUsers] = useState<any>();
   const [isLoading, setLoading] = useState(true);
   const [myCoordinates, setMyCoordinates] = useState<Coordinates>(null);
-
-  interface ConnectCardProps extends ConnectProps{
-    location: [ number, number ] | any | undefined;
-  };
 
   const { status, data } = useSession();
 
@@ -58,7 +58,6 @@ export default function Connect() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(({ coords }) => {
         const { latitude, longitude } = coords;
-
         setMyCoordinates([longitude, latitude]);
         updateCoordinates(myCoordinates);
       });
@@ -77,7 +76,6 @@ export default function Connect() {
       <div className="explore-container">
         {users?.map(
           (user: ConnectCardProps, index: any) => {
-
             const userCoordinates = user?.location?.coordinates;
             const distance = myCoordinates && userCoordinates ? calculateDistance(myCoordinates, userCoordinates) : null;
             const distanceInMiles = distance?.toFixed(1)
@@ -89,13 +87,14 @@ export default function Connect() {
                   address: user?.address,
                   bio: user?.bio,
                   distance: distanceInMiles,
-                  online: true,
+                  online: user?.online || false,
                   username: user?.username,
                   userType: user?.userType || "Demo",
                   rating: user?.rating || 1,
                   revenue: user?.revenue || 1,
                   service: user?.service
-                }}              />
+                }}              
+              />
             )}
           )}
       </div>

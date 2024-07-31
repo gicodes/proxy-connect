@@ -68,13 +68,14 @@ export default function ConnectCard
                     size={"xl"}
                   />
                   <VStack p={2} display={"grid"}>
-                    <Text color={"green.200"}>{username}</Text>
+                    <a href="#" className="hover-link"><Text color={"green.200"}>{username}</Text></a>
                     <Text fontWeight={100}>{service}</Text>
-                    <Text className="fs-s w-75">{bio}</Text>
+                    <Text className="connect-bio">{bio}</Text>
                   </VStack>
                 </HStack>
                 <div>
                   <Button
+                    hidden // hidden until newer update with modified map render
                     background="#505050"
                     onMouseOut={handleMouseOutMap}
                     onMouseOver={handleMouseOverMap}
@@ -95,7 +96,9 @@ export default function ConnectCard
             )}
 
             <Card id="location-bar" p={1} className={"mt-4 w-full bg-alt"}>
-              <StatGroup w="full" p="4" mb="2">
+              <div 
+                className="connect-stat-grp"
+              >
                 <Stat>
                   {/* left-side set of stats */}
                   <HStack fontSize={15}>
@@ -120,27 +123,28 @@ export default function ConnectCard
                   </HStack>
                 </Stat>
                 
-                {/* right-side set of stats */}
-                <Stat>
+                <Stat className="sm-my">
+                  {/* right-side set of stats */}
                   <HStack mb={2}>
                     <FaMapPin color="skyblue" />
-                    <Text fontWeight={550} color={"gray.400"}>{address}</Text>
-                    <GoDotFill color="lightgreen" />
+                    <Text fontWeight={550} color={"khaki"}>{address}</Text>
+                    <GoDotFill color={online ? "lightgreen": "gray"} />
                   </HStack>
-                  <HStack>
-                    <StatNumber fontSize={"18"} color={"blue.200"}>
+                  <HStack className="sm-fs">
+                    <StatNumber fontSize={"15"} className="sm-fs">
                       {distance}
                     </StatNumber>
                     {distance && <Text color={"gray.300"}>miles away</Text>}
                   </HStack>
                 </Stat>
-                <Button
+                <Button 
+                  className="sm-my sm-fe"
                   onMouseOut={handleMouseOutShare}
                   onMouseOver={handleMouseOverShare}
                 >
                   <BsSendExclamationFill size={"25"} />
                 </Button>
-              </StatGroup>
+              </div>
             </Card>
 
             {shareHoverAction && (
