@@ -125,11 +125,11 @@ export default function ConnectCard
                     <Text fontWeight={550} color={"khaki"}>{address}</Text>
                     <GoDotFill color={online ? "lightgreen": "gray"} />
                   </HStack>
-                  <HStack className="sm-fs">
+                  <HStack className="sm-fs" ml={6}>
                     <StatNumber fontSize={"15"} className="sm-fs">
-                      {distance}
+                      {distance}{" "}
                     </StatNumber>
-                    {distance && <Text ml={-1} color={"gray.300"}>km away</Text>}
+                    {distance && <Text ml={-2} color={"gray.300"}> km away</Text>}
                   </HStack>
                 </Stat>
                 <Button 

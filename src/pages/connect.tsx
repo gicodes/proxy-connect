@@ -9,7 +9,7 @@ import { useSession } from "next-auth/react";
 import { Heading } from "@chakra-ui/react";
 import { debounce } from "lodash";
 
-interface ConnectCardProps extends ConnectProps{
+interface ConnectCardProps extends ConnectProps {
   location: [ number, number ] | any | undefined;
 };
 
@@ -72,7 +72,7 @@ export default function Connect() {
       </Heading>
 
       <div className="explore-container">
-        {users?.map(
+        {users?.map( // users map can use filter to sort proximity, online, etc
           (user: ConnectCardProps, index: any) => {
             const userCoordinates = user?.location?.coordinates;
             const distance = myCoordinates && userCoordinates ? calculateDistance(myCoordinates, userCoordinates) : null;

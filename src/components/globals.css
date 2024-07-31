@@ -261,8 +261,8 @@ h5 {
 @media screen and (max-width: 768px) {
   .connect-bio {
     width: 100%;
-    min-width: 234px;
-    max-width: 234px;
+    min-width: 212x;
+    max-width: 212px;
   }
   .connect-stat-grp {
     display: block;

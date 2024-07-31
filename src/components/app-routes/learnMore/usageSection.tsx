@@ -12,9 +12,9 @@ export const UsageSection = () => {
             <b>How to Start </b>
         </span>
         <span className="block mt-4">
-            Users can start ProxyConnect instantly from <a href="/console" className="text-warning"><b>console</b></a>.
+            Users can start ProxyConnect instantly from <a href="/console" className="text-yellow-200">console</a>.
             By simply navigating or exploring the app, you will be occasionally prompted to sign in or sign up, if you do not have an account.
-            Signing in would give you access to <a href="/connect" className="text-success"><b>connect</b></a> with your desired service. 
+            Signing in would give you access to <a href="/connect" className="text-green-300">connect</a> with your desired service. 
         </span>
         <span>
             High-end users i.e. third-party platforms that are looking to consume ProxyConnect's network and APIs must be authenticated.
