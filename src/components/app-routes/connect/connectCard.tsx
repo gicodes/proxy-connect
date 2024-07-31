@@ -5,7 +5,6 @@ import {
   Stat,
   StatArrow,
   StatGroup,
-  StatLabel,
   StatNumber,
   HStack,
   VStack,
@@ -13,19 +12,27 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { GoDotFill } from "react-icons/go";
+import { SiWebmoney } from "react-icons/si";
 import { ConnectProps } from "./connectProps";
-import { FaMapMarkerAlt } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
 import { BsSendExclamationFill } from "react-icons/bs";
+import { FaMapMarkerAlt, FaUserAlt } from "react-icons/fa";
 import { goToMaps, toggleMap } from "@/components/map/toggle-map";
+import UserRating from "@/components/templates/ratingGen";
+
 
 export default function ConnectCard
   ({
-    coords,
-    online, // display different 4 user online
+    address,
+    bio,
+    distance,
+    online, // display differs if user online
     username,
     userType, // decides other dynamic display
-    socketId, // key for dynamic or mapped data
+    rating,
+    revenue,
+    service
   }: ConnectProps
 ) {
   const [MapHoverAction, setMapHoverAction] = useState(false);
@@ -37,7 +44,11 @@ export default function ConnectCard
   function handleMouseOverShare(){ setShareHoverAction(true) }
   function handleMouseOutShare(){ setShareHoverAction(false) }
 
-  let location = "Lagos, Nigeria";
+  let company = "Ryder-GP";
+  
+  const demoType = userType === "Demo";
+  const adminType = userType === "Admin";
+  const negativeRev = !revenue || revenue < 5;
 
   return (
     <>
@@ -50,15 +61,16 @@ export default function ConnectCard
             <Stack p={"2"}>
               <HStack justifyContent={"space-between"}>
                 <HStack>
+                  {/* Profile photo area */}
                   <Avatar 
                     borderColor={"greenyellow"}
                     borderWidth={"1px"}
                     size={"xl"}
                   />
                   <VStack p={2} display={"grid"}>
-                    <Text className={userType === "Demo" ? `text-yellow-300 fs-s` : 'text-indigo-200'}>{userType}</Text>
-                    <Text className="text-green-300">{username}</Text>
-                    <Text className="text-gray-300 fs-s">{location}</Text>
+                    <Text color={"green.200"}>{username}</Text>
+                    <Text fontWeight={100}>{service}</Text>
+                    <Text className="fs-s w-75">{bio}</Text>
                   </VStack>
                 </HStack>
                 <div>
@@ -73,6 +85,7 @@ export default function ConnectCard
                 </div>
               </HStack>
             </Stack>
+
             {MapHoverAction && (
               <div className="p-1 mt-3 text-center">
                 <Text color={"burlywood"}> 
@@ -80,24 +93,44 @@ export default function ConnectCard
                 </Text>
               </div>
             )}
+
             <Card id="location-bar" p={1} className={"mt-4 w-full bg-alt"}>
               <StatGroup w="full" p="4" mb="2">
                 <Stat>
-                  <StatLabel>Latitude</StatLabel>
+                  {/* left-side set of stats */}
+                  <HStack fontSize={15}>
+                    <FaUserAlt />
+                    <Text color={demoType ? `gray.500` : 'indigo.500'} ml={2}>
+                      {userType}
+                    </Text>
+                    <Text color={"gray.400"} ml={-1}>
+                      {adminType ? "at": "for"} {company}
+                    </Text>
+                  </HStack>
+                  <br/> 
                   <HStack>
-                    <StatNumber fontSize={"20"}>
-                      {coords?.latitude}
+                    <SiWebmoney fontSize={18} />                   
+                    <StatNumber fontSize={"18"}>
+                      {revenue}%
                     </StatNumber>
-                    <StatArrow type="increase" />
+                    <StatArrow type={negativeRev ? "decrease" : "increase"} />
+                
+                    <br/>
+                    <UserRating rating={rating}/>
                   </HStack>
                 </Stat>
+                
+                {/* right-side set of stats */}
                 <Stat>
-                  <StatLabel>Longitude</StatLabel>
+                  <HStack mb={2}>
+                    <Text fontWeight={550} color={"gray.400"}>{address}</Text>
+                    <GoDotFill color="lightgreen" />
+                  </HStack>
                   <HStack>
-                    <StatNumber fontSize={"20"}>
-                      {coords?.longitude}
+                    <StatNumber fontSize={"18"} color={"blue.200"}>
+                      {distance}
                     </StatNumber>
-                    <StatArrow type="decrease" />
+                    {distance && <Text color={"gray.300"}>miles away</Text>}
                   </HStack>
                 </Stat>
                 <Button
@@ -123,7 +156,6 @@ export default function ConnectCard
             id="main"
             className="container-fluid position-absolute h-100 bg-light"
           >
-            <hr/>
             <div 
               className="flex flex-end p-3" 
               onClick={() => toggleMap(false)}

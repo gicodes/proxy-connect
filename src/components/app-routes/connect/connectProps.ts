@@ -1,12 +1,18 @@
 export interface ConnectProps {
-  coords: { latitude: number; longitude: number } | null;
+  location: [ number, number ] | any | undefined;
+  address: string;
+  age: number;
+  bio: string;
+  distance: number | string;
   online: boolean;
   username: string;
   userType: "Admin" | "Business" | "Individual" | "Demo" | null;
-  socketId: string | null;
+  rating: number;
+  revenue: number;
+  service: string;
 }
 
-export type Coordinates = {
-  latitude: number;
-  longitude: number;
-} | null;
+export type Coordinates = [
+  number,
+  number
+ ] | null;

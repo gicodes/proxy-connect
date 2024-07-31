@@ -7,10 +7,9 @@ const Schema = mongoose.Schema;
 try {
     mongoose.connect(process.env.MONGODB_URI || serverRuntimeConfig.connectionString);
     mongoose.Promise = global.Promise;
-    console.log(`Server CL: Mongo DB is connected to ${mongoose.connection.host}`);
+    console.log(`Server-- Mongo DB is connected to ${mongoose.connection.host}`);
 } catch (error: any) {
-    console.log(`Server CL {Mng}: ${error.message}`);
-    throw new Error(`Server CL {Mng}: ${error.message}`);
+    console.log(`Server Catch Error: ${error.message}`);
 }
 
 export const db = {
@@ -24,16 +23,26 @@ function userModel() {
         name: { type: String, required: true },
         email: { type: String, required: true },
         hash: { type: String, required: true },
-        // data colected on user update
-        dateOfBirth: { type: Date, max: '2005-12-31' },
-        address: { type: String }, 
-        roll: { type: String },
+        // data collected on user update
+        address: { type: String },
+        avatar: { type: String },
         bio: { type: String },
+        phone: { type: String },
+        location: { 
+            type: {
+                type: String,
+                enum: ['Point'],
+                required: true,
+                default: 'Point'
+            },
+            coordinates: {
+                type: [Number], 
+                required: true
+            }
+        },
+        dateOfBirth: { type: Date, max: '2005-12-31' },
     }, {
-        createdAt: { type: Date, required: true},
-        updatedAt: { type: Date, required: true},
-        timestamps: true,
-        strict: false,
+        timestamps: true, // automatically manages createdAt and updatedAt fields
     });
 
     schema.set('toJSON', {
@@ -45,5 +54,7 @@ function userModel() {
         }
     });
 
-    return mongoose.models.User || mongoose.model('User', schema);
+    schema.index({ location: '2dsphere' });
+
+    return mongoose?.models?.User || mongoose?.model('User', schema);
 }
