@@ -1,7 +1,7 @@
-import { navigation } from "./nav-props";
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { classNames } from "./tailwind-classes";
-import { userNavigation } from "./user-navigate";
+import { userNavigation } from "./user-navigation";
 import NavNotificationArea from "./nav-user-tab";
 import { Fragment, useState, useEffect } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
@@ -11,8 +11,15 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 export default function Header(
   { children }: { children: React.ReactNode }
 ) {
+  const router = useRouter();
   const [ nav, setNav ] = useState(false);
   const { data: session, update } = useSession();
+  const [navOptions, setNavOption] = useState([
+    { name: "Home", href: "/", current: true },
+    { name: "Console", href: "/console", current: false },
+    { name: "Connect", href: "/connect", current: false },
+    { name: "Learn More", href: "/learn-more", current: false },
+  ]);
 
   useEffect(() => {
     async function updateSession() {
@@ -30,10 +37,30 @@ export default function Header(
   const handleOpenMenu = ()=> {
     setNav(!nav)
   }
+
+  useEffect(() => {
+    const updateCurrentNavigation = () => {
+      setNavOption((prevNavOption) =>
+        prevNavOption.map((item) =>
+          item.href === router.pathname
+            ? { ...item, current: true }
+            : { ...item, current: false }
+        )
+      );
+    };
+
+    updateCurrentNavigation();
+  }, [router.pathname]);
+
+  // Handle navigation click
+  const handleNavigationClick = (href: string) => {
+    router.push(href);
+  };
+
   
   const user = {
-    name: session?.user.name || "Gi codes",
-    email: session?.user.email || "reply@gicodes.dev",
+    name: session?.user.name || "John Doe",
+    email: session?.user.email || "johndoe@test",
     image: session?.user.image || "/profileAvi.png",
   };
 
@@ -48,10 +75,12 @@ export default function Header(
                   <div className="flex items-center">
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-10">
-                        {navigation.map((item) => (
+                        {/* navbar menu options for `lg` breakpoint */}
+                        {navOptions.map((item) => (
                           <a
                             key={item.name}
                             href={item.href}
+                            onClick={() => handleNavigationClick(item.href)}
                             className={classNames(
                               item.current
                                 ? "bg-gray-900 text-white"
@@ -76,7 +105,7 @@ export default function Header(
                         <BellIcon className="h-6 w-6" aria-hidden="true" />
                       </button>
 
-                      {/* Profile dropdown */}
+                      {/* profile dropdown for mobile breakpoint */}
                       <Menu as="div" className="relative ml-3">
                         <div>
                           <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -160,11 +189,13 @@ export default function Header(
               </div>
               <Disclosure.Panel className="md:hidden">
                 <div className="space-y-1 my-3 px-3 pb-3 sm:px-3">
-                  {navigation.map((item) => (
+                  {/* navbar menu options for `lg` breakpoint */}
+                  {navOptions.map((item) => (
                     <Disclosure.Button
                       key={item.name}
                       as="a"
                       href={item.href}
+                      onClick={() => handleNavigationClick(item.href)}
                       className={classNames(
                         item.current
                           ? "bg-gray-900 text-white"

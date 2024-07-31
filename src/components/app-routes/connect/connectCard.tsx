@@ -98,7 +98,7 @@ export default function ConnectCard
                 <Stat>
                   {/* left-side set of stats */}
                   <HStack fontSize={15}>
-                    <FaUserAlt color={demoType ? 'chocolate' : 'skyblue'} />
+                    <FaUserAlt color={demoType ? 'gray' : 'skyblue'} />
                     <Text color={demoType ? 'gray.500' : 'indigo.500'} ml={2}>
                       {userType}
                     </Text>
@@ -129,7 +129,7 @@ export default function ConnectCard
                     <StatNumber fontSize={"15"} className="sm-fs">
                       {distance}
                     </StatNumber>
-                    {distance && <Text color={"gray.300"}>km away</Text>}
+                    {distance && <Text ml={-1} color={"gray.300"}>km away</Text>}
                   </HStack>
                 </Stat>
                 <Button 

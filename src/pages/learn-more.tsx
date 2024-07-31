@@ -1,4 +1,4 @@
-import { renderSection } from "@/components/app-routes/knowledgeBase/knowledgeBase";
+import { renderSection } from "@/components/app-routes/learnMore/knowledgeBase";
 import { SetStateAction, useState } from "react";
 
 const knowledgeBasePage = () => {

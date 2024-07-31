@@ -68,7 +68,7 @@ export default function Connect() {
   return (
     <div>
       <Heading className="text-gray-600 justify-center px-4 py-8 lg:px-8">
-        Connect with Proxy
+        Connect with a Business
       </Heading>
 
       <div className="explore-container">
