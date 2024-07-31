@@ -35,7 +35,7 @@ export default function Connect() {
 
   const updateCoordinates = useCallback(
     debounce(async (myCoordinates: Coordinates) => {
-      if (data?.user.email && myCoordinates) {
+      if (data?.user?.email && myCoordinates) {
         try {
           const location = {
             type: "Point",

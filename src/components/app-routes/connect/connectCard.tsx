@@ -109,7 +109,7 @@ export default function ConnectCard
                   <br/> 
                   <HStack>
                     <SiWebmoney fontSize={18} color="skyblue" />                   
-                    <StatNumber fontSize={"18"}>
+                    <StatNumber fontSize={"18"} ml={1}>
                       {revenue}%
                     </StatNumber>
                     <StatArrow type={negativeRev ? "decrease" : "increase"} />      
@@ -121,11 +121,11 @@ export default function ConnectCard
                 <Stat className="sm-my">
                   {/* right-side set of stats */}
                   <HStack mb={2}>
-                    <FaMapPin color="skyblue" />
-                    <Text fontWeight={550} color={"khaki"}>{address}</Text>
+                    <FaMapPin color="skyblue"/>
+                    <Text color={"khaki"} ml={1}>{address}</Text>
                     <GoDotFill color={online ? "lightgreen": "gray"} />
                   </HStack>
-                  <HStack className="sm-fs" ml={6}>
+                  <HStack className="sm-fs" ml={7}>
                     <StatNumber fontSize={"15"} className="sm-fs">
                       {distance}{" "}
                     </StatNumber>
