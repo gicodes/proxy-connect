@@ -1,4 +1,4 @@
-import {  Card, Image, Text, HStack, Stack, VStack } from "@chakra-ui/react";
+import {  Card, Image, Text, HStack, Stack, VStack, StatArrow, Stat } from "@chakra-ui/react";
 import { FaEdit, FaEnvelope } from "react-icons/fa";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { RxStarFilled } from "react-icons/rx";
@@ -28,6 +28,7 @@ export default function ProfileCard({
   let sales = 0;
 
   const demoType = userType === "Demo";
+  const negativeRev = !revenue || revenue < 5;
 
   function toggleEdit() {
     setEdit(true);
@@ -85,7 +86,9 @@ export default function ProfileCard({
                   </div>
                   <div>
                     <Text className="py-3 fs-s">{email}</Text>
-                    <Text className="py-3 fs-s text-light">{phone}</Text>
+                    <Text className="py-3 fs-s text-light">
+                      {phone ? phone : "No phone registered"}
+                    </Text>
                   </div>
                 </div>
               </div>
@@ -111,7 +114,12 @@ export default function ProfileCard({
                     py="30px"
                   >
                     <VStack>
-                      <Text>{sales}</Text>
+                    <HStack>
+                        <Text>{sales}</Text>
+                        <Stat>
+                          <StatArrow type={negativeRev ? "decrease" : "increase"} />      
+                        </Stat>
+                      </HStack>
                       <Text>Sales</Text>
                     </VStack>
                     <VStack>
@@ -119,10 +127,12 @@ export default function ProfileCard({
                       <Text> Rating </Text>
                     </VStack>
                     <VStack>
-                      <Text>
-                        <span hidden className="text-green-500">$</span>
-                        {revenue}
-                      </Text>
+                      <HStack>
+                        <Text>{revenue}%</Text>
+                        <Stat>
+                          <StatArrow type={negativeRev ? "decrease" : "increase"} />      
+                        </Stat>
+                      </HStack>
                       <Text>Revenue</Text>
                     </VStack>
                   </HStack>
