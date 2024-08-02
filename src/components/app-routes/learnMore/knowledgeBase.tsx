@@ -22,7 +22,7 @@ const SelectSection = (
                     
                     <Heading 
                         p={"5"} 
-                        fontSize={"medium"} 
+                        fontSize={"large"} 
                         className="pt-6 subtitle-aura sm-mx"
                         >
                         {heading2}

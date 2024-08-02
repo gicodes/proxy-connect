@@ -68,6 +68,7 @@ h5 {
 }
 
 .title {
+  font-weight: 500;
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
@@ -176,7 +177,7 @@ h5 {
   justify-content: around;
 }
 
-.body-text-1 { width: 77% }
+.body-text-1 { width: 80% }
 
 .index-start, .index-watch {
   font-size: large;
@@ -414,7 +415,7 @@ h5 {
   }
   
   .body-text-1 {
-    width: 75%;
+    width: 77%;
     margin-bottom: 25px;
   }
   
