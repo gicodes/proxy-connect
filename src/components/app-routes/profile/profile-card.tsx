@@ -1,11 +1,12 @@
 import {  Card, Image, Text, HStack, Stack, VStack, StatArrow, Stat } from "@chakra-ui/react";
-import { FaEdit, FaEnvelope } from "react-icons/fa";
-import { AiFillCloseCircle } from "react-icons/ai";
-import { RxStarFilled } from "react-icons/rx";
-import { UserProps } from "./userProps";
-import { useState } from "react";
-import ProfileEdit from "./profille-edit";
+import { AiFillCloseCircle, AiOutlineStock } from "react-icons/ai";
 import UserRating from "@/components/templates/ratingGen";
+import { FcSalesPerformance } from "react-icons/fc";
+import { MdOutlineStarRate } from "react-icons/md";
+import ProfileEdit from "./profille-edit";
+import { UserProps } from "./userProps";
+import { FaEdit } from "react-icons/fa";
+import { useState } from "react";
 
 export default function ProfileCard({
   address,
@@ -46,7 +47,7 @@ export default function ProfileCard({
       <div className="profile-container"> 
         <div className="profile-header">
           <div className="header-alert">
-            <Text>Your profile is Private. Only you can see all the information displayed here!</Text>
+            <Text> Your profile is Private. Only you can see all the information displayed here!</Text>
           </div>
           <div className="img-container">
             <Image 
@@ -58,7 +59,7 @@ export default function ProfileCard({
         </div>
         <div className={`pb-6 flex flex-col ${class3}`}>
           <button className="flex-end">
-            <AiFillCloseCircle size={20} onClick={cancelEdit}/>
+            <AiFillCloseCircle size={20} onClick={cancelEdit} />
           </button>
           {edit && <ProfileEdit />}
         </div>
@@ -100,10 +101,9 @@ export default function ProfileCard({
             <div className="card-body">
               <div>
                 <Stack mx={"auto"}>
-                  <div className="pr-bio">
+                  <div className="pr-bio"> 
                     <Text>{bio}</Text>
                   </div>
-                  <hr/>
                 </Stack>
 
                 <Stack>
@@ -114,26 +114,28 @@ export default function ProfileCard({
                     py="30px"
                   >
                     <VStack>
-                    <HStack>
+                      <HStack>
                         <Text>{sales}</Text>
-                        <Stat>
-                          <StatArrow type={negativeRev ? "decrease" : "increase"} />      
-                        </Stat>
+                        <Stat><StatArrow type={negativeRev ? "decrease" : "increase"} /> </Stat>
                       </HStack>
-                      <Text>Sales</Text>
+                      <HStack>
+                        <FcSalesPerformance />
+                        <Text>Sales</Text>
+                      </HStack>                  
                     </VStack>
                     <VStack>
                       <UserRating rating={rating} />
-                      <Text> Rating </Text>
+                      <Text>Rating</Text>
                     </VStack>
                     <VStack>
                       <HStack>
                         <Text>{revenue}%</Text>
-                        <Stat>
-                          <StatArrow type={negativeRev ? "decrease" : "increase"} />      
-                        </Stat>
+                        <Stat><StatArrow type={negativeRev ? "decrease" : "increase"} /> </Stat>
                       </HStack>
-                      <Text>Revenue</Text>
+                      <HStack>
+                        <AiOutlineStock color="skyblue" />
+                        <Text>Revenue</Text>
+                      </HStack>
                     </VStack>
                   </HStack>
                 </Stack>

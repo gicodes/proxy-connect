@@ -1,4 +1,4 @@
-export interface UserBProps {
+export interface UserAuthProps {
     email: string;
     setEmail: (email: string) => void;
     password: string;

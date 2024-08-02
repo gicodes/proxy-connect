@@ -1,8 +1,8 @@
 import { Button } from "@chakra-ui/react";
 import { signIn } from "next-auth/react";
-import { UserBProps } from "./userProps";
+import { UserAuthProps } from "./userAuthProps";
   
-const UserB: React.FC<UserBProps> = ({
+const UserB: React.FC<UserAuthProps> = ({
     email,
     setEmail,
     password,

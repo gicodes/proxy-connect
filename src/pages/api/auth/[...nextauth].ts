@@ -50,7 +50,7 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session }) {
-      // Send properties to the client, like token.id
+      // send properties to the client, like token.id
       return session;
     },
   },
@@ -58,7 +58,7 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
 
-  // Enabling debug messages in the console for technical problems
+  // enabling debug messages in the console for technical problems
   debug: process.env.NODE_ENV === 'development',
 };
 

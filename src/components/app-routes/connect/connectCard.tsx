@@ -12,8 +12,8 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { GoDotFill } from "react-icons/go";
-import { SiWebmoney } from "react-icons/si";
 import { ConnectProps } from "./connectProps";
+import { AiOutlineStock } from "react-icons/ai";
 import { IoMdCloseCircle } from "react-icons/io";
 import { BsSendExclamationFill } from "react-icons/bs";
 import UserRating from "@/components/templates/ratingGen";
@@ -108,7 +108,7 @@ export default function ConnectCard
                   </HStack>
                   <br/> 
                   <HStack>
-                    <SiWebmoney fontSize={18} color="skyblue" />                   
+                    <AiOutlineStock fontSize={18} color="skyblue" />                   
                     <StatNumber fontSize={"18"} ml={1}>
                       {revenue}%
                     </StatNumber>
